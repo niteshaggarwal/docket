@@ -55,6 +55,7 @@ deploy/docker         compose.yaml, Caddyfile, setup.sh
 build/                publish-windows.ps1 (release layout)
 docs/                 Self-hosting, AI guides, API reference
 design/icon           Icon masters and exports
+site/                 The project website (one static page; works on GitHub Pages)
 tools/                Smoke tests and dev helpers
 ```
 
