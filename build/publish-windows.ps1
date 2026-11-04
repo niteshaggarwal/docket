@@ -34,7 +34,7 @@ Docket for Windows
 Install: right-click install.ps1 > Run with PowerShell
    or:   powershell -ExecutionPolicy Bypass -File install.ps1
 It sets up a private Vikunja server on this PC, the Docket app, the docket command and the AI connector.
-Docs: https://github.com/quartifex/docket
+Docs: https://github.com/niteshaggarwal/docket
 "@
 
 if ($Zip) {

@@ -21,7 +21,7 @@ Nobody else holds your data, and every Docket app behaves the same way because t
 
 | I want to… | Do this |
 |---|---|
-| Use it on my Windows PC | Download the Windows zip from [Releases](https://github.com/quartifex/docket/releases), run `install.ps1`. [Details](docs/self-hosting.md#windows-pc) |
+| Use it on my Windows PC | Download the Windows zip from [Releases](https://github.com/niteshaggarwal/docket/releases), run `install.ps1`. [Details](docs/self-hosting.md#windows-pc) |
 | Run an always-on server | `deploy/docker/setup.sh` on any Linux box with Docker. [Details](docs/self-hosting.md#docker-server) |
 | Use my phone | Install the Android APK from Releases; sign in with your server's address. [Phone access](docs/self-hosting.md#reach-it-from-your-phone) |
 | Use it with an AI | [Claude](docs/ai/claude.md), [ChatGPT](docs/ai/chatgpt.md), [local models](docs/ai/local-ai.md), [other MCP clients](docs/ai/other-clients.md) |
@@ -80,7 +80,7 @@ your real settings. `tools/mcp-smoke.mjs` changes tasks, so run it against a tes
 
 ## Contributing and support
 
-- Questions and ideas: [Discussions](https://github.com/quartifex/docket/discussions). Bugs: [Issues](https://github.com/quartifex/docket/issues).
+- Questions and ideas: [Discussions](https://github.com/niteshaggarwal/docket/discussions). Bugs: [Issues](https://github.com/niteshaggarwal/docket/issues).
 - [CONTRIBUTING.md](CONTRIBUTING.md) explains how to build, test and send a change.
 - Security problems: please report privately; see [SECURITY.md](SECURITY.md).
 

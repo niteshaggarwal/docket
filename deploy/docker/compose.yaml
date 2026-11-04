@@ -21,7 +21,7 @@ services:
     networks: [internal]
 
   connector:
-    image: ghcr.io/quartifex/docket-connector:${DOCKET_VERSION:-latest}
+    image: ghcr.io/niteshaggarwal/docket-connector:${DOCKET_VERSION:-latest}
     build:
       context: ../..
     restart: unless-stopped

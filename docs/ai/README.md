@@ -26,7 +26,7 @@ on the network. Use this for desktop apps on the computer where Docket is set up
 - Windows: the installer (or `deploy\windows\setup-tokens.ps1`) puts it at
   `%LOCALAPPDATA%\Programs\Docket\mcp\docket-mcp.exe` and connects it for you. It reads your Docket settings.
 - macOS and Linux: download `docket-mcp` for your platform from the
-  [releases](https://github.com/quartifex/docket/releases), then give it your Vikunja address and a token with
+  [releases](https://github.com/niteshaggarwal/docket/releases), then give it your Vikunja address and a token with
   environment variables (below).
 
 **Remote (HTTPS).** `docket-mcp --http` serves MCP at `/mcp`, REST at `/api/tools/{name}`, an OpenAPI description at

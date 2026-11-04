@@ -124,7 +124,7 @@ app.Use(async (ctx, next) =>
     await next();
 });
 
-app.MapGet("/", () => Results.Text($"Docket connector {info.Version} is running. MCP: /mcp  REST: /openapi.json  Docs: https://github.com/quartifex/docket/tree/main/docs/ai\n"));
+app.MapGet("/", () => Results.Text($"Docket connector {info.Version} is running. MCP: /mcp  REST: /openapi.json  Docs: https://github.com/niteshaggarwal/docket/tree/main/docs/ai\n"));
 app.MapGet("/health", async (DocketService svc, CancellationToken ct) =>
 {
     try { await svc.Client.GetProjectsAsync(ct); return Results.Json(new { status = "ok", version = info.Version }); }

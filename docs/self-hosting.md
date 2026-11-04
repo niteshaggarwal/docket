@@ -13,7 +13,7 @@ an AI connector on top. You can run it three ways:
 ## Windows PC
 
 1. Download `docket-<version>-windows-x64.zip` (or `arm64`) from
-   [Releases](https://github.com/quartifex/docket/releases) and unzip it.
+   [Releases](https://github.com/niteshaggarwal/docket/releases) and unzip it.
 2. Right-click `install.ps1` > **Run with PowerShell** (or `powershell -ExecutionPolicy Bypass -File install.ps1`).
 3. When your browser opens Vikunja, create your account, return to the window and press Enter. Sign in once more
    there; the installer makes the app's token and the AI connector's (no-delete) token, connects Claude Desktop and
@@ -58,12 +58,12 @@ plugin, and a domain name pointing at it with ports 80 and 443 open. No domain? 
 
 ```sh
 # From a release (uses the published connector image):
-curl -fsSL -o docket-server.tar.gz https://github.com/quartifex/docket/releases/latest/download/docket-server-<version>.tar.gz
+curl -fsSL -o docket-server.tar.gz https://github.com/niteshaggarwal/docket/releases/latest/download/docket-server-<version>.tar.gz
 tar xzf docket-server.tar.gz && cd docket-server
 ./setup.sh
 
 # Or from a clone (builds the connector image locally if it can't be pulled):
-git clone https://github.com/quartifex/docket && cd docket/deploy/docker
+git clone https://github.com/niteshaggarwal/docket && cd docket/deploy/docker
 ./setup.sh
 ```
 
@@ -127,6 +127,6 @@ Docket works with any Vikunja 2.x server.
 - **Apps:** sign in with your server's address (Android), or run `deploy\windows\setup-tokens.ps1 -ServerUrl https://your-vikunja`
   (Windows app and CLI).
 - **Connector:** run `docket-mcp setup` with `DOCKET_VIKUNJA_URL` set, then `docket-mcp` (local) or
-  `docket-mcp --http` (remote), or run the `ghcr.io/quartifex/docket-connector` image with `DOCKET_VIKUNJA_URL`,
+  `docket-mcp --http` (remote), or run the `ghcr.io/niteshaggarwal/docket-connector` image with `DOCKET_VIKUNJA_URL`,
   `DOCKET_MCP_KEY` and `DOCKET_PUBLIC_URL`, and route `/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`
   and `/openapi.json` to it from your reverse proxy (see `deploy/docker/Caddyfile`).

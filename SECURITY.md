@@ -3,7 +3,7 @@
 ## Reporting a problem
 
 Please don't open a public issue for security problems. Use GitHub's
-[private vulnerability reporting](https://github.com/quartifex/docket/security/advisories/new) for this repository.
+[private vulnerability reporting](https://github.com/niteshaggarwal/docket/security/advisories/new) for this repository.
 Include what you found, how to reproduce it, and the version. We aim to reply within 5 working days and to fix
 confirmed issues in the next release, crediting you unless you'd rather we didn't.
 

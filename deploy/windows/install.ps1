@@ -25,7 +25,7 @@ param(
     [switch]$NoPath,
     [switch]$NoScheduledTasks,
     [switch]$SkipAccountSetup,
-    [string]$Repo = 'quartifex/docket'
+    [string]$Repo = 'niteshaggarwal/docket'
 )
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
