@@ -253,6 +253,27 @@ public sealed partial class DocketService(VikunjaClient client, TimeProvider? ti
     private static int ValidPriority(int p) => p is >= 0 and <= 5 ? p : throw new DocketException("Priority goes from 0 (none) to 5 (do now).");
 
     /// <summary>
+    /// ISO date-time. With an offset or Z it is taken as written; without one it means that clock time in the
+    /// user's zone (now.Offset), not the machine's, so a server in UTC reads "2026-11-20T09:15" the same as the PC.
+    /// </summary>
+    public static bool TryParseIso(string text, DateTimeOffset now, out DateTimeOffset value)
+    {
+        var s = text.Trim().Replace(' ', 'T');
+        if (HasOffset(s))
+            return DateTimeOffset.TryParse(s, CultureInfo.InvariantCulture, DateTimeStyles.None, out value);
+        if (DateTime.TryParse(s, CultureInfo.InvariantCulture, DateTimeStyles.None, out var local))
+        {
+            value = new DateTimeOffset(DateTime.SpecifyKind(local, DateTimeKind.Unspecified), now.Offset);
+            return true;
+        }
+        value = default;
+        return false;
+
+        static bool HasOffset(string v) =>
+            v.EndsWith('Z') || (v.Length > 6 && (v[^6] is '+' or '-') && v[^3] == ':');
+    }
+
+    /// <summary>
     /// Due date from text: "none"/"clear" (null), ISO date or date-time, or the quick-add words
     /// (today, tomorrow, weekday, "in 3 days", 12/11). A bare date means 6 pm that day.
     /// </summary>
@@ -262,7 +283,7 @@ public sealed partial class DocketService(VikunjaClient client, TimeProvider? ti
         if (s.Length == 0 || s.Equals("none", StringComparison.OrdinalIgnoreCase) || s.Equals("clear", StringComparison.OrdinalIgnoreCase)) return null;
         if (DateOnly.TryParseExact(s, ["yyyy-MM-dd", "yyyy/MM/dd"], CultureInfo.InvariantCulture, DateTimeStyles.None, out var d))
             return new DateTimeOffset(d.Year, d.Month, d.Day, 18, 0, 0, now.Offset);
-        if (DateTimeOffset.TryParse(s, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out var dt) && s.Contains('T', StringComparison.Ordinal)) return dt;
+        if (s.Contains('T', StringComparison.Ordinal) && TryParseIso(s, now, out var dt)) return dt;
         const string marker = "⁣";
         var q = QuickAdd.Parse(marker + " " + s, now);
         if (q.Due is { } due && q.Title == marker) return due;

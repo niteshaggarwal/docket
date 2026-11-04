@@ -19,8 +19,7 @@ internal static partial class WhenParser
         var s = text.Trim();
         if (s.Length == 0) throw new DocketException("Empty reminder time.");
 
-        if (IsoRx().IsMatch(s) &&
-            DateTimeOffset.TryParse(s.Replace(' ', 'T'), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out var iso))
+        if (IsoRx().IsMatch(s) && DocketService.TryParseIso(s, now, out var iso))
             return iso.ToOffset(now.Offset);
 
         var rel = RelativeRx().Match(s);
