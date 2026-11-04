@@ -36,6 +36,7 @@ jobs:
           service:
             secret: "$(openssl rand -hex 32)"
             interface: "127.0.0.1:3456"
+            publicurl: "http://127.0.0.1:3456/"
             enableregistration: true
             timezone: "Etc/UTC"
           database:
@@ -47,7 +48,7 @@ jobs:
           nohup vik/vikunja-v${VIKUNJA_VERSION}-linux-amd64 --config vik/config.yml > vik.log 2>&1 &
           for i in $(seq 1 30); do curl -fs localhost:3456/api/v1/info >/dev/null && break; sleep 1; done
           curl -fs -X POST localhost:3456/api/v1/register -H 'content-type: application/json' \
-            -d '{"username":"ci","email":"ci@example.invalid","password":"Ci-test-password-123"}' >/dev/null
+            -d '{"username":"citest","email":"ci@example.invalid","password":"Ci-test-password-123"}' >/dev/null
       - name: Connector setup + HTTP smoke test
         env:
           DOCKET_VIKUNJA_URL: http://127.0.0.1:3456
@@ -55,7 +56,7 @@ jobs:
           DOCKET_MCP_URLS: http://127.0.0.1:8080
         run: |
           export DOCKET_MCP_KEY=$(openssl rand -hex 32)
-          printf 'ci\nCi-test-password-123\n\n' | dotnet out/mcp/docket-mcp.dll setup
+          printf 'citest\nCi-test-password-123\n\n' | dotnet out/mcp/docket-mcp.dll setup
           nohup dotnet out/mcp/docket-mcp.dll --http > conn.log 2>&1 &
           for i in $(seq 1 30); do curl -fs localhost:8080/health >/dev/null && break; sleep 1; done
           node tools/http-smoke.mjs http://127.0.0.1:8080 "$DOCKET_MCP_KEY"
