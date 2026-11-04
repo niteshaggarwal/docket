@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:v="clr-namespace:Docket.Mobile.Views"
+             x:Class="Docket.Mobile.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Fluent.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <v:OverdueColorConverter x:Key="OverdueColor" />
+            <v:OverdueOrTextConverter x:Key="OverdueOrText" />
+            <v:TintConverter x:Key="Tint" />
+            <v:TintOrAccentConverter x:Key="TintOrAccent" />
+            <v:ChevronRotationConverter x:Key="ChevronRotation" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

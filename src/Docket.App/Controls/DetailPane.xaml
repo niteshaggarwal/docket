@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Docket.App.Controls.DetailPane"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+        <Style x:Key="RowButton" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="12,10" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Padding="16,16,16,8">
+            <StackPanel Spacing="10">
+                <!-- Title and steps -->
+                <Border Style="{StaticResource Card}" Padding="8">
+                    <StackPanel Spacing="4">
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox x:Name="DoneBox" MinWidth="0" VerticalAlignment="Top" Margin="2,4,0,0" Click="Done_Click" AutomationProperties.Name="Mark as completed" />
+                            <TextBox x:Name="TitleBox" Grid.Column="1" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                                     LostFocus="Title_LostFocus" KeyDown="Title_KeyDown" AutomationProperties.Name="Title" />
+                            <Button x:Name="StarButton" Grid.Column="2" Background="Transparent" BorderThickness="0" Padding="6" Click="Star_Click" AutomationProperties.Name="Mark as important" VerticalAlignment="Top">
+                                <FontIcon x:Name="StarIcon" Glyph="&#xE734;" FontSize="16" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                            </Button>
+                        </Grid>
+                        <StackPanel x:Name="StepsPanel" Spacing="2" Margin="4,0,0,0" />
+                        <Grid ColumnSpacing="8" Margin="6,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Glyph="&#xE710;" FontSize="12" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                            <TextBox x:Name="NewStepBox" Grid.Column="1" PlaceholderText="Add step" BorderThickness="0" Background="Transparent" KeyDown="NewStep_KeyDown" AutomationProperties.Name="Add step" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- My Day -->
+                <Border Style="{StaticResource Card}">
+                    <Grid>
+                        <Button x:Name="MyDayButton" Style="{StaticResource RowButton}" Click="MyDay_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <FontIcon Glyph="&#xE706;" FontSize="16" />
+                                <TextBlock x:Name="MyDayText" Text="Add to My Day" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <!-- Reminder, due, repeat -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <Button x:Name="RemindButton" Style="{StaticResource RowButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <FontIcon Glyph="&#xEA8F;" FontSize="16" />
+                                <StackPanel>
+                                    <TextBlock x:Name="RemindText" Text="Remind me" />
+                                    <TextBlock x:Name="RemindSub" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.65" Visibility="Collapsed" />
+                                </StackPanel>
+                            </StackPanel>
+                            <Button.Flyout>
+                                <MenuFlyout x:Name="RemindMenu" Opening="RemindMenu_Opening" />
+                            </Button.Flyout>
+                        </Button>
+                        <Button x:Name="DueButton" Style="{StaticResource RowButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <FontIcon Glyph="&#xE787;" FontSize="16" />
+                                <TextBlock x:Name="DueText" Text="Add due date" />
+                            </StackPanel>
+                            <Button.Flyout>
+                                <MenuFlyout x:Name="DueMenu" Opening="DueMenu_Opening" />
+                            </Button.Flyout>
+                        </Button>
+                        <Button x:Name="RepeatButton" Style="{StaticResource RowButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <FontIcon Glyph="&#xE8EE;" FontSize="16" />
+                                <TextBlock x:Name="RepeatText" Text="Repeat" />
+                            </StackPanel>
+                            <Button.Flyout>
+                                <MenuFlyout x:Name="RepeatMenu" Opening="RepeatMenu_Opening" />
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- Categories, files -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <Button x:Name="CategoryButton" Style="{StaticResource RowButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <FontIcon Glyph="&#xE8EC;" FontSize="16" />
+                                <TextBlock x:Name="CategoryText" Text="Pick a category" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Button.Flyout>
+                                <Flyout x:Name="CategoryFlyout" Opening="CategoryFlyout_Opening" Placement="Bottom">
+                                    <StackPanel Width="260" Spacing="6">
+                                        <StackPanel x:Name="CategoryPanel" Spacing="2" />
+                                        <TextBox x:Name="NewCategoryBox" PlaceholderText="New category, press Enter" KeyDown="NewCategory_KeyDown" />
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                        <StackPanel x:Name="FilesPanel" Padding="12,0,12,0" Spacing="2" />
+                        <Button Style="{StaticResource RowButton}" Click="AddFile_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <FontIcon Glyph="&#xE723;" FontSize="16" />
+                                <TextBlock Text="Add file" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- List -->
+                <Border Style="{StaticResource Card}" Padding="12,8">
+                    <ComboBox x:Name="ListBox" Header="List" HorizontalAlignment="Stretch" DisplayMemberPath="Title" SelectionChanged="List_SelectionChanged" />
+                </Border>
+
+                <!-- Notes -->
+                <TextBox x:Name="NotesBox" PlaceholderText="Add note" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="120" LostFocus="Notes_LostFocus" AutomationProperties.Name="Note" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Row="1" Padding="8,6" ColumnSpacing="4" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Background="Transparent" BorderThickness="0" Click="Close_Click" ToolTipService.ToolTip="Hide details (Esc)" AutomationProperties.Name="Hide details">
+                <FontIcon Glyph="&#xE89F;" FontSize="14" />
+            </Button>
+            <TextBlock x:Name="CreatedText" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.65" />
+            <Button Grid.Column="2" Background="Transparent" BorderThickness="0" Click="Delete_Click" ToolTipService.ToolTip="Delete task" AutomationProperties.Name="Delete task">
+                <FontIcon Glyph="&#xE74D;" FontSize="14" />
+            </Button>
+        </Grid>
+
+        <ProgressRing x:Name="Busy" IsActive="False" Width="24" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" />
+    </Grid>
+</UserControl>

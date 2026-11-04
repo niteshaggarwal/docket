@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Docket.Mobile.Views.SettingsPage"
+             Title="Settings">
+    <ScrollView>
+        <VerticalStackLayout Padding="16,8,16,24" Spacing="12">
+            <Label Text="Settings" Style="{StaticResource Title}" />
+
+            <Label Text="General" Style="{StaticResource Subtitle}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="Confirm before deleting" VerticalTextAlignment="Center" /><Switch x:Name="ConfirmSwitch" Grid.Column="1" Toggled="Changed" /></Grid>
+                    <Label Text="Theme" Style="{StaticResource BodyStrong}" Margin="0,8,0,0" />
+                    <RadioButton x:Name="ThemeSystem" Content="Use system setting" GroupName="theme" CheckedChanged="Theme_Changed" />
+                    <RadioButton x:Name="ThemeLight" Content="Light" GroupName="theme" CheckedChanged="Theme_Changed" />
+                    <RadioButton x:Name="ThemeDark" Content="Dark" GroupName="theme" CheckedChanged="Theme_Changed" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Smart lists" Style="{StaticResource Subtitle}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="Important" VerticalTextAlignment="Center" /><Switch x:Name="ImportantSwitch" Grid.Column="1" Toggled="Changed" /></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="Planned" VerticalTextAlignment="Center" /><Switch x:Name="PlannedSwitch" Grid.Column="1" Toggled="Changed" /></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="All" VerticalTextAlignment="Center" /><Switch x:Name="AllSwitch" Grid.Column="1" Toggled="Changed" /></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="Completed" VerticalTextAlignment="Center" /><Switch x:Name="CompletedSwitch" Grid.Column="1" Toggled="Changed" /></Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Account" Style="{StaticResource Subtitle}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="ServerText" Style="{StaticResource Caption}" FontSize="14" />
+                    <Button Text="Sign out" Clicked="SignOut_Clicked" HorizontalOptions="Start" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Reminders appear as Android notifications. Docket refreshes them each time you open it." Style="{StaticResource Caption}" Margin="0,8,0,0" />
+            <Label x:Name="VersionText" Style="{StaticResource Caption}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

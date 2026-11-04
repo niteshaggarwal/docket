@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Docket.Mobile.ViewModels"
+             x:Class="Docket.Mobile.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="EntryTemplate" x:DataType="vm:ListEntry">
+            <Grid ColumnDefinitions="40,*,Auto" Padding="12,0" HeightRequest="52" Margin="{Binding Margin}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenCommand, x:DataType=vm:HomeViewModel}" CommandParameter="{Binding .}" />
+                </Grid.GestureRecognizers>
+                <Label Style="{StaticResource AccentIcon}" Text="{Binding Glyph}" HorizontalOptions="Start" />
+                <Label Grid.Column="1" Text="{Binding Title}" VerticalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                <Border Grid.Column="2" IsVisible="{Binding HasCount}" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="8,1" VerticalOptions="Center"
+                        BackgroundColor="{AppThemeBinding Light=#0F000000, Dark=#1AFFFFFF}">
+                    <Label Text="{Binding Count}" Style="{StaticResource Caption}" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header: app name, settings, search -->
+        <VerticalStackLayout Padding="16,12,16,8" Spacing="12">
+            <Grid ColumnDefinitions="*,Auto">
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                    <Image Source="docket_mark.png" WidthRequest="28" HeightRequest="28" />
+                    <Label Text="Docket" Style="{StaticResource Subtitle}" VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+                <Button Grid.Column="1" Style="{StaticResource IconButton}" Text="{StaticResource IcSettings}" Command="{Binding SettingsCommand}" SemanticProperties.Description="Settings" />
+            </Grid>
+            <Border Style="{StaticResource FieldBox}">
+                <Grid ColumnDefinitions="Auto,*">
+                    <Label Style="{StaticResource Icon}" Text="{StaticResource IcSearch}" FontSize="16" Opacity="0.7" />
+                    <Entry Grid.Column="1" Placeholder="Search" Text="{Binding Search}" ReturnType="Search" ReturnCommand="{Binding SearchCommand}" Margin="6,0,0,0" />
+                </Grid>
+            </Border>
+            <Label Text="{Binding Error}" IsVisible="{Binding Error, Converter={StaticResource IsNotNullConverter}}" TextColor="{AppThemeBinding Light={StaticResource DangerLight}, Dark={StaticResource DangerDark}}" />
+        </VerticalStackLayout>
+
+        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsBusy}" Command="{Binding RefreshCommand}">
+            <ScrollView>
+                <VerticalStackLayout Padding="4,0,4,16">
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Smart}" BindableLayout.ItemTemplate="{StaticResource EntryTemplate}" />
+                    <BoxView HeightRequest="1" Margin="16,8" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lists}" BindableLayout.ItemTemplate="{StaticResource EntryTemplate}" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <Border Grid.Row="2" StrokeThickness="0" Padding="12,8" BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
+            <Button Text="New list" Command="{Binding NewListCommand}" HorizontalOptions="Start" BorderWidth="0" BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}"
+                    ImageSource="{FontImageSource FontFamily=FluentIcons, Glyph={StaticResource IcAdd}, Size=20, Color={AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}}" />
+        </Border>
+    </Grid>
+</ContentPage>

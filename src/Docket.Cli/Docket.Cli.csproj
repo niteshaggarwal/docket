@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Windows 10 SDK target for toast notifications (docket notify). -->
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <RootNamespace>Docket.Cli</RootNamespace>
+    <AssemblyName>docket</AssemblyName>
+    <ApplicationIcon>..\Docket.App\Assets\Docket.ico</ApplicationIcon>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
+    <!-- The toolkit pulls an old System.Drawing.Common with a known vulnerability; pin a patched one. -->
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Docket.Core\Docket.Core.csproj" />
+  </ItemGroup>
+</Project>

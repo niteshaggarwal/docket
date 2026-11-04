@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Docket.App.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer>
+        <StackPanel Padding="24,16,24,32" Spacing="14" MaxWidth="680" HorizontalAlignment="Left">
+            <TextBlock Text="Settings" Style="{StaticResource TitleTextBlockStyle}" />
+
+            <TextBlock Text="General" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,8,0,0" />
+            <ToggleSwitch x:Name="ConfirmDeleteSwitch" Header="Confirm before deleting" Toggled="General_Changed" />
+            <ComboBox x:Name="DefaultProject" Header="New tasks from smart lists go to" DisplayMemberPath="Title" MinWidth="260" SelectionChanged="DefaultProject_SelectionChanged" />
+            <RadioButtons x:Name="ThemeChoice" Header="Theme" SelectionChanged="Theme_Changed">
+                <x:String>Use system setting</x:String>
+                <x:String>Light</x:String>
+                <x:String>Dark</x:String>
+            </RadioButtons>
+
+            <TextBlock Text="Smart lists" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,8,0,0" />
+            <ToggleSwitch x:Name="ShowImportantSwitch" Header="Important" Toggled="General_Changed" />
+            <ToggleSwitch x:Name="ShowPlannedSwitch" Header="Planned" Toggled="General_Changed" />
+            <ToggleSwitch x:Name="ShowAllSwitch" Header="All" Toggled="General_Changed" />
+            <ToggleSwitch x:Name="ShowCompletedSwitch" Header="Completed" Toggled="General_Changed" />
+            <ToggleSwitch x:Name="HideEmptySwitch" Header="Hide empty smart lists automatically" Toggled="General_Changed" />
+
+            <TextBlock Text="Reminders" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,8,0,0" />
+            <TextBlock TextWrapping="Wrap" Opacity="0.75">
+                Reminder pop-ups come from the docket notifier, which runs in the background so they arrive even when this window is closed.
+                Start it with "docket notify --watch", or ask Claude to set it to start with Windows.
+            </TextBlock>
+            <ToggleSwitch x:Name="SoundSwitch" Header="Play a sound with reminders" Toggled="General_Changed" />
+
+            <TextBlock Text="Connection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,8,0,0" />
+            <TextBlock TextWrapping="Wrap" Opacity="0.75">
+                Docket talks to your Vikunja server. The setup script fills this in; you can also paste an API token from Vikunja (Settings, API Tokens).
+                Tokens are encrypted for your Windows account and stay on this PC.
+            </TextBlock>
+            <TextBox x:Name="ServerBox" Header="Server address" PlaceholderText="http://localhost:3456" />
+            <PasswordBox x:Name="TokenBox" Header="API token" PlaceholderText="tk_..." />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="SaveButton" Content="Test and save" Style="{StaticResource AccentButtonStyle}" Click="Save_Click" />
+                <ProgressRing x:Name="Busy" IsActive="False" Width="20" Height="20" />
+            </StackPanel>
+            <InfoBar x:Name="Result" IsOpen="False" IsClosable="True" />
+
+            <TextBlock Text="Keyboard shortcuts" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,8,0,0" />
+            <TextBlock TextWrapping="Wrap" Opacity="0.75" IsTextSelectionEnabled="True">
+                Ctrl+N add a task · Ctrl+D complete · Ctrl+T add to or remove from My Day · Ctrl+I important · Delete delete · Enter open details · Esc close details ·
+                Ctrl+F search · Ctrl+L new list · Ctrl+R or F5 refresh.
+                In the add box, "today", "tomorrow", a weekday, "in 3 days" or 20/11 sets the due date, and !1 to !5 the priority.
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

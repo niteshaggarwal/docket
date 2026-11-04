@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and setup help
+    url: https://github.com/quartifex/docket/discussions
+    about: Ask how to set something up or share an idea.
+  - name: Security problem
+    url: https://github.com/quartifex/docket/security/advisories/new
+    about: Report it privately, please.

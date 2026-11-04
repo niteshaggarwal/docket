@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="ARM64" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/Docket.Core/Docket.Core.csproj" />
+    <Project Path="src/Docket.App/Docket.App.csproj" />
+    <Project Path="src/Docket.Cli/Docket.Cli.csproj" />
+    <Project Path="src/Docket.Mcp/Docket.Mcp.csproj" />
+    <Project Path="src/Docket.Mobile/Docket.Mobile.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Docket.Core.Tests/Docket.Core.Tests.csproj" />
+  </Folder>
+</Solution>

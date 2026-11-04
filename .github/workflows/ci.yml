@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  VIKUNJA_VERSION: 2.7.1
+
+jobs:
+  core:
+    name: Core tests + connector end-to-end (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Unit tests
+        run: dotnet test tests/Docket.Core.Tests -c Release
+      - name: Build connector
+        run: dotnet publish src/Docket.Mcp -c Release -o out/mcp
+      - name: Start a throwaway Vikunja
+        run: |
+          curl -fsSL -o vik.zip "https://github.com/go-vikunja/vikunja/releases/download/v${VIKUNJA_VERSION}/vikunja-v${VIKUNJA_VERSION}-linux-amd64-full.zip"
+          unzip -q vik.zip -d vik && chmod +x vik/vikunja-v${VIKUNJA_VERSION}-linux-amd64
+          mkdir -p vdata/files
+          cat > vik/config.yml <<EOF
+          service:
+            secret: "$(openssl rand -hex 32)"
+            interface: "127.0.0.1:3456"
+            enableregistration: true
+            timezone: "Etc/UTC"
+          database:
+            type: "sqlite"
+            path: "$PWD/vdata/vikunja.db"
+          files:
+            basepath: "$PWD/vdata/files"
+          EOF
+          nohup vik/vikunja-v${VIKUNJA_VERSION}-linux-amd64 --config vik/config.yml > vik.log 2>&1 &
+          for i in $(seq 1 30); do curl -fs localhost:3456/api/v1/info >/dev/null && break; sleep 1; done
+          curl -fs -X POST localhost:3456/api/v1/register -H 'content-type: application/json' \
+            -d '{"username":"ci","email":"ci@example.invalid","password":"Ci-test-password-123"}' >/dev/null
+      - name: Connector setup + HTTP smoke test
+        env:
+          DOCKET_VIKUNJA_URL: http://127.0.0.1:3456
+          DOCKET_DATA_DIR: ${{ runner.temp }}/connector
+          DOCKET_MCP_URLS: http://127.0.0.1:8080
+        run: |
+          export DOCKET_MCP_KEY=$(openssl rand -hex 32)
+          printf 'ci\nCi-test-password-123\n\n' | dotnet out/mcp/docket-mcp.dll setup
+          nohup dotnet out/mcp/docket-mcp.dll --http > conn.log 2>&1 &
+          for i in $(seq 1 30); do curl -fs localhost:8080/health >/dev/null && break; sleep 1; done
+          node tools/http-smoke.mjs http://127.0.0.1:8080 "$DOCKET_MCP_KEY"
+      - name: Logs on failure
+        if: failure()
+        run: tail -50 vik.log conn.log || true
+
+  windows:
+    name: Windows app, CLI, connector
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Build the Windows release layout
+        shell: pwsh
+        run: ./build/publish-windows.ps1 -Out artifacts/windows
+      - name: Scripts parse
+        shell: pwsh
+        run: |
+          $bad = 0
+          foreach ($f in Get-ChildItem deploy/windows/*.ps1, build/*.ps1, tools/*.ps1) {
+            $e = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$null, [ref]$e)
+            if ($e) { $bad++; $e | ForEach-Object { Write-Error "$($f.Name): $($_.Message)" } }
+          }
+          exit $bad
+
+  docker:
+    name: Connector image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: docket-connector:ci
+      - name: Compose file is valid
+        working-directory: deploy/docker
+        run: cp .env.example .env && sed -i 's/^VIKUNJA_SECRET=.*/VIKUNJA_SECRET=x/; s/^DOCKET_MCP_KEY=.*/DOCKET_MCP_KEY=x/' .env && docker compose config -q

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Cross-platform: stdio on a desktop (Windows settings file), HTTP in Docker or on any server. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Docket.Mcp</RootNamespace>
+    <AssemblyName>docket-mcp</AssemblyName>
+    <Version>0.3.0</Version>
+    <ApplicationIcon>..\Docket.App\Assets\Docket.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="ModelContextProtocol" Version="2.3.1" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Docket.Core\Docket.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Shared with the CLI: reminder-time parser and To Do text formatting. -->
+    <Compile Include="..\Docket.Cli\Shared\*.cs" Link="Shared\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

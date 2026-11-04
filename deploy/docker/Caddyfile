@@ -1,0 +1,30 @@
+# One HTTPS address for everything. Caddy gets and renews the certificate automatically
+# (the domain must point at this server, with ports 80 and 443 open).
+{$DOCKET_DOMAIN} {
+	encode zstd gzip
+
+	# The Docket AI connector: MCP, OAuth sign-in for AI apps, REST + OpenAPI for GPT actions.
+	@connector path /mcp /mcp/* /oauth/* /.well-known/oauth-protected-resource* /.well-known/oauth-authorization-server* /api/tools/* /openapi.json
+	handle @connector {
+		reverse_proxy connector:8080 {
+			# MCP replies can stream; don't buffer them.
+			flush_interval -1
+		}
+	}
+	handle /connector/health {
+		rewrite * /health
+		reverse_proxy connector:8080
+	}
+
+	# Everything else: Vikunja's web app and API (the Docket apps sign in here).
+	handle {
+		reverse_proxy vikunja:3456
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+}

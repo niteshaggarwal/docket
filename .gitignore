@@ -1,0 +1,17 @@
+bin/
+obj/
+.vs/
+.vscode/
+.idea/
+*.user
+artifacts/
+TestResults/
+
+# Local secrets and data, never committed
+.env
+data/
+*.keystore
+*.jks
+settings.json
+tools/_tmp/
+deploy/docker/backups/

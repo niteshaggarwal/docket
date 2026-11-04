@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Fluent design tokens matching the WinUI 3 app: WinUI's default light/dark palette,
+  4 px control and 8 px card corners, the WinUI type ramp (Selawik stands in for Segoe UI),
+  and Fluent System Icons (MIT).
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="BgLight">#F3F3F3</Color>        <Color x:Key="BgDark">#202020</Color>
+    <Color x:Key="CardLight">#FFFFFF</Color>      <Color x:Key="CardDark">#2B2B2B</Color>
+    <Color x:Key="StrokeLight">#E5E5E5</Color>    <Color x:Key="StrokeDark">#383838</Color>
+    <Color x:Key="ControlLight">#FBFBFB</Color>   <Color x:Key="ControlDark">#2D2D2D</Color>
+    <Color x:Key="TextLight">#1A1A1A</Color>      <Color x:Key="TextDark">#FFFFFF</Color>
+    <Color x:Key="Text2Light">#5D5D5D</Color>     <Color x:Key="Text2Dark">#C5C5C5</Color>
+    <Color x:Key="AccentLight">#005FB8</Color>    <Color x:Key="AccentDark">#60CDFF</Color>
+    <Color x:Key="OnAccentLight">#FFFFFF</Color>  <Color x:Key="OnAccentDark">#000000</Color>
+    <Color x:Key="DangerLight">#C42B1C</Color>    <Color x:Key="DangerDark">#FF99A4</Color>
+
+    <x:String x:Key="IcSun">&#xF8A2;</x:String>
+    <x:String x:Key="IcStar">&#xF710;</x:String>
+    <x:String x:Key="IcCalendar">&#xE24F;</x:String>
+    <x:String x:Key="IcAll">&#xF138;</x:String>
+    <x:String x:Key="IcDone">&#xF299;</x:String>
+    <x:String x:Key="IcHome">&#xF481;</x:String>
+    <x:String x:Key="IcAdd">&#xF10A;</x:String>
+    <x:String x:Key="IcSearch">&#xF690;</x:String>
+    <x:String x:Key="IcBell">&#xF115;</x:String>
+    <x:String x:Key="IcRepeat">&#xF172;</x:String>
+    <x:String x:Key="IcNote">&#xF56C;</x:String>
+    <x:String x:Key="IcAttach">&#xF1AA;</x:String>
+    <x:String x:Key="IcTag">&#xF77D;</x:String>
+    <x:String x:Key="IcDelete">&#xF34D;</x:String>
+    <x:String x:Key="IcSettings">&#xF6AA;</x:String>
+    <x:String x:Key="IcSort">&#xF18B;</x:String>
+    <x:String x:Key="IcMore">&#xE825;</x:String>
+    <x:String x:Key="IcList">&#xF4EE;</x:String>
+    <x:String x:Key="IcChevron">&#xF2B1;</x:String>
+    <x:String x:Key="IcDismiss">&#xF36A;</x:String>
+    <x:String x:Key="IcBulb">&#xF4D7;</x:String>
+    <x:String x:Key="IcSend">&#xF69A;</x:String>
+    <x:String x:Key="IcSignOut">&#xF6DA;</x:String>
+
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Selawik" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+    <Style x:Key="Caption" TargetType="Label">
+        <Setter Property="FontFamily" Value="Selawik" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Text2Light}, Dark={StaticResource Text2Dark}}" />
+    </Style>
+    <Style x:Key="BodyStrong" TargetType="Label">
+        <Setter Property="FontFamily" Value="SelawikSemibold" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+    <Style x:Key="Subtitle" TargetType="Label">
+        <Setter Property="FontFamily" Value="SelawikSemibold" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+    <Style x:Key="Title" TargetType="Label">
+        <Setter Property="FontFamily" Value="SelawikSemibold" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+    <Style x:Key="Icon" TargetType="Label">
+        <Setter Property="FontFamily" Value="FluentIcons" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+    <Style x:Key="AccentIcon" TargetType="Label" BasedOn="{StaticResource Icon}">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+    </Style>
+
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+        <Setter Property="Padding" Value="12" />
+    </Style>
+    <Style x:Key="FieldBox" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource ControlLight}, Dark={StaticResource ControlDark}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 4" />
+        <Setter Property="Padding" Value="10,0" />
+    </Style>
+
+    <Style TargetType="Entry">
+        <Setter Property="FontFamily" Value="Selawik" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Text2Light}, Dark={StaticResource Text2Dark}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+    <Style TargetType="Editor">
+        <Setter Property="FontFamily" Value="Selawik" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Text2Light}, Dark={StaticResource Text2Dark}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="FontFamily" Value="Selawik" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource ControlLight}, Dark={StaticResource ControlDark}}" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+    <Style x:Key="Accent" TargetType="Button">
+        <Setter Property="FontFamily" Value="SelawikSemibold" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnAccentLight}, Dark={StaticResource OnAccentDark}}" />
+    </Style>
+    <Style x:Key="IconButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="FluentIcons" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="WidthRequest" Value="44" />
+        <Setter Property="HeightRequest" Value="44" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+    </Style>
+
+    <Style TargetType="RefreshView">
+        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+    </Style>
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+    </Style>
+    <Style TargetType="Switch">
+        <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+    </Style>
+
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}" />
+        <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="Shell.NavBarHasShadow" Value="False" />
+    </Style>
+</ResourceDictionary>
