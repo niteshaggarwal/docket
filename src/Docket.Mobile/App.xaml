@@ -16,6 +16,9 @@
             <v:TintConverter x:Key="Tint" />
             <v:TintOrAccentConverter x:Key="TintOrAccent" />
             <v:ChevronRotationConverter x:Key="ChevronRotation" />
+            <v:OnImageTextConverter x:Key="OnImageText" />
+            <v:TextOrConverter x:Key="TextOr" />
+            <v:OnImageTextConverter x:Key="OnImageText2" Secondary="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

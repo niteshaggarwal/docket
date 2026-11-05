@@ -18,6 +18,19 @@
                 </VerticalStackLayout>
             </Border>
 
+            <Label Text="AI planning" Style="{StaticResource Subtitle}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Card}" Padding="0">
+                <Grid ColumnDefinitions="44,*,Auto" HeightRequest="56" Padding="0,0,12,0">
+                    <Grid.GestureRecognizers><TapGestureRecognizer Tapped="Ai_Tapped" /></Grid.GestureRecognizers>
+                    <Label Style="{StaticResource AccentIcon}" Text="{StaticResource IcSparkle}" />
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Label Text="AI" />
+                        <Label x:Name="AiText" Style="{StaticResource Caption}" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="2" Style="{StaticResource Icon}" Text="{StaticResource IcChevron}" FontSize="14" />
+                </Grid>
+            </Border>
+
             <Label Text="Smart lists" Style="{StaticResource Subtitle}" Margin="0,8,0,0" />
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="4">

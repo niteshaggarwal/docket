@@ -56,6 +56,20 @@ static class Cli
           docket comment <id> <text>     docket label <id> <label>
           docket delete <id> [--yes]
 
+        Subtasks (real tasks, any depth, a task can have several parents)
+          docket sub <parent id> <text>  add a subtask        docket tree [list]   show a list nested
+          docket parent <id> <parent id> also put it under another task
+          docket parent <id> rm <parent id>                   docket convert <id>  old steps -> subtasks
+
+        People and sharing
+          docket people                  docket assign|unassign <id> <username>
+          docket share <list>            who can see it
+          docket share <list> <username|email> [view|edit|admin]
+
+        Overview and AI
+          docket overview                dashboard numbers
+          docket ai <what you need> [--yes]   plan tasks with the AI set in the Docket app's Settings
+
         Lists and boards
           docket projects                docket board <list>
           docket list add <name> [--group <list>]
@@ -195,6 +209,97 @@ static class Cli
                 if (q.Length == 0) throw new UsageException("What should I search for?");
                 var list = await svc.ListAsync(a.Has("--all") ? TaskView.Done : TaskView.Open, a.Opt("--project"), q, a.IntOpt("--limit") ?? 50);
                 return Print(list, json, now, $"No tasks match \"{q}\".");
+            }
+            case "sub" or "subtask":
+            {
+                var parent = a.Id(1);
+                var text = a.Rest(2);
+                if (text.Length == 0) throw new UsageException("Use: docket sub <parent id> <text>");
+                return One(await svc.AddSubtaskAsync(parent, text), json, now, $"Added under #{parent}");
+            }
+            case "steps2sub" or "convert":
+            {
+                foreach (var id in Ids(a, 1)) Console.WriteLine($"#{id}: {await svc.ConvertStepsToSubtasksAsync(id)} step(s) turned into subtasks.");
+                return 0;
+            }
+            case "parent":
+            {
+                var child = a.Id(1);
+                var verb = a.Words.Count > 2 ? a.Words[2].ToLowerInvariant() : "";
+                if (verb is "rm" or "remove") { await svc.UnlinkSubtaskAsync(a.Id(3, "parent id"), child); Console.WriteLine($"#{child} is no longer under #{a.Id(3)}."); return 0; }
+                var parent = a.Id(2, "parent id");
+                await svc.LinkSubtaskAsync(parent, child);
+                Console.WriteLine($"#{child} is now also a subtask of #{parent}.");
+                return 0;
+            }
+            case "tree":
+            {
+                var p = await svc.ResolveProjectAsync(a.Words.Count > 1 ? a.Rest(1) : settings.DefaultProjectId.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                var tree = await svc.ProjectTreeAsync(p.Id, SortMode.Custom);
+                void Walk(TaskNode n) { Console.WriteLine($"{new string(' ', n.Depth * 2)}{(n.Info.Task.Done ? "[x]" : "[ ]")} #{n.Id} {n.Info.Task.Title}"); foreach (var c in n.Children) Walk(c); }
+                Console.WriteLine(p.Title);
+                foreach (var n in tree.Open) Walk(n);
+                return 0;
+            }
+            case "assign" or "unassign":
+            {
+                var id = a.Id(1);
+                var who = a.Rest(2);
+                var people = await svc.PeopleAsync();
+                var person = people.FirstOrDefault(u => u.Username.Equals(who, StringComparison.OrdinalIgnoreCase) || DocketService.DisplayName(u).Equals(who, StringComparison.OrdinalIgnoreCase))
+                    ?? (cmd == "assign" ? (await client.SearchUsersAsync(who)).FirstOrDefault() : null)
+                    ?? throw new DocketException($"No one called \"{who}\". Share a list with them first, or check the username.");
+                var t = cmd == "assign" ? await svc.AssignAsync(id, person) : await svc.UnassignAsync(id, person.Id);
+                return One(t, json, now, cmd == "assign" ? $"Assigned to {DocketService.DisplayName(person)}" : "Unassigned");
+            }
+            case "people":
+            {
+                var people = await svc.PeopleAsync();
+                if (json) return Json(people.Select(u => new { u.Id, u.Username, name = DocketService.DisplayName(u) }));
+                foreach (var u in people) Console.WriteLine($"{u.Username}{(string.IsNullOrEmpty(u.Name) ? "" : $" ({u.Name})")}");
+                return 0;
+            }
+            case "share":
+            {
+                var p = await svc.ResolveProjectAsync(a.Words.Count > 1 ? a.Words[1] : throw new UsageException("Use: docket share <list> [<username|email> [view|edit|admin]]"));
+                if (a.Words.Count > 2)
+                {
+                    var perm = (a.Words.Count > 3 ? a.Words[3].ToLowerInvariant() : "edit") switch
+                    {
+                        "view" or "read" => SharePermission.Read, "admin" => SharePermission.Admin, _ => SharePermission.ReadWrite,
+                    };
+                    await svc.ShareAsync(p.Id, a.Words[2], perm);
+                    Console.WriteLine($"Shared \"{p.Title}\" with {a.Words[2]} ({Permissions.Describe(perm)}).");
+                    return 0;
+                }
+                var s = await svc.SharingAsync(p.Id);
+                Console.WriteLine($"\"{p.Title}\" is shared with:");
+                foreach (var u in s.People) Console.WriteLine($"  {u.Username}: {Permissions.Describe(u.Permission)}");
+                foreach (var t in s.Teams) Console.WriteLine($"  team {t.Name}: {Permissions.Describe(t.Permission)}");
+                foreach (var l in s.Links) Console.WriteLine($"  link {DocketService.LinkShareUrl(settings.ServerUrl, l)}: {Permissions.Describe(l.Permission)}");
+                if (s.People.Count + s.Teams.Count + s.Links.Count == 0) Console.WriteLine("  no one yet");
+                return 0;
+            }
+            case "overview" or "dash" or "dashboard":
+            {
+                var o = await svc.OverviewAsync();
+                Console.WriteLine($"Open {o.Open} · due today {o.DueToday} · overdue {o.Overdue} · next 7 days {o.Next7Days} · done this week {o.DoneThisWeek}");
+                Console.WriteLine("Priority: " + string.Join("  ", o.ByPriority.Select((n, p) => $"{DocketService.PriorityName(p)} {n}")));
+                foreach (var l in o.Lists) Console.WriteLine($"  {(l.Style.Icon is { } ic ? ic + " " : "")}{l.Project.Title}: {l.Open} open{(l.Overdue > 0 ? $", {l.Overdue} overdue" : "")}, {l.DoneThisWeek} done this week");
+                return 0;
+            }
+            case "ai":
+            {
+                var request = a.Rest(1);
+                if (request.Length == 0) throw new UsageException("Use: docket ai <what you need> [--yes]");
+                var plans = await AiPlanner.PlanAsync(settings.Ai, request, now, (await svc.ProjectsAsync()).Select(p => p.Title));
+                void Show(PlannedTask p, int depth) { Console.WriteLine($"{new string(' ', depth * 2)}- {p.Title}{(p.Due is { } d ? $" (due {d})" : "")}{(p.List is { } l ? $" [{l}]" : "")}"); foreach (var s in p.Subtasks ?? []) Show(s, depth + 1); }
+                foreach (var p in plans) Show(p, 0);
+                if (!a.Has("--yes")) { Console.WriteLine("Add these? Run again with --yes."); return 0; }
+                var home = await svc.DefaultProjectAsync(settings.DefaultProjectId);
+                foreach (var p in plans) await svc.AddPlannedAsync(p, home.Id);
+                Console.WriteLine($"Added {plans.Count} task(s).");
+                return 0;
             }
             case "add" or "a" or "new":
             {

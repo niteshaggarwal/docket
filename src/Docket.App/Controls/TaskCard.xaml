@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Docket.App.Controls.TaskCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:svc="using:Docket.App.Services"
+    xmlns:ctl="using:Docket.App.Controls"
+    IsTabStop="False">
+
+    <Grid Margin="{x:Bind Item.Indent, Mode=OneWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Expand chevron: reserves its space on every row so titles line up -->
+        <Button x:Name="ChevronButton" Width="{x:Bind Item.ChevronWidth, Mode=OneWay}" Height="28" Padding="0" Margin="0,0,2,0" VerticalAlignment="Center"
+                Background="Transparent" BorderThickness="0" CornerRadius="4" Click="Chevron_Click"
+                Opacity="{x:Bind Item.ChevronOpacity, Mode=OneWay}" IsEnabled="{x:Bind Item.ChevronEnabled, Mode=OneWay}" IsTabStop="False"
+                AutomationProperties.Name="{x:Bind Item.ChevronName, Mode=OneWay}">
+            <FontIcon Glyph="{x:Bind Item.ChevronGlyph, Mode=OneWay}" FontSize="10" />
+        </Button>
+
+        <Grid x:Name="Card" Grid.Column="1" ColumnSpacing="12" Padding="12,9,6,9" MinHeight="52" CornerRadius="4"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="DoneBox" IsChecked="{x:Bind Item.IsDone, Mode=OneWay}" Click="Done_Click" MinWidth="0" Padding="0"
+                      VerticalAlignment="Center" AutomationProperties.Name="Mark as completed" ToolTipService.ToolTip="Mark as completed" />
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                <TextBlock Text="{x:Bind Item.Title, Mode=OneWay}" TextWrapping="Wrap" MaxLines="3" TextTrimming="CharacterEllipsis"
+                           Opacity="{x:Bind Item.TitleOpacity, Mode=OneWay}" TextDecorations="{x:Bind Item.TitleDecorations, Mode=OneWay}" />
+                <StackPanel Orientation="Horizontal" Spacing="10" Visibility="{x:Bind Item.HasMeta, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind Item.InMyDay, Mode=OneWay}">
+                        <FontIcon Glyph="&#xE706;" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="My Day" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <TextBlock Text="{x:Bind Item.ProjectTitle, Mode=OneWay}" Visibility="{x:Bind Item.ShowList, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    <Border CornerRadius="4" Padding="6,0" Background="{x:Bind Item.PriorityFill, Mode=OneWay}" Visibility="{x:Bind Item.HasPriority, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Item.PriorityTip, Mode=OneWay}">
+                        <TextBlock Text="{x:Bind Item.PriorityText, Mode=OneWay}" FontSize="11" FontWeight="SemiBold" Foreground="{x:Bind Item.PriorityFore, Mode=OneWay}" />
+                    </Border>
+                    <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind Item.HasSubtasks, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Item.SubtaskTip, Mode=OneWay}">
+                        <FontIcon Glyph="&#xE8FD;" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{x:Bind Item.SubtaskText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <TextBlock Text="{x:Bind Item.StepsText, Mode=OneWay}" Visibility="{x:Bind Item.HasSteps, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind Item.HasDue, Mode=OneWay}">
+                        <FontIcon Glyph="&#xE787;" FontSize="11" Foreground="{x:Bind Item.DueBrush, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Item.DueText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{x:Bind Item.DueBrush, Mode=OneWay}" />
+                    </StackPanel>
+                    <FontIcon Glyph="&#xEA8F;" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="{x:Bind Item.HasReminder, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Item.ReminderTip, Mode=OneWay}" />
+                    <FontIcon Glyph="&#xE8EE;" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="{x:Bind Item.HasRepeat, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Item.RepeatTip, Mode=OneWay}" />
+                    <FontIcon Glyph="&#xE70B;" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="{x:Bind Item.HasNotes, Mode=OneWay}" ToolTipService.ToolTip="Has a note" />
+                    <FontIcon Glyph="&#xE723;" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="{x:Bind Item.HasFiles, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Item.FilesTip, Mode=OneWay}" />
+                    <ItemsControl ItemsSource="{x:Bind Item.Chips, Mode=OneWay}" Visibility="{x:Bind Item.HasChips, Mode=OneWay}" IsTabStop="False">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" Spacing="6" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="svc:Chip">
+                                <Border CornerRadius="4" Padding="6,0" Background="{x:Bind Fill}">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Ellipse Width="6" Height="6" Fill="{x:Bind Dot}" VerticalAlignment="Center" />
+                                        <TextBlock Text="{x:Bind Text}" Style="{StaticResource CaptionTextBlockStyle}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                <ctl:AvatarStack Users="{x:Bind Item.Assignees, Mode=OneWay}" Size="22" Margin="0,0,4,0" />
+                <Button x:Name="StarButton" Click="Star_Click" Background="Transparent" BorderThickness="0" Padding="8" CornerRadius="4"
+                        AutomationProperties.Name="{x:Bind Item.StarName, Mode=OneWay}" ToolTipService.ToolTip="{x:Bind Item.StarName, Mode=OneWay}">
+                    <FontIcon Glyph="{x:Bind Item.StarGlyph, Mode=OneWay}" FontSize="16" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

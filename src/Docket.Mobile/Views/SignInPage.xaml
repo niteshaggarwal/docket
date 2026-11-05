@@ -7,7 +7,7 @@
         <VerticalStackLayout Padding="24,56,24,24" Spacing="14" MaximumWidthRequest="480">
             <Image Source="docket_mark.png" WidthRequest="72" HeightRequest="72" HorizontalOptions="Start" />
             <Label Text="Welcome to Docket" Style="{StaticResource Title}" />
-            <Label Text="Sign in to your Vikunja server. Docket keeps a sign-in key for this phone; your password isn't stored." Style="{StaticResource Caption}" FontSize="14" />
+            <Label Text="Sign in to your Docket server. Docket keeps a sign-in key for this phone; your password isn't stored." Style="{StaticResource Caption}" FontSize="14" />
 
             <Label Text="Server address" Style="{StaticResource BodyStrong}" Margin="0,10,0,0" />
             <Border Style="{StaticResource FieldBox}">

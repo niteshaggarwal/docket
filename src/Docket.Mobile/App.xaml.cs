@@ -14,6 +14,9 @@ public partial class App : Application
         _session = session;
         _shell = shell;
         Prefs.ApplyTheme();
+        // The add bar rides above the keyboard instead of the whole page sliding up.
+        Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific.Application.UseWindowSoftInputModeAdjust(
+            this.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>(), Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize);
     }
 
     protected override Window CreateWindow(IActivationState? activationState) => new(_shell);

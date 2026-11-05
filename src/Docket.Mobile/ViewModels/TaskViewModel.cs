@@ -76,9 +76,11 @@ public sealed partial class TaskViewModel(Session session) : ObservableObject, I
         {
             _task = await svc.GetAsync(_id);
             _task.Attachments = await svc.Client.GetAttachmentsAsync(_id);
+            ListText = await svc.ProjectNameAsync(_task.ProjectId);
             Render(svc);
+            await LoadSubtasksAsync(svc, _task);
         }
-        catch (Exception ex) when (ex is HttpRequestException or VikunjaException or DocketException or TaskCanceledException) { Error = ex.Message; }
+        catch (Exception ex) when (U.IsExpected(ex)) { Error = U.Friendly(ex); }
         finally { IsBusy = false; }
     }
 
@@ -102,6 +104,7 @@ public sealed partial class TaskViewModel(Session session) : ObservableObject, I
         Files.Clear();
         foreach (var a in t.Attachments ?? []) Files.Add(new FileRow(a));
         _ = SetListTextAsync(svc, t.ProjectId);
+        RenderMore(t);
         Footer = t.Done && VDates.OrNull(t.DoneAt) is { } da ? $"Completed {da.ToLocalTime().ToString("ddd, d MMMM", Ui)}" : $"Created {t.Created.ToLocalTime().ToString("ddd, d MMMM", Ui)}";
     }
 
@@ -113,7 +116,7 @@ public sealed partial class TaskViewModel(Session session) : ObservableObject, I
         IsBusy = true;
         Error = null;
         try { await action(svc); await LoadAsync(); _ = Reminders.RescheduleAsync(svc); }
-        catch (Exception ex) when (ex is HttpRequestException or VikunjaException or DocketException or TaskCanceledException) { Error = ex.Message; }
+        catch (Exception ex) when (U.IsExpected(ex)) { Error = U.Friendly(ex); }
         finally { IsBusy = false; }
     }
 
@@ -276,8 +279,6 @@ public sealed partial class TaskViewModel(Session session) : ObservableObject, I
     /// <summary>Native Android date (and time) pickers, shown in a small sheet page.</summary>
     private static async Task<DateTime?> PickDateTimeAsync(bool withTime)
     {
-        var page = new Views.DateTimeSheet(withTime);
-        await Shell.Current.Navigation.PushModalAsync(page);
-        return await page.Result;
+        return await Views.Sheet<DateTime?>.ShowAsync(new Views.DateTimeSheet(withTime));
     }
 }

@@ -130,7 +130,8 @@ if (-not (Test-Path (Join-Path $payload 'app\Docket.exe'))) {
     }
 }
 Get-Process Docket, docket, docket-mcp -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "$InstallDir*" } | Stop-Process -Force
-foreach ($part in 'app', 'cli', 'mcp') {
+foreach ($part in 'app', 'cli', 'mcp', 'web') {
+    if (-not (Test-Path (Join-Path $payload $part))) { continue }
     $dest = Join-Path $InstallDir $part
     if (Test-Path $dest) { Remove-Item $dest -Recurse -Force }
     Copy-Item (Join-Path $payload $part) $dest -Recurse
@@ -169,6 +170,10 @@ Register 'Vikunja server' (New-ScheduledTaskAction -Execute 'conhost.exe' -Argum
     (New-ScheduledTaskTrigger -AtLogOn -User $me) 'starts the task server when you sign in'
 Register 'Vikunja backup' (New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$backup`"") `
     (New-ScheduledTaskTrigger -Daily -At 11pm) "nightly backup to $BackupDir"
+if (Test-Path "$InstallDir\web\docket-web.exe") {
+    Register 'Docket web' (New-ScheduledTaskAction -Execute 'conhost.exe' -Argument "--headless `"$InstallDir\web\docket-web.exe`"" -WorkingDirectory "$InstallDir\web") `
+        (New-ScheduledTaskTrigger -AtLogOn -User $me) 'Docket in the browser at http://localhost:3457'
+}
 if ($Reminders) {
     Register 'Docket reminders' (New-ScheduledTaskAction -Execute 'conhost.exe' -Argument "--headless `"$cliDir\docket.exe`" notify --watch") `
         (New-ScheduledTaskTrigger -AtLogOn -User $me) 'reminder notifications from sign-in'
@@ -181,6 +186,7 @@ foreach ($i in 1..20) { try { Invoke-RestMethod "http://127.0.0.1:$Port/api/v1/i
 if (-not $up) { throw "Vikunja didn't start. Check $ServerDir\logs." }
 Write-Host "Vikunja is running at http://localhost:$Port" -ForegroundColor Green
 if ($Reminders -and -not $NoScheduledTasks) { Start-ScheduledTask -TaskPath $taskPath -TaskName 'Docket reminders' }
+if (-not $NoScheduledTasks -and (Test-Path "$InstallDir\web\docket-web.exe")) { Start-ScheduledTask -TaskPath $taskPath -TaskName 'Docket web' }
 
 # ---- 4. Account and tokens ----------------------------------------------------------------------
 if (-not $SkipAccountSetup) {

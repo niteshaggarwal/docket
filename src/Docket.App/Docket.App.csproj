@@ -28,7 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Docket.Core\Docket.Core.csproj" />
+    <!-- Core is platform-neutral: build and reference it without the app's x64/ARM64 platform (bin\<Configuration>\net10.0). -->
+    <ProjectReference Include="..\Docket.Core\Docket.Core.csproj" GlobalPropertiesToRemove="Platform" />
   </ItemGroup>
 
   <ItemGroup>

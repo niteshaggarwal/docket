@@ -32,6 +32,24 @@ public static class MauiProgram
             handler.PlatformView.SetPadding(0, handler.PlatformView.PaddingTop, 0, handler.PlatformView.PaddingBottom);
 #endif
         });
+        Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("Fluent", (handler, _) =>
+        {
+#if ANDROID
+            handler.PlatformView.Background = null;
+#endif
+        });
+        Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("Fluent", (handler, _) =>
+        {
+#if ANDROID
+            handler.PlatformView.Background = null;
+#endif
+        });
+        Microsoft.Maui.Handlers.TimePickerHandler.Mapper.AppendToMapping("Fluent", (handler, _) =>
+        {
+#if ANDROID
+            handler.PlatformView.Background = null;
+#endif
+        });
         Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("Fluent", (handler, _) =>
         {
 #if ANDROID
@@ -49,6 +67,11 @@ public static class MauiProgram
         builder.Services.AddTransient<TaskViewModel>();
         builder.Services.AddTransient<TaskPage>();
         builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddTransient<OverviewPage>();
+        builder.Services.AddTransient<PeoplePage>();
+        builder.Services.AddTransient<SharePage>();
+        builder.Services.AddTransient<ListStylePage>();
+        builder.Services.AddTransient<AiSettingsPage>();
         return builder.Build();
     }
 }

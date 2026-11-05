@@ -1,4 +1,6 @@
 # Docket AI connector (docket-mcp --http): MCP, REST + OpenAPI and OAuth sign-in for remote AI assistants.
+# The same image also carries docket-web (/app/web/docket-web), Vikunja's web app with the Docket look; compose runs it
+# as the "web" service with a different entrypoint, so one published image serves both.
 # Built and published by .github/workflows/release.yml as ghcr.io/niteshaggarwal/docket-connector.
 #   docker build -t docket-connector .
 # The SDK runs natively on the build machine and cross-compiles for the target (arm64 under QEMU is unreliable).
@@ -8,17 +10,21 @@ WORKDIR /src
 COPY Directory.Build.props ./
 COPY src/Docket.Core/Docket.Core.csproj src/Docket.Core/
 COPY src/Docket.Mcp/Docket.Mcp.csproj src/Docket.Mcp/
-RUN dotnet restore src/Docket.Mcp/Docket.Mcp.csproj -a $TARGETARCH
+COPY src/Docket.Web/Docket.Web.csproj src/Docket.Web/
+RUN dotnet restore src/Docket.Mcp/Docket.Mcp.csproj -a $TARGETARCH \
+ && dotnet restore src/Docket.Web/Docket.Web.csproj -a $TARGETARCH
 COPY src/Docket.Core/ src/Docket.Core/
 COPY src/Docket.Cli/Shared/ src/Docket.Cli/Shared/
 COPY src/Docket.Mcp/ src/Docket.Mcp/
+COPY src/Docket.Web/ src/Docket.Web/
 COPY src/Docket.App/Assets/Docket.ico src/Docket.App/Assets/
 ARG VERSION=0.0.0
-RUN dotnet publish src/Docket.Mcp/Docket.Mcp.csproj -c Release -a $TARGETARCH --self-contained false -o /out --no-restore -p:Version=$VERSION -p:DebugType=none
+RUN dotnet publish src/Docket.Mcp/Docket.Mcp.csproj -c Release -a $TARGETARCH --self-contained false -o /out --no-restore -p:Version=$VERSION -p:DebugType=none \
+ && dotnet publish src/Docket.Web/Docket.Web.csproj -c Release -a $TARGETARCH --self-contained false -o /out/web --no-restore -p:Version=$VERSION -p:DebugType=none
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 LABEL org.opencontainers.image.source="https://github.com/niteshaggarwal/docket" \
-      org.opencontainers.image.description="Docket AI connector: MCP + OpenAPI for Vikunja tasks" \
+      org.opencontainers.image.description="Docket AI connector: MCP + OpenAPI for Vikunja tasks (plus docket-web, the Docket web skin)" \
       org.opencontainers.image.licenses="AGPL-3.0-only"
 WORKDIR /app
 COPY --from=build /out ./
@@ -27,6 +33,7 @@ USER $APP_UID
 # PATH so "docker compose exec connector docket-mcp setup" works.
 ENV DOCKET_DATA_DIR=/data \
     DOCKET_MCP_URLS=http://0.0.0.0:8080 \
+    DOCKET_WEB_URLS=http://0.0.0.0:8080 \
     DOTNET_gcServer=0 \
     PATH="/app:${PATH}"
 VOLUME /data

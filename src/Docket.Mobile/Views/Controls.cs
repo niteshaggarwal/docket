@@ -87,37 +87,23 @@ public sealed class ChevronRotationConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
 }
 
-/// <summary>A small sheet with the platform date (and time) pickers.</summary>
-public sealed class DateTimeSheet : ContentPage
+/// <summary>White on a list background (picture or colour), the theme's text colour otherwise.</summary>
+public sealed class OnImageTextConverter : IValueConverter
 {
-    private readonly TaskCompletionSource<DateTime?> _tcs = new();
-    public Task<DateTime?> Result => _tcs.Task;
-
-    public DateTimeSheet(bool withTime)
+    public bool Secondary { get; set; }
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var date = new DatePicker { Date = DateTime.Today.AddDays(1), MinimumDate = DateTime.Today.AddYears(-1), FontFamily = "Selawik" };
-        var time = new TimePicker { Time = new TimeSpan(9, 0, 0), IsVisible = withTime, FontFamily = "Selawik" };
-        var save = new Button { Text = "Save", Style = (Style)Application.Current!.Resources["Accent"] };
-        var cancel = new Button { Text = "Cancel" };
-        save.Clicked += async (_, _) =>
-        {
-            var d = date.Date ?? DateTime.Today;
-            var t = withTime ? time.Time ?? TimeSpan.FromHours(9) : TimeSpan.FromHours(18);
-            _tcs.TrySetResult(d.Date + t);
-            await Navigation.PopModalAsync();
-        };
-        cancel.Clicked += async (_, _) => { _tcs.TrySetResult(null); await Navigation.PopModalAsync(); };
-        Content = new VerticalStackLayout
-        {
-            Padding = new Thickness(24, 48), Spacing = 16,
-            Children =
-            {
-                new Label { Text = withTime ? "Pick a date and time" : "Pick a date", Style = (Style)Application.Current.Resources["Subtitle"] },
-                date, time,
-                new HorizontalStackLayout { Spacing = 8, Children = { save, cancel } },
-            },
-        };
+        if (value is true) return Secondary ? Colors.White.WithAlpha(0.8f) : Colors.White;
+        var dark = Application.Current?.RequestedTheme == AppTheme.Dark;
+        return Secondary ? Color.FromArgb(dark ? "#C5C5C5" : "#5D5D5D") : (dark ? Colors.White : Color.FromArgb("#1A1A1A"));
     }
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
+}
 
-    protected override bool OnBackButtonPressed() { _tcs.TrySetResult(null); return base.OnBackButtonPressed(); }
+/// <summary>A colour when one is set (a priority's), otherwise the theme's text colour.</summary>
+public sealed class TextOrConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value as Color ?? (Application.Current?.RequestedTheme == AppTheme.Dark ? Colors.White : Color.FromArgb("#1A1A1A"));
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
 }

@@ -79,7 +79,7 @@ then `docker compose exec connector docket-mcp setup`, and set `VIKUNJA_REGISTRA
 
 | Address | What |
 |---|---|
-| `https://your-domain/` | Vikunja's web app; sign in here from the Docket apps |
+| `https://your-domain/` | Vikunja's web app in the Docket look ([docket-web](#docket-web-skin)); sign in here from the Docket apps |
 | `https://your-domain/mcp` | MCP for AI assistants ([docs/ai](ai/README.md)) |
 | `https://your-domain/openapi.json` | REST description for GPT actions and automations |
 | `https://your-domain/connector/health` | Connector status |
@@ -117,7 +117,8 @@ claude.ai and ChatGPT connect from the internet, so the connector needs a public
 - **Cloudflare Tunnel** (good for the Docker server): run `cloudflared` with a hostname on your Cloudflare domain
   pointing at the stack, and set `DOCKET_DOMAIN`/`DOCKET_PUBLIC_URL` to that hostname. Cloudflare handles HTTPS, so
   point the tunnel at the services directly (`/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`,
-  `/openapi.json` to `connector:8080`, everything else to `vikunja:3456`) and leave Caddy out.
+  `/openapi.json` to `connector:8080`, everything else to `web:8080`, the [Docket web skin](#docket-web-skin)) and leave
+  Caddy out.
 
 Local AIs and the Docket apps don't need any of this; plain Tailscale (private) is enough for them.
 
@@ -130,3 +131,31 @@ Docket works with any Vikunja 2.x server.
   `docket-mcp --http` (remote), or run the `ghcr.io/niteshaggarwal/docket-connector` image with `DOCKET_VIKUNJA_URL`,
   `DOCKET_MCP_KEY` and `DOCKET_PUBLIC_URL`, and route `/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`
   and `/openapi.json` to it from your reverse proxy (see `deploy/docker/Caddyfile`).
+
+## Docket web skin
+
+`docket-web` serves Vikunja's own web app with the Docket look (the Fluent design of the Windows app, light and dark)
+and Docket's name and icons instead of Vikunja's. Every Vikunja feature stays: list, Gantt, table and Kanban views,
+upcoming, teams, labels, sharing and settings. It is a small reverse proxy in front of Vikunja: requests, the
+WebSocket, uploads and downloads, and public `/share/...` links pass straight through; only the HTML page and the web
+manifest are rewritten to add the skin (`/docket-skin/skin.css` and `skin.js`, built into the program).
+
+| Variable | Default | What |
+|---|---|---|
+| `DOCKET_VIKUNJA_URL` | `http://127.0.0.1:3456` | The Vikunja server to forward to |
+| `DOCKET_WEB_URLS` | `http://127.0.0.1:3457` | Address(es) to listen on, separated by `;` |
+| `DOCKET_WEB_SKIN_DIR` | (none) | Serve the skin from this folder instead of the built-in copy (for working on the skin) |
+
+- **Docker:** included. The `web` service (the connector image, run as `/app/web/docket-web`) serves the site's root,
+  and Caddy sends everything except the connector's routes (`/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`,
+  `/openapi.json`) to it. If `web` isn't running, Caddy falls back to Vikunja directly. It needs a connector image
+  that includes docket-web; if you pin `DOCKET_VERSION` to an older one, remove the `web` service or update the pin.
+- **Windows:** `install.ps1` installs it to `web\` and starts it at sign-in (scheduled task "Docket web"; the app's
+  **Open in browser** goes there). By hand: run `web\docket-web.exe` (it uses Vikunja on port 3456 and listens on
+  http://127.0.0.1:3457), then open that address instead of Vikunja's. For your phone over Tailscale, point
+  `tailscale serve` at 3457 instead of 3456; the Docket apps can sign in through either port.
+- **Your own Vikunja:** run `docket-web` with `DOCKET_VIKUNJA_URL` set and route your site's root to it (keep the
+  connector's routes as above).
+
+Signing in, the API and the Docket apps work the same through it, since it only changes how pages look. The page
+reaches the API at whatever address you opened it on, so Vikunja's `service.publicurl` can stay as it is.

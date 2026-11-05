@@ -25,6 +25,7 @@ public partial class SettingsPage : ContentPage
         CompletedSwitch.IsToggled = Prefs.ShowCompleted;
         (Prefs.Theme switch { "light" => ThemeLight, "dark" => ThemeDark, _ => ThemeSystem }).IsChecked = true;
         ServerText.Text = $"Signed in to {_session.ServerUrl}";
+        AiText.Text = AiSettings.IsOn ? $"{AiSettings.NameOf(AiSettings.Provider)} · {AiSettings.ModelFor(AiSettings.Provider)}" : "Off. Tap to plan tasks with AI";
         VersionText.Text = $"Docket {AppInfo.Current.VersionString} ({AppInfo.Current.BuildString})";
         _loading = false;
     }
@@ -46,9 +47,11 @@ public partial class SettingsPage : ContentPage
         Prefs.ApplyTheme();
     }
 
+    private async void Ai_Tapped(object? sender, TappedEventArgs e) => await Shell.Current.GoToAsync("aisettings");
+
     private async void SignOut_Clicked(object? sender, EventArgs e)
     {
-        if (!await DisplayAlertAsync("Sign out?", "You can sign in again with your Vikunja username and password.", "Sign out", "Cancel")) return;
+        if (!await DisplayAlertAsync("Sign out?", "You can sign in again with your Docket server username and password.", "Sign out", "Cancel")) return;
         _session.SignOut();
         await Shell.Current.GoToAsync("//signin");
     }

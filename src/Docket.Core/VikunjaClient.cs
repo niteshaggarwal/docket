@@ -13,7 +13,7 @@ public sealed class VikunjaException(HttpStatusCode status, string message) : Ex
 /// <summary>
 /// Thin client for the Vikunja v1 REST API, authenticated with a personal API token.
 /// </summary>
-public sealed class VikunjaClient : IDisposable
+public sealed partial class VikunjaClient : IDisposable
 {
     private readonly HttpClient _http;
 
@@ -158,7 +158,7 @@ public sealed class VikunjaClient : IDisposable
         return await res.Content.ReadAsByteArrayAsync(ct);
     }
 
-    private async Task DeleteAsync(string path, CancellationToken ct)
+    internal async Task DeleteAsync(string path, CancellationToken ct)
     {
         using var res = await _http.DeleteAsync(path, ct);
         if (res.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
@@ -173,14 +173,14 @@ public sealed class VikunjaClient : IDisposable
         return info.TryGetProperty("version", out var v) ? v.GetString() ?? "" : "";
     }
 
-    private async Task<T?> GetAsync<T>(string path, CancellationToken ct)
+    internal async Task<T?> GetAsync<T>(string path, CancellationToken ct)
     {
         using var res = await _http.GetAsync(path, ct);
         await EnsureOk(res, ct);
         return await res.Content.ReadFromJsonAsync<T>(Json, ct);
     }
 
-    private async Task<T?> SendAsync<T>(HttpMethod method, string path, object body, CancellationToken ct)
+    internal async Task<T?> SendAsync<T>(HttpMethod method, string path, object body, CancellationToken ct)
     {
         using var req = new HttpRequestMessage(method, path) { Content = JsonContent.Create(body, body.GetType(), options: Json) };
         using var res = await _http.SendAsync(req, ct);
@@ -188,7 +188,7 @@ public sealed class VikunjaClient : IDisposable
         return await res.Content.ReadFromJsonAsync<T>(Json, ct);
     }
 
-    private static async Task EnsureOk(HttpResponseMessage res, CancellationToken ct)
+    internal static async Task EnsureOk(HttpResponseMessage res, CancellationToken ct)
     {
         if (res.IsSuccessStatusCode) return;
         var text = await res.Content.ReadAsStringAsync(ct);

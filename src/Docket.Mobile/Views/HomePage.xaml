@@ -12,7 +12,7 @@
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenCommand, x:DataType=vm:HomeViewModel}" CommandParameter="{Binding .}" />
                 </Grid.GestureRecognizers>
-                <Label Style="{StaticResource AccentIcon}" Text="{Binding Glyph}" HorizontalOptions="Start" />
+                <Label Style="{StaticResource AccentIcon}" Text="{Binding Glyph}" FontFamily="{Binding IconFont}" FontSize="{Binding IconSize}" HorizontalOptions="Start" TextColor="{Binding Tint, Converter={StaticResource TintOrAccent}}" />
                 <Label Grid.Column="1" Text="{Binding Title}" VerticalTextAlignment="Center" LineBreakMode="TailTruncation" />
                 <Border Grid.Column="2" IsVisible="{Binding HasCount}" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="8,1" VerticalOptions="Center"
                         BackgroundColor="{AppThemeBinding Light=#0F000000, Dark=#1AFFFFFF}">
@@ -30,7 +30,10 @@
                     <Image Source="docket_mark.png" WidthRequest="28" HeightRequest="28" />
                     <Label Text="Docket" Style="{StaticResource Subtitle}" VerticalTextAlignment="Center" />
                 </HorizontalStackLayout>
-                <Button Grid.Column="1" Style="{StaticResource IconButton}" Text="{StaticResource IcSettings}" Command="{Binding SettingsCommand}" SemanticProperties.Description="Settings" />
+                <HorizontalStackLayout Grid.Column="1">
+                    <Button Style="{StaticResource IconButton}" Text="{StaticResource IcPeople}" Command="{Binding PeopleCommand}" SemanticProperties.Description="People" />
+                    <Button Style="{StaticResource IconButton}" Text="{StaticResource IcSettings}" Command="{Binding SettingsCommand}" SemanticProperties.Description="Settings" />
+                </HorizontalStackLayout>
             </Grid>
             <Border Style="{StaticResource FieldBox}">
                 <Grid ColumnDefinitions="Auto,*">
@@ -45,6 +48,8 @@
             <ScrollView>
                 <VerticalStackLayout Padding="4,0,4,16">
                     <VerticalStackLayout BindableLayout.ItemsSource="{Binding Smart}" BindableLayout.ItemTemplate="{StaticResource EntryTemplate}" />
+                    <BoxView HeightRequest="1" Margin="16,8" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Views}" BindableLayout.ItemTemplate="{StaticResource EntryTemplate}" />
                     <BoxView HeightRequest="1" Margin="16,8" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
                     <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lists}" BindableLayout.ItemTemplate="{StaticResource EntryTemplate}" />
                 </VerticalStackLayout>

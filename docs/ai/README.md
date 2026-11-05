@@ -81,6 +81,10 @@ under **Settings > API Tokens**.
 | `set_repeat` | daily, weekdays, weekly, monthly, yearly, "every N days/weeks/months/years", none |
 | `set_reminder` | Replace reminders (`tomorrow 9:00`, `in 2 hours`, `fri 5pm`, ISO times) |
 | `set_notes` | Replace the notes, keeping steps |
+| `add_subtask` / `link_subtask` | Add a subtask, or put an existing task under another (several parents allowed) |
+| `task_tree` | A list nested, with subtasks under their parents |
+| `assign` / `people` | Assign a task to someone who can see its list; list the people you work with |
+| `overview` | Dashboard numbers: open, due today, overdue, next 7 days, done this week, by priority and list |
 
 Every result is readable text with task ids written as `#123`, which keeps small local models on track too. The full
 schema is in `/openapi.json` on a running connector, or `tools/list` over MCP.

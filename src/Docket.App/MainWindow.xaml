@@ -18,7 +18,7 @@
             <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
                 <Image Source="Assets/Docket-256.png" Width="18" Height="18" />
                 <TextBlock Text="Docket" Style="{StaticResource CaptionTextBlockStyle}" VerticalAlignment="Center" />
-                <TextBlock x:Name="StatusText" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6" VerticalAlignment="Center" />
+                <TextBlock x:Name="StatusText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
 
@@ -34,6 +34,10 @@
                 <AutoSuggestBox x:Name="SearchBox" PlaceholderText="Search (Ctrl+F)" QueryIcon="Find" QuerySubmitted="Search_QuerySubmitted" TextChanged="Search_TextChanged" AutomationProperties.Name="Search tasks" />
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="OverviewItem" Content="Overview" Tag="page:Overview">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xF246;" /></NavigationViewItem.Icon>
+                    <NavigationViewItem.InfoBadge><InfoBadge x:Name="OverdueBadge" Visibility="Collapsed" Style="{ThemeResource CriticalValueInfoBadgeStyle}" /></NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
                 <NavigationViewItem x:Name="MyDayItem" Content="My Day" Tag="smart:MyDay">
                     <NavigationViewItem.Icon><FontIcon Glyph="&#xE706;" /></NavigationViewItem.Icon>
                     <NavigationViewItem.InfoBadge><InfoBadge x:Name="MyDayBadge" Visibility="Collapsed" Style="{ThemeResource AttentionValueInfoBadgeStyle}" /></NavigationViewItem.InfoBadge>
@@ -45,6 +49,13 @@
                 <NavigationViewItem x:Name="PlannedItem" Content="Planned" Tag="smart:Planned">
                     <NavigationViewItem.Icon><FontIcon Glyph="&#xE787;" /></NavigationViewItem.Icon>
                     <NavigationViewItem.InfoBadge><InfoBadge x:Name="PlannedBadge" Visibility="Collapsed" /></NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="UpcomingItem" Content="Upcoming" Tag="view:Upcoming">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE8F5;" /></NavigationViewItem.Icon>
+                    <NavigationViewItem.InfoBadge><InfoBadge x:Name="UpcomingBadge" Visibility="Collapsed" /></NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="OpenItem" Content="Open tasks" Tag="view:Open">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE762;" /></NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Name="AllItem" Content="All" Tag="smart:All">
                     <NavigationViewItem.Icon><FontIcon Glyph="&#xE8FD;" /></NavigationViewItem.Icon>
@@ -61,6 +72,9 @@
                 <NavigationViewItemHeader x:Name="ListsHeader" Content="Lists" />
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
+                <NavigationViewItem x:Name="PeopleItem" Content="People and teams" Tag="page:People">
+                    <NavigationViewItem.Icon><FontIcon Glyph="&#xE716;" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Content="New list (Ctrl+L)" SelectsOnInvoked="False" Tapped="NewList_Tapped">
                     <NavigationViewItem.Icon><FontIcon Glyph="&#xE710;" /></NavigationViewItem.Icon>
                 </NavigationViewItem>
@@ -74,7 +88,7 @@
 
             <Grid>
                 <InfoBar x:Name="ErrorBar" Severity="Error" IsOpen="False" VerticalAlignment="Top" Margin="24,8,24,0" Canvas.ZIndex="2" />
-                <InfoBar x:Name="UndoBar" Severity="Informational" IsOpen="False" IsClosable="True" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20" Canvas.ZIndex="2" MinWidth="320">
+                <InfoBar x:Name="UndoBar" Severity="Informational" IsOpen="False" IsClosable="True" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,84" Canvas.ZIndex="2" MinWidth="320">
                     <InfoBar.ActionButton>
                         <Button x:Name="UndoButton" Content="Undo" Click="Undo_Click" />
                     </InfoBar.ActionButton>

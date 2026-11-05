@@ -30,14 +30,17 @@ $jwt = (Invoke-RestMethod "$base/login" -Method Post -ContentType 'application/j
 $pw = $null; $login = $null
 $h = @{ Authorization = "Bearer $jwt" }
 
-# Everything the API offers, minus sharing, teams, webhooks, migrations and CalDAV. The AI token also gets no delete rights.
+# The Docket app gets everything except webhooks, migrations and CalDAV, including sharing lists and teams.
+# The AI token also can't share, manage teams or delete anything.
 $routes = Invoke-RestMethod "$base/routes" -Headers $h
-$skipGroups = 'caldav','migration','projects_shares','projects_users','projects_teams','teams','teams_members','projects_webhooks','webhooks'
+$skipGroups = 'caldav','migration','projects_webhooks','webhooks'
+$aiSkip = 'projects_shares','projects_users','projects_teams','teams','teams_members'
 $aiPerms = @{}; $appPerms = @{}
 foreach ($g in $routes.PSObject.Properties) {
     if ($skipGroups -contains $g.Name) { continue }
     $all = @($g.Value.PSObject.Properties.Name)
     $appPerms[$g.Name] = $all
+    if ($aiSkip -contains $g.Name) { continue }
     $safe = @($all | Where-Object { $_ -notmatch 'delete' })
     if ($safe.Count) { $aiPerms[$g.Name] = $safe }
 }

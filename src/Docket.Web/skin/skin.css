@@ -1,0 +1,999 @@
+/* Docket skin for Vikunja's web app: the Fluent look of the Docket Windows app (WinUI 3, Mica), light and dark.
+   Strategy: re-point Vikunja's own CSS variables at Docket's palette first, then restyle components with selectors
+   prefixed by html.docket (added by docket-web) so they win over Vikunja's scoped styles without !important.
+   Vikunja marks the theme on <html> as .light or .dark (it follows the user's setting or the system). */
+
+/* ---------- Type: everything Vikunja sets in its own web fonts (Quicksand, Open Sans) uses Docket's Segoe UI
+   Variable stack instead; the body font comes from --family-primary below. ---------- */
+html.docket :is(.bottom-sheet__title, .calendar-month__month-select, .calendar-month__year-input,
+  .gantt-timeline-days .timeunit .timeunit-wrapper, .gantt-timeline-months .timeunit-month, .is-archived,
+  .notifications .notifications-list .head, .time-control__colon, .time-control__value,
+  .top-menu .menu-list li, .username, .datepicker-popup__clear, .search-result-button, .result-item-button,
+  .task h3, .notifications .single-notification .user span, .is-family-primary, .is-family-secondary,
+  .is-family-sans-serif, body, button, input, optgroup, select, textarea) { font-family: var(--d-font) !important; }
+html.docket :is(h1, h2, h3, h4, h5, h6, .input.title, .project-title):not(.tiptap *):not(.ProseMirror *) { font-family: var(--d-font-display) !important; }
+
+/* ---------- Tokens ----------
+   Listed with .light/.dark too so these beat Vikunja's own :root.dark block; the dark values follow below. */
+html.docket, html.docket.light, html.docket.dark {
+  --d-font: "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, Arial, sans-serif;
+  --d-font-display: "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, Arial, sans-serif;
+  --d-mono: "Cascadia Code", "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --d-r-sm: 4px;
+  --d-r: 6px;
+  --d-r-lg: 8px;
+  --d-ease: cubic-bezier(0, 0, 0, 1);
+
+  /* Light (Fluent light, Mica) */
+  --d-bg: #f3f3f3;                      /* window / Mica */
+  --d-layer: #f9f9f9;                   /* content layer beside the navigation */
+  --d-card: #ffffff;
+  --d-card-2: #fbfbfb;
+  --d-subtle: rgba(0, 0, 0, .037);      /* hover fill */
+  --d-subtle-2: rgba(0, 0, 0, .024);    /* pressed fill */
+  --d-selected: rgba(0, 0, 0, .055);
+  --d-stroke: rgba(0, 0, 0, .0578);     /* hairline */
+  --d-stroke-2: rgba(0, 0, 0, .1);
+  --d-stroke-strong: rgba(0, 0, 0, .4458);
+  --d-control: rgba(255, 255, 255, .7);
+  --d-control-hover: rgba(249, 249, 249, .5);
+  --d-control-input: #ffffff;
+  --d-flyout: #f9f9f9;
+  --d-flyout-stroke: rgba(0, 0, 0, .0578);
+  --d-text: #1a1a1a;
+  --d-text-2: #5d5d5d;
+  --d-text-3: #8a8a8a;
+  --d-accent: #005fb8;
+  --d-accent-hover: #1a6fc0;
+  --d-accent-pressed: #3381c8;
+  --d-accent-text: #005fb8;
+  --d-on-accent: #ffffff;
+  --d-accent-soft: rgba(0, 95, 184, .1);
+  --d-danger: #c42b1c;
+  --d-success: #0f7b0f;
+  --d-warning: #9d5d00;
+  --d-shadow-card: 0 1px 2px rgba(0, 0, 0, .04);
+  --d-shadow-flyout: 0 8px 16px rgba(0, 0, 0, .14);
+  --d-shadow-dialog: 0 32px 64px rgba(0, 0, 0, .1876), 0 2px 21px rgba(0, 0, 0, .1474);
+  --d-scrim: rgba(0, 0, 0, .3);
+  color-scheme: light;
+
+  /* Vikunja's variables */
+  --primary-h: 209deg; --primary-s: 100%; --primary-l: 36%;
+  --primary-hsl: 209, 100%, 36%;
+  --primary-invert: #fff;
+  --link: var(--d-accent-text);
+  --grey-50: #fafafa; --grey-50-hsl: 0, 0%, 98%;
+  --grey-100: #f3f3f3; --grey-100-hsl: 0, 0%, 95.3%;
+  --grey-200: #e5e5e5;
+  --grey-300: #d1d1d1;
+  --grey-400: #9a9a9a;
+  --grey-500: #707070; --grey-500-hsl: 0, 0%, 43.9%;
+  --grey-600: #5d5d5d;
+  --grey-700: #3b3b3b;
+  --grey-800: #1f1f1f;
+  --grey-900: #1a1a1a; --grey-900-hsl: 0, 0%, 10%;
+  --white: var(--d-card);
+  --site-background: var(--d-bg);
+  --scheme-main: var(--d-card);
+  --text: var(--d-text);
+  --text-strong: var(--d-text);
+  --text-light: var(--d-text-2);
+  --text-muted: var(--d-text-2);
+  --title-color: var(--d-text);
+  --border: var(--d-stroke-2);
+  --card-border-color: var(--d-stroke);
+  --input-border-color: var(--d-stroke-2);
+  --input-placeholder-color: var(--d-text-3);
+  --input-focus-border-color: var(--d-accent);
+  --input-focus-box-shadow-color: transparent;
+  --input-shadow: none;
+  --logo-text-color: var(--d-text);
+  --table-row-hover-background-color: var(--d-subtle);
+  --dropdown-item-hover-background-color: var(--d-subtle);
+  --switch-view-active-background: var(--d-card);
+  --switch-view-color: var(--d-text-2);
+  --danger-h: 5deg; --danger-s: 75%; --danger-l: 44%;
+  --success-h: 120deg; --success-s: 78%; --success-l: 27%;
+  --danger-text: var(--d-danger);
+  --shadow-xs: var(--d-shadow-card);
+  --shadow-sm: var(--d-shadow-card);
+  --shadow-md: var(--d-shadow-flyout);
+  --shadow-lg: var(--d-shadow-dialog);
+  --family-primary: var(--d-font);
+  --family-sans-serif: var(--d-font);
+  --title-family: var(--d-font-display);
+  --radius: var(--d-r-sm);
+  --radius-small: var(--d-r-sm);
+  --radius-large: var(--d-r-lg);
+}
+
+html.docket.dark {
+  /* Dark (Fluent dark, Mica) */
+  --d-bg: #202020;
+  --d-layer: #272727;
+  --d-card: #2d2d2d;
+  --d-card-2: #323232;
+  --d-subtle: rgba(255, 255, 255, .0605);
+  --d-subtle-2: rgba(255, 255, 255, .0419);
+  --d-selected: rgba(255, 255, 255, .0837);
+  --d-stroke: rgba(255, 255, 255, .0605);
+  --d-stroke-2: rgba(255, 255, 255, .0837);
+  --d-stroke-strong: rgba(255, 255, 255, .5442);
+  --d-control: rgba(255, 255, 255, .0605);
+  --d-control-hover: rgba(255, 255, 255, .0837);
+  --d-control-input: rgba(30, 30, 30, .7);
+  --d-flyout: #2c2c2c;
+  --d-flyout-stroke: rgba(0, 0, 0, .2);
+  --d-text: #ffffff;
+  --d-text-2: rgba(255, 255, 255, .786);
+  --d-text-3: rgba(255, 255, 255, .5442);
+  --d-accent: #60cdff;
+  --d-accent-hover: #5abce9;
+  --d-accent-pressed: #50a9d2;
+  --d-accent-text: #99ebff;
+  --d-on-accent: #000000;
+  --d-accent-soft: rgba(96, 205, 255, .12);
+  --d-danger: #ff99a4;
+  --d-success: #6ccb5f;
+  --d-warning: #fce100;
+  --d-shadow-card: 0 1px 2px rgba(0, 0, 0, .2);
+  --d-shadow-flyout: 0 8px 16px rgba(0, 0, 0, .26);
+  --d-shadow-dialog: 0 32px 64px rgba(0, 0, 0, .37), 0 2px 21px rgba(0, 0, 0, .37);
+  --d-scrim: rgba(0, 0, 0, .3);
+  color-scheme: dark;
+
+  --primary-h: 199deg; --primary-s: 100%; --primary-l: 69%;
+  --primary-hsl: 199, 100%, 69%;
+  --primary-invert: #000;
+  --grey-50: #1c1c1c; --grey-50-hsl: 0, 0%, 11%;
+  --grey-100: #202020; --grey-100-hsl: 0, 0%, 12.5%;
+  --grey-200: #3a3a3a;
+  --grey-300: #8b8b8b;
+  --grey-400: #9d9d9d;
+  --grey-500: #ababab; --grey-500-hsl: 0, 0%, 67%;
+  --grey-600: #c5c5c5;
+  --grey-700: #dedede;
+  --grey-800: #ededed;
+  --grey-900: #ffffff; --grey-900-hsl: 0, 0%, 100%;
+  --danger-h: 353deg; --danger-s: 100%; --danger-l: 80%;
+  --success-h: 113deg; --success-s: 49%; --success-l: 58%;
+  --code-background: #1c1c1c;
+  --pre-background: #1c1c1c;
+}
+
+/* ---------- Base ---------- */
+html.docket { background: var(--d-bg); font-size: 14px; }
+html.docket body {
+  font-family: var(--d-font);
+  font-size: 14px;
+  line-height: 1.43;
+  color: var(--d-text);
+  background: var(--d-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+html.docket h1, html.docket h2, html.docket h3, html.docket h4, html.docket .title, html.docket .subtitle,
+html.docket .button, html.docket input, html.docket select, html.docket textarea { font-family: var(--d-font); }
+html.docket h1, html.docket .title.is-1, html.docket .content h1 { font-family: var(--d-font-display); font-weight: 600; letter-spacing: -.01em; }
+html.docket .title { font-weight: 600; color: var(--d-text); }
+/* Vikunja forces every heading to 400 with !important; Fluent titles are semibold. */
+html.docket :is(h1, h2, h3, h4, h5, h6), html.docket .input.title { font-weight: 600 !important; font-family: var(--d-font-display); }
+html.docket .tiptap :is(h1, h2, h3, h4, h5, h6), html.docket .ProseMirror :is(h1, h2, h3, h4, h5, h6) { font-family: var(--d-font); }
+html.docket .project-grid-item .project-title, html.docket .project-card .project-title { font-size: 18px; }
+html.docket .subtitle { color: var(--d-text-2); }
+html.docket a { color: var(--d-accent-text); }
+html.docket a:hover { color: var(--d-accent-text); text-decoration: underline; text-underline-offset: 2px; }
+html.docket .menu a:hover, html.docket .navbar a:hover, html.docket .button:hover, html.docket .task a:hover,
+html.docket a.base-button:hover, html.docket .dropdown a:hover, html.docket .switch-view a:hover, html.docket a.card:hover,
+html.docket .kanban a:hover, html.docket .tabs a:hover, html.docket .project-grid a:hover { text-decoration: none; }
+html.docket ::selection { background: var(--d-accent); color: var(--d-on-accent); }
+html.docket :focus-visible { outline: 2px solid var(--d-text); outline-offset: 1px; box-shadow: none; }
+html.docket code, html.docket pre, html.docket kbd { font-family: var(--d-mono); }
+html.docket hr { background: var(--d-stroke-2); height: 1px; }
+
+/* Thin Fluent scrollbars */
+html.docket * { scrollbar-width: thin; scrollbar-color: var(--d-stroke-strong) transparent; }
+html.docket ::-webkit-scrollbar { width: 12px; height: 12px; }
+html.docket ::-webkit-scrollbar-thumb { background: var(--d-stroke-strong); border-radius: 6px; border: 4px solid transparent; background-clip: padding-box; }
+html.docket ::-webkit-scrollbar-thumb:hover { border-width: 3px; }
+html.docket ::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- Title bar (top bar) ---------- */
+html.docket .navbar {
+  background: var(--d-bg);
+  min-block-size: 48px;
+  box-shadow: none;
+  border: 0;
+  padding-inline-start: 12px;
+}
+html.docket .navbar .logo-link { margin-inline-end: 4px; }
+html.docket .logo, html.docket img.logo { max-block-size: 28px; inline-size: auto; }
+html.docket .navbar .trigger-button,
+html.docket .navbar .menu-show-button,
+html.docket .navbar .username-dropdown-trigger {
+  color: var(--d-text-2);
+  border-radius: var(--d-r-sm);
+  transition: background-color .083s linear;
+}
+html.docket .navbar .trigger-button:hover,
+html.docket .navbar .menu-show-button:hover,
+html.docket .navbar .username-dropdown-trigger:hover { background: var(--d-subtle); color: var(--d-text); }
+html.docket .navbar .trigger-button { min-inline-size: 40px; block-size: 36px; align-self: center; font-size: 16px; }
+html.docket .navbar .username-dropdown-trigger { padding: 4px 8px; align-self: center; block-size: 36px; }
+html.docket .navbar .username { font-weight: 500; color: var(--d-text); }
+html.docket .navbar .avatar { border-radius: 50%; }
+
+/* Hamburger: Fluent "global navigation" glyph */
+html.docket .menu-show-button, html.docket .menu-hide-button { color: var(--d-text-2); }
+
+/* ---------- Navigation pane (sidebar) ---------- */
+html.docket .menu-container {
+  background: var(--d-bg);
+  color: var(--d-text);
+  padding: 4px 0 8px;
+  inset-block-start: 48px;
+  font-size: 14px;
+}
+html.docket .menu-container .menu { padding-inline: 4px 8px; }
+html.docket .menu-container .menu + .menu { margin-block-start: 8px; padding-block-start: 8px; border-block-start: 1px solid var(--d-stroke); }
+html.docket .menu-container .top-menu .logo { display: none; }
+html.docket .menu .menu-list { margin: 0; padding: 0; }
+html.docket .menu .menu-list li { margin: 0; }
+html.docket .menu .menu-list .menu-list { padding-inline-start: 0; margin: 0; border: 0; }
+html.docket .menu .menu-list .menu-list .navigation-item { padding-inline-start: 16px; }
+html.docket .menu .menu-list .menu-list .menu-list .navigation-item { padding-inline-start: 32px; }
+
+/* Each row: 36px, 4px radius, subtle fill on hover, accent pill when selected */
+html.docket .top-menu .menu-list li > a,
+html.docket .navigation-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-block-size: 36px;
+  margin-block: 2px;
+  border-radius: var(--d-r-sm);
+  transition: background-color .083s linear;
+}
+html.docket .top-menu .menu-list li,
+html.docket .top-menu .menu-list li > a { font-weight: 400; font-size: 14px; }
+html.docket .top-menu .menu-list li > a {
+  padding: 0 12px !important;
+  gap: 12px;
+  color: var(--d-text);
+  inline-size: 100%;
+}
+html.docket .top-menu .menu-list li > a:hover,
+html.docket .navigation-item:hover { background: var(--d-subtle); }
+html.docket .top-menu .menu-list li > a:active,
+html.docket .navigation-item:active { background: var(--d-subtle-2); }
+html.docket .top-menu .menu-list li > a .icon,
+html.docket .top-menu .menu-list li > a .menu-item-icon {
+  color: var(--d-text-2);
+  inline-size: 16px; block-size: 16px;
+  padding: 0 !important; margin: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+html.docket .top-menu .menu-list li > a .icon svg { inline-size: 16px; block-size: 16px; }
+html.docket .menu .menu-list li > a.router-link-exact-active,
+html.docket .menu .menu-list li > div > a.router-link-exact-active,
+html.docket .top-menu .menu-list li > a.router-link-exact-active { color: var(--d-text); font-weight: 400; }
+html.docket .top-menu .menu-list li > a.router-link-exact-active { background: var(--d-subtle); }
+html.docket .top-menu .menu-list li > a.router-link-exact-active .icon { color: var(--d-accent); }
+html.docket .top-menu .menu-list li > a.router-link-exact-active::before,
+html.docket .navigation-item:has(> a.router-link-active)::before,
+html.docket .navigation-item:has(> a.router-link-exact-active)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 50%;
+  translate: 0 -50%;
+  inline-size: 3px;
+  block-size: 16px;
+  border-radius: 2px;
+  background: var(--d-accent);
+}
+html.docket .navigation-item:has(> a.router-link-active),
+html.docket .navigation-item:has(> a.router-link-exact-active) { background: var(--d-subtle); }
+
+html.docket .menu .menu-list .navigation-item > a,
+html.docket .menu .menu-list li > div > a,
+html.docket .list-menu-link {
+  color: var(--d-text);
+  padding: 0 8px 0 4px;
+  min-block-size: 36px;
+  border-radius: var(--d-r-sm);
+  font-size: 14px;
+}
+html.docket .menu .menu-list .list-menu-link .color-bubble,
+html.docket .menu .menu-list a .color-bubble { flex: 0 0 10px; block-size: 10px; inline-size: 10px; margin: 0 10px 0 4px; }
+html.docket .menu .menu-list .collapse-project-button { padding: 0 2px 0 6px; border-radius: var(--d-r-sm); }
+html.docket .menu .menu-list .collapse-project-button svg { color: var(--d-text-3); inline-size: 12px; }
+html.docket .menu .menu-list .collapse-project-button-placeholder { inline-size: 20px; }
+html.docket .project-menu-title { color: var(--d-text); }
+html.docket .navigation-item .favorite,
+html.docket .navigation-item .menu-list-dropdown-trigger { color: var(--d-text-3); border-radius: var(--d-r-sm); }
+html.docket .navigation-item .menu-list-dropdown-trigger:hover,
+html.docket .navigation-item .favorite:hover { color: var(--d-text); background: var(--d-subtle); }
+html.docket .navigation-item .favorite.is-favorite { color: var(--d-accent); }
+html.docket .menu-bottom-link { display: none !important; }
+html.docket .menu-container .resize-handle:hover { background: var(--d-accent); }
+
+/* ---------- Content layer: the rounded "page" beside the navigation, as in WinUI ---------- */
+html.docket .app-container { padding-block-start: 48px; background: var(--d-bg); }
+html.docket .app-container-background { display: none; }
+html.docket main.app-content {
+  background: var(--d-layer);
+  border-start-start-radius: var(--d-r-lg);
+  border-block-start: 1px solid var(--d-stroke);
+  border-inline-start: 1px solid var(--d-stroke);
+  min-block-size: calc(100vh - 48px);
+  padding: 28px 40px 40px;
+}
+@media (max-width: 768px) {
+  html.docket main.app-content { padding: 16px 12px 32px; border-radius: 0; border-inline-start: 0; }
+}
+html.docket .app-content .content > h1,
+html.docket .app-content > .content > h1,
+html.docket .app-content h1:first-child {
+  font-size: 28px; line-height: 36px; font-weight: 600; margin-block: 4px 16px; color: var(--d-text);
+}
+html.docket .app-content .home .content > h1,
+html.docket main.home .content > h1 { text-align: start; }
+html.docket main.home .content.has-text-centered { text-align: start !important; }
+html.docket main.home .content > h1 { max-inline-size: 1000px; margin-inline: auto; }
+html.docket main.home .content h2, html.docket main.home .content h3 { margin-block: 28px 12px; font-size: 20px; }
+html.docket .show-tasks h2.title, html.docket .app-content h2.title { font-size: 20px; line-height: 28px; font-weight: 600; margin-block-end: 12px; }
+html.docket .is-max-width-desktop { max-inline-size: 1000px; margin-inline: auto; }
+html.docket .keyboard-shortcuts-button { color: var(--d-text-3); border-radius: var(--d-r-sm); }
+html.docket .keyboard-shortcuts-button:hover { color: var(--d-text); background: var(--d-subtle); }
+
+/* ---------- Cards and boxes ---------- */
+html.docket .card,
+html.docket .box {
+  background: var(--d-card);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r-lg);
+  box-shadow: var(--d-shadow-card);
+  color: var(--d-text);
+}
+html.docket .card .card-header { border-block-end: 1px solid var(--d-stroke); border-inline-end: 0; box-shadow: none; }
+html.docket .card .card-header-title { font-weight: 600; font-size: 14px; color: var(--d-text); padding: 12px 16px; }
+html.docket .card .card-content { padding: 16px; }
+html.docket .card .card-content.p-0 { padding: 0; }
+html.docket .card .card-footer { background: var(--d-bg); border-block-start: 1px solid var(--d-stroke); padding: 16px; border-end-start-radius: var(--d-r-lg); border-end-end-radius: var(--d-r-lg); }
+
+/* ---------- Task rows (overview, upcoming, list view) ---------- */
+html.docket .show-tasks .card,
+html.docket .list-view .card,
+html.docket .tasks-container .card { background: transparent; border: 0; box-shadow: none; }
+html.docket ul.tasks { padding: 0 !important; margin: 0; display: flex; flex-direction: column; gap: 3px; }
+html.docket .list-view .list-view__add-task { padding: 0 0 12px; }
+html.docket .list-view .card-content { padding: 0; }
+html.docket ul.tasks > .task,
+html.docket ul.tasks > li > .task,
+html.docket .tasks .single-task,
+html.docket .list-view .task {
+  background: var(--d-card);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r);
+  min-block-size: 40px;
+  padding: 4px 12px 4px 10px;
+  margin: 0;
+  box-shadow: var(--d-shadow-card);
+  transition: background-color .083s linear;
+  font-size: 14px;
+}
+html.docket ul.tasks > .task:hover,
+html.docket .tasks .single-task:hover,
+html.docket .list-view .task:hover { background: var(--d-card-2); }
+html.docket.dark ul.tasks > .task:hover,
+html.docket.dark .list-view .task:hover { background: #323232; }
+html.docket .task .tasktext,
+html.docket .task .task-title { color: var(--d-text); }
+html.docket .task .task-project,
+html.docket .task .different-project { color: var(--d-text-2); font-size: 12px; }
+html.docket .task .dueDate,
+html.docket .task .due-date { color: var(--d-text-2); font-style: normal; font-size: 12px; }
+html.docket .task[data-is-overdue] .dueDate,
+html.docket .task .dueDate.is-overdue { color: var(--d-danger); }
+html.docket .task .tasktext .task-identifier,
+html.docket .task .task-id { color: var(--d-text-3); }
+html.docket .task.is-done .tasktext,
+html.docket .task .done .tasktext,
+html.docket .task .tasktext.done { color: var(--d-text-3); text-decoration: line-through; }
+html.docket .task .priority-label,
+html.docket .priority-label { font-weight: 600; font-size: 12px; }
+html.docket .priority-label.high-priority { color: var(--d-danger); }
+html.docket .priority-label.not-so-high { color: var(--d-warning); }
+html.docket .task .favorite { color: var(--d-text-3); }
+html.docket .task .favorite.is-favorite { color: var(--d-accent); }
+
+html.docket .task .task-link { color: var(--d-text); }
+html.docket .task .task-link:hover { color: var(--d-text); text-decoration: none; }
+html.docket .task .dueDate time, html.docket .task time.is-italic { font-style: normal !important; }
+html.docket .task .labels .tag, html.docket .task .label-wrapper .tag { block-size: 18px; line-height: 18px; font-size: 11px; border-radius: 9px; padding: 0 8px; }
+html.docket .task .color-bubble { inline-size: 8px; block-size: 8px; }
+
+/* Round To Do-style check circles (the outline path becomes a circle; the tick animation is Vikunja's) */
+html.docket .task .fancy-checkbox__icon path { d: path("M9,1 A8,8 0 1,1 9,17 A8,8 0 1,1 9,1 Z"); }
+html.docket .fancy-checkbox__icon { --stroke-color: var(--d-text-2); }
+html.docket .fancy-checkbox:hover input:not(:disabled) + .fancy-checkbox__icon,
+html.docket .fancy-checkbox input:checked + .fancy-checkbox__icon { --stroke-color: var(--d-accent); }
+
+/* Labels (tags) */
+html.docket .tag {
+  border-radius: var(--d-r-sm);
+  font-size: 12px;
+  font-weight: 500;
+  block-size: 20px;
+  padding: 0 6px;
+  line-height: 20px;
+  background: var(--d-subtle);
+  color: var(--d-text-2);
+}
+html.docket .tag.is-primary { background: var(--d-accent-soft); color: var(--d-accent-text); }
+
+/* ---------- Buttons ---------- */
+html.docket .button {
+  font-family: var(--d-font);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  block-size: 32px;
+  min-block-size: 32px;
+  padding: 0 12px;
+  border-radius: var(--d-r-sm);
+  background: var(--d-control);
+  color: var(--d-text);
+  border: 1px solid var(--d-stroke-2);
+  border-block-end-color: rgba(0, 0, 0, .1622);
+  box-shadow: none;
+  transition: background-color .083s linear, border-color .083s linear;
+}
+html.docket.dark .button { border-color: rgba(255, 255, 255, .0698); border-block-start-color: rgba(255, 255, 255, .093); }
+html.docket .button:hover { background: var(--d-control-hover); color: var(--d-text); border-color: var(--d-stroke-2); }
+html.docket.light .button:hover { background: #f6f6f6; }
+html.docket .button:active { background: var(--d-subtle-2); color: var(--d-text-2); }
+html.docket .button:focus-visible { outline: 2px solid var(--d-text); outline-offset: 1px; box-shadow: none; }
+html.docket .button .icon { color: inherit; }
+html.docket .button.is-primary,
+html.docket .button.is-primary:not(.is-outlined) {
+  background: var(--d-accent);
+  color: var(--d-on-accent);
+  border: 1px solid transparent;
+  border-block-end-color: rgba(0, 0, 0, .4);
+  font-weight: 500;
+}
+html.docket.dark .button.is-primary { border-color: rgba(255, 255, 255, .08); border-block-end-color: rgba(0, 0, 0, .14); }
+html.docket .button.is-primary:hover { background: var(--d-accent-hover); color: var(--d-on-accent); }
+html.docket .button.is-primary:active { background: var(--d-accent-pressed); color: var(--d-on-accent); }
+html.docket .button.is-primary[disabled], html.docket .button[disabled] { opacity: .45; box-shadow: none; }
+html.docket .button.is-primary.is-outlined { background: transparent; color: var(--d-accent-text); border-color: var(--d-accent); }
+html.docket .button.is-text,
+html.docket .button.is-text:not(.is-outlined),
+html.docket .button.has-no-shadow.is-transparent,
+html.docket .button.is-transparent { background: transparent; border-color: transparent; color: var(--d-text); }
+html.docket .button.is-text:hover, html.docket .button.is-transparent:hover { background: var(--d-subtle); }
+html.docket .button.is-danger { background: var(--d-danger); border-color: transparent; color: #fff; }
+html.docket.dark .button.is-danger { color: #000; }
+html.docket .button.is-danger.is-outlined,
+html.docket .button.is-primary.is-danger.is-outlined { background: transparent; color: var(--d-danger); border-color: var(--d-danger); }
+html.docket .button.is-primary.is-danger.is-outlined.has-no-border { border-color: transparent; }
+html.docket .button.is-danger.is-outlined:hover { background: rgba(196, 43, 28, .1); color: var(--d-danger); }
+html.docket .button.is-success { background: var(--d-success); color: #fff; border-color: transparent; }
+html.docket.dark .button.is-success { color: #000; }
+html.docket .button.is-small { block-size: 28px; min-block-size: 28px; font-size: 12px; padding: 0 8px; }
+html.docket .button.is-fullwidth { inline-size: 100%; }
+html.docket .buttons .button { margin-block-end: 0; }
+html.docket .buttons { gap: 8px; }
+
+/* ---------- Inputs ---------- */
+html.docket .input,
+html.docket .textarea,
+html.docket .select select,
+html.docket input[type=text], html.docket input[type=email], html.docket input[type=password],
+html.docket input[type=number], html.docket input[type=search], html.docket input[type=url], html.docket input[type=date],
+html.docket .multiselect .input-wrapper {
+  font-family: var(--d-font);
+  font-size: 14px;
+  background: var(--d-control-input);
+  color: var(--d-text);
+  border: 1px solid var(--d-stroke-2);
+  border-block-end-color: var(--d-stroke-strong);
+  border-radius: var(--d-r-sm);
+  box-shadow: none;
+  min-block-size: 32px;
+  transition: background-color .083s linear;
+}
+html.docket.dark .input,
+html.docket.dark .textarea,
+html.docket.dark .select select,
+html.docket.dark .multiselect .input-wrapper { background: var(--d-control); border-color: var(--d-stroke-2); border-block-end-color: var(--d-stroke-strong); }
+html.docket .input:hover, html.docket .textarea:hover, html.docket .select select:hover { background: var(--d-control-hover); }
+html.docket.light .input:hover, html.docket.light .textarea:hover, html.docket.light .select select:hover { background: #f9f9f9; }
+html.docket .input:focus, html.docket .textarea:focus, html.docket .select select:focus,
+html.docket .input:focus-within, html.docket .multiselect .input-wrapper:focus-within, html.docket .input.is-focused {
+  background: var(--d-card);
+  border-color: var(--d-stroke-2);
+  border-block-end: 2px solid var(--d-accent);
+  box-shadow: none;
+  outline: none;
+}
+html.docket.dark .input:focus, html.docket.dark .textarea:focus, html.docket.dark .select select:focus,
+html.docket.dark .multiselect .input-wrapper:focus-within { background: #1f1f1f; }
+html.docket .input::placeholder, html.docket .textarea::placeholder { color: var(--d-text-3); }
+html.docket .input[disabled], html.docket .textarea[disabled] { opacity: .5; }
+html.docket .label, html.docket label.label { color: var(--d-text); font-weight: 600; font-size: 14px; }
+html.docket .help { color: var(--d-text-2); }
+html.docket .select:not(.is-multiple):not(.is-loading)::after { border-color: var(--d-text-2); }
+
+/* Quick add bar on the overview and lists */
+html.docket .task-add .add-task__field .task-input-wrapper .input,
+html.docket .add-task-textarea {
+  min-block-size: 40px;
+  padding-block: 9px;
+  border-radius: var(--d-r);
+  background: var(--d-card);
+  box-shadow: var(--d-shadow-card);
+}
+html.docket.dark .add-task-textarea { background: #2d2d2d; }
+html.docket .add-task-textarea:focus { background: var(--d-card); }
+html.docket .add-task-button { block-size: 40px; min-inline-size: 40px; }
+html.docket .task-add .task-icon { color: var(--d-accent); }
+
+/* ---------- View switcher (List / Gantt / Table / Kanban): Fluent segmented control ---------- */
+html.docket .switch-view-container { margin-block-end: 12px; }
+html.docket .switch-view {
+  background: var(--d-subtle);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r);
+  padding: 2px;
+  box-shadow: none;
+  gap: 2px;
+}
+html.docket .switch-view-button {
+  color: var(--d-text-2);
+  border-radius: var(--d-r-sm);
+  padding: 4px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background-color .083s linear;
+}
+html.docket .switch-view-button:hover { background: var(--d-subtle); color: var(--d-text); }
+html.docket .switch-view-button.is-active {
+  background: var(--d-card);
+  color: var(--d-text);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--d-stroke), var(--d-shadow-card);
+}
+html.docket.dark .switch-view-button.is-active { background: #3a3a3a; }
+
+/* ---------- Kanban ---------- */
+html.docket .kanban, html.docket .kanban-bucket-container { gap: 12px; }
+html.docket .kanban .bucket {
+  background: var(--d-subtle-2);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r-lg);
+  margin: 0;
+}
+html.docket.light .kanban .bucket { background: rgba(0, 0, 0, .028); }
+html.docket .kanban .bucket .bucket-header,
+html.docket .kanban .bucket .bucket-footer,
+html.docket .kanban .bucket .task-item { background: transparent; box-shadow: none; }
+html.docket .kanban .bucket .task-item { padding: 3px 8px; }
+html.docket .kanban .bucket .task-item:first-of-type { padding-block-start: 4px; }
+html.docket .kanban .bucket .bucket-header { padding: 8px 8px 4px 10px; block-size: 52px; }
+html.docket .kanban .bucket-header .title.input {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 6px;
+  min-block-size: 30px;
+}
+html.docket .kanban .bucket-header .title.input:hover { background: var(--d-subtle); }
+html.docket .kanban .bucket-header .title.input:focus {
+  background: var(--d-control-input);
+  border-color: var(--d-stroke-2);
+  border-block-end: 2px solid var(--d-accent);
+}
+html.docket .kanban .bucket .bucket-header .dropdown-trigger,
+html.docket .kanban .bucket .bucket-header .button { color: var(--d-text-2); background: transparent; border-color: transparent; }
+html.docket .kanban .bucket .task { font-size: 13px; }
+html.docket .kanban .bucket .bucket-header .title { font-size: 14px; font-weight: 600; color: var(--d-text); }
+html.docket .kanban .bucket .bucket-header .limit,
+html.docket .kanban .bucket .bucket-header .count { color: var(--d-text-3); font-weight: 400; }
+html.docket .kanban .bucket .tasks { padding: 4px 8px; gap: 6px; }
+html.docket .kanban .bucket .task,
+html.docket .kanban-card {
+  background: var(--d-card);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r);
+  box-shadow: var(--d-shadow-card);
+  margin-block-end: 6px;
+  transition: background-color .083s linear, box-shadow .15s var(--d-ease);
+}
+html.docket .kanban .bucket .task:hover { background: var(--d-card-2); }
+html.docket.dark .kanban .bucket .task:hover { background: #323232; }
+html.docket .kanban .bucket .task .card-content { padding: 10px 12px; }
+html.docket .kanban .bucket .task.is-dragging,
+html.docket .kanban .task-dragging { box-shadow: var(--d-shadow-flyout); transform: rotate(1.5deg); }
+html.docket .kanban .bucket .task.has-custom-background-color { border-color: transparent; }
+html.docket .kanban .bucket .bucket-footer { padding: 4px 8px 8px; background: transparent; }
+html.docket .kanban .bucket .bucket-footer .button { justify-content: flex-start; background: transparent; border-color: transparent; color: var(--d-text-2); }
+html.docket .kanban .bucket .bucket-footer .button:hover { background: var(--d-subtle); color: var(--d-text); }
+html.docket .kanban .new-bucket .button { background: transparent; border: 1px dashed var(--d-stroke-strong); color: var(--d-text-2); }
+html.docket .kanban .ghost,
+html.docket .kanban .task-ghost { background: var(--d-accent-soft) !important; border: 1px dashed var(--d-accent) !important; box-shadow: none !important; }
+html.docket .kanban .task .due-date { border-radius: var(--d-r-sm); }
+
+/* ---------- Tables ---------- */
+html.docket .table {
+  background: transparent;
+  color: var(--d-text);
+  font-size: 14px;
+}
+html.docket .table thead th,
+html.docket .table th {
+  color: var(--d-text-2);
+  font-weight: 600;
+  font-size: 12px;
+  border-block-end: 1px solid var(--d-stroke-2);
+  border-width: 0 0 1px;
+  padding: 10px 12px;
+  background: transparent;
+}
+html.docket .table td {
+  border-color: var(--d-stroke);
+  border-width: 0 0 1px;
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+html.docket .table tbody tr { transition: background-color .083s linear; }
+html.docket .table tbody tr:hover,
+html.docket .table.is-hoverable tbody tr:not(.is-selected):hover { background: var(--d-subtle); }
+html.docket .table tbody tr:last-child td { border-block-end: 0; }
+html.docket .table a { color: var(--d-text); }
+html.docket .table a:hover { color: var(--d-accent-text); }
+html.docket .table-view .card, html.docket .has-horizontal-overflow { border-radius: var(--d-r-lg); }
+
+/* ---------- Gantt ---------- */
+html.docket .gantt-chart-container,
+html.docket .gantt-container { background: var(--d-card); border-radius: var(--d-r-lg); }
+html.docket .gantt-timeline,
+html.docket .gantt-timeline-months,
+html.docket .gantt-timeline-days { color: var(--d-text-2); background: var(--d-card); border-color: var(--d-stroke); font-size: 12px; }
+html.docket .gantt-timeline .today, html.docket .timeunit .today { color: var(--d-accent-text); font-weight: 600; }
+html.docket .gantt-rows .bg-row { background: transparent; }
+html.docket .gantt-rows .bg-row-alt { background: var(--d-subtle-2); }
+html.docket .gantt-vertical-lines, html.docket .gantt-grid-lines { border-color: var(--d-stroke); }
+html.docket .gantt-bar { rx: 4px; }
+/* Bars in the accent colour need dark text on the light Fluent dark-mode accent */
+html.docket.dark .gantt-row-bars g:has(stop[stop-color="var(--primary)"]) .gantt-bar-text { fill: var(--d-on-accent); }
+html.docket .gantt-timeline-months .timeunit-month,
+html.docket .gantt-timeline-days .timeunit .timeunit-wrapper { font-family: var(--d-font); }
+html.docket .gantt-timeline-months .timeunit-month { font-size: 14px; font-weight: 600; color: var(--d-text); background: var(--d-card); border-color: var(--d-stroke); }
+html.docket .gantt-timeline-days .timeunit .timeunit-wrapper { font-size: 13px; color: var(--d-text-2); }
+html.docket .gantt-timeline-days .timeunit .timeunit-wrapper.today { background: var(--d-accent); color: var(--d-on-accent); border-radius: var(--d-r-sm) var(--d-r-sm) 0 0; }
+html.docket .gantt-timeline { border-block-end-color: var(--d-stroke-2); }
+html.docket .gantt-options { gap: 12px; }
+
+/* ---------- Dropdowns, popups, menus (Fluent flyouts) ---------- */
+html.docket .dropdown-menu { padding-block-start: 4px; min-inline-size: 200px; }
+html.docket .dropdown-content,
+html.docket .dropdown-menu .dropdown-content,
+html.docket .popup,
+html.docket .filter-popup,
+html.docket .datepicker-popup,
+html.docket .multiselect .search-results,
+html.docket .v-popper__popper .v-popper__inner {
+  background: var(--d-flyout);
+  border: 1px solid var(--d-flyout-stroke);
+  border-radius: var(--d-r-lg);
+  box-shadow: var(--d-shadow-flyout);
+  color: var(--d-text);
+}
+html.docket.dark .dropdown-content,
+html.docket.dark .popup,
+html.docket.dark .multiselect .search-results { border-color: rgba(255, 255, 255, .06); }
+html.docket .dropdown-content { padding: 4px; }
+html.docket .dropdown-item,
+html.docket a.dropdown-item,
+html.docket button.dropdown-item {
+  color: var(--d-text);
+  font-size: 14px;
+  border-radius: var(--d-r-sm);
+  min-block-size: 32px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color .083s linear;
+}
+html.docket .dropdown-item:hover,
+html.docket a.dropdown-item:hover,
+html.docket button.dropdown-item:hover,
+html.docket .dropdown-item.is-active { background: var(--d-subtle); color: var(--d-text); }
+html.docket .dropdown-item .icon { color: var(--d-text-2); inline-size: 16px; }
+html.docket .dropdown-divider { background: var(--d-stroke-2); margin: 4px -4px; }
+html.docket .v-popper--theme-tooltip .v-popper__inner {
+  background: var(--d-flyout);
+  color: var(--d-text);
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: var(--d-r-sm);
+}
+html.docket .v-popper--theme-tooltip .v-popper__arrow-outer,
+html.docket .v-popper--theme-tooltip .v-popper__arrow-inner { border-color: var(--d-flyout); }
+
+/* ---------- Modals and the task detail dialog ---------- */
+html.docket .modal-mask,
+html.docket .modal-background,
+html.docket dialog.modal-dialog:not(:has(.is-quick-add-mode)) { background: var(--d-scrim); color: var(--d-text); }
+html.docket.dark dialog.modal-dialog:not(:has(.is-quick-add-mode)) { background: rgba(0, 0, 0, .5); }
+html.docket .is-modal .task-view { background: var(--d-layer) !important; border: 1px solid var(--d-stroke-2); border-radius: var(--d-r-lg); box-shadow: var(--d-shadow-dialog); }
+html.docket .modal-container .modal-content,
+html.docket .modal-content > .card,
+html.docket .modal-dialog .card {
+  border-radius: var(--d-r-lg);
+}
+html.docket .modal-content .card {
+  background: var(--d-layer);
+  border: 1px solid var(--d-stroke-2);
+  box-shadow: var(--d-shadow-dialog);
+}
+html.docket .modal-container .close,
+html.docket .modal-content .close { color: var(--d-text-2); border-radius: var(--d-r-sm); }
+html.docket .modal-container .close:hover { background: var(--d-subtle); color: var(--d-text); }
+
+/* Task detail */
+html.docket .task-view {
+  background: var(--d-layer);
+  border-radius: var(--d-r-lg);
+  color: var(--d-text);
+}
+html.docket .task-view-container .task-view,
+html.docket .modal-content .task-view { box-shadow: none; }
+html.docket .task-view .heading .title,
+html.docket .task-view .heading .input.title { font-family: var(--d-font-display); font-size: 24px; font-weight: 600; color: var(--d-text); }
+html.docket .task-view .subtitle,
+html.docket .task-view .heading .subtitle { color: var(--d-text-2); font-size: 12px; }
+html.docket .task-view .details .detail-title { color: var(--d-text-2); font-weight: 600; font-size: 12px; }
+html.docket .task-view .details .detail-title .icon { color: var(--d-text-3); }
+html.docket .task-view .action-buttons .button {
+  justify-content: flex-start;
+  background: transparent;
+  border-color: transparent;
+  color: var(--d-text);
+  inline-size: 100%;
+  min-block-size: 32px;
+  margin-block-end: 2px;
+}
+html.docket .task-view .action-buttons .button:hover { background: var(--d-subtle); }
+html.docket .task-view .action-buttons .button .icon { color: var(--d-text-2); }
+html.docket .task-view .action-buttons .button.is-success,
+html.docket .task-view .action-buttons .button--mark-done,
+html.docket .task-view .action-buttons .button.is-primary {
+  background: var(--d-accent);
+  color: var(--d-on-accent);
+  justify-content: center;
+}
+html.docket .task-view .action-buttons .button.is-primary .icon,
+html.docket .task-view .action-buttons .button--mark-done .icon { color: var(--d-on-accent); }
+html.docket .task-view .action-buttons .button.button--mark-done {
+  background: var(--d-accent);
+  color: var(--d-on-accent);
+  border: 1px solid transparent;
+  justify-content: center;
+  font-weight: 500;
+  margin-block-end: 8px;
+}
+html.docket .task-view .action-buttons .button.button--mark-done:hover { background: var(--d-accent-hover); }
+html.docket .task-view .action-buttons .button.button--mark-done.is-success,
+html.docket .task-view .action-buttons .button.button--mark-done:not(.is-pending) { background: var(--d-control); color: var(--d-text); border-color: var(--d-stroke-2); }
+html.docket .task-view .action-buttons .button.button--mark-done .icon { color: inherit; }
+html.docket .task-view .action-buttons .button.is-primary.is-danger,
+html.docket .task-view .action-buttons .button.is-danger.is-outlined {
+  background: transparent;
+  color: var(--d-danger);
+  border-color: transparent;
+  justify-content: flex-start;
+  font-weight: 400;
+  margin-block-start: 8px;
+}
+html.docket .task-view .action-buttons .button.is-primary.is-danger .icon { color: var(--d-danger); }
+html.docket .task-view .action-buttons .button.is-primary.is-danger:hover { background: rgba(196, 43, 28, .1); }
+html.docket .task-view .heading h1.title.input {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--d-r-sm);
+  padding: 2px 6px;
+  box-shadow: none;
+  min-block-size: 0;
+}
+html.docket .task-view .heading h1.title.input:hover { background: var(--d-subtle); }
+html.docket .task-view .heading h1.title.input:focus {
+  background: var(--d-control-input);
+  border-color: var(--d-stroke-2);
+  border-block-end: 2px solid var(--d-accent);
+  outline: none;
+}
+html.docket .task-view .heading .task-id { color: var(--d-text-3); font-weight: 400; font-size: 24px; }
+html.docket .task-view .action-heading { color: var(--d-text-2); font-size: 12px; font-weight: 600; text-transform: none; letter-spacing: 0; }
+html.docket .task-view .columns.details > .column,
+html.docket .task-view .task-properties > .column { border-radius: var(--d-r); }
+html.docket .task-view .content.details > h3,
+html.docket .task-view h3 { font-size: 16px; font-weight: 600; color: var(--d-text); }
+html.docket .tiptap, html.docket .ProseMirror { color: var(--d-text); }
+html.docket .tiptap__editor, html.docket .tiptap .editor-content,
+html.docket .tiptap__task-description .ProseMirror {
+  border-radius: var(--d-r);
+}
+html.docket .tiptap-toolbar, html.docket .editor-toolbar {
+  background: var(--d-card);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r) var(--d-r) 0 0;
+}
+html.docket .editor-toolbar .button, html.docket .tiptap-toolbar .button { background: transparent; border-color: transparent; }
+html.docket .comments .media,
+html.docket .comments .comment { border-color: var(--d-stroke); }
+html.docket .comments .comment-info, html.docket .comments .created { color: var(--d-text-3); }
+html.docket .attachments .attachment { border-radius: var(--d-r); }
+html.docket .attachments .attachment:hover { background: var(--d-subtle); }
+/* The "Done" badge */
+html.docket :is(div, span).is-done:not(.task):not(.single-task):not(.kanban-card) {
+  display: inline-flex;
+  align-items: center;
+  inline-size: auto;
+  block-size: 20px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  background: var(--d-success);
+  color: #fff;
+  border-radius: 10px;
+}
+html.docket.dark :is(div, span).is-done:not(.task):not(.single-task):not(.kanban-card) { color: #000; }
+
+/* ---------- Multiselect, datepicker, color picker ---------- */
+html.docket .multiselect .input-wrapper .input,
+html.docket .multiselect .input-wrapper input { background: transparent !important; border: 0 !important; box-shadow: none; }
+html.docket .multiselect .input-wrapper { padding-inline: 4px; }
+html.docket .multiselect .search-results .search-result-button {
+  border-radius: var(--d-r-sm);
+  color: var(--d-text);
+  background: transparent;
+}
+html.docket .multiselect .search-results .search-result-button:hover,
+html.docket .multiselect .search-results .search-result-button:focus { background: var(--d-subtle); }
+html.docket .datepicker-inline .is-today,
+html.docket .calendar-month__day.is-today { color: var(--d-accent-text); font-weight: 600; }
+html.docket .calendar-month__day.is-selected,
+html.docket .calendar-month__cell.is-selected .calendar-month__day { background: var(--d-accent); color: var(--d-on-accent); }
+html.docket .calendar-month__day:hover { background: var(--d-subtle); }
+html.docket .date-shortcuts__item { border-radius: var(--d-r-sm); }
+html.docket .date-shortcuts__item:hover { background: var(--d-subtle); }
+html.docket .flatpickr-calendar { background: var(--d-flyout); border-radius: var(--d-r-lg); box-shadow: var(--d-shadow-flyout); }
+
+/* ---------- Notifications, messages, progress, switches ---------- */
+html.docket .notification,
+html.docket .message .message-body,
+html.docket .message {
+  border-radius: var(--d-r);
+  background: var(--d-card);
+  color: var(--d-text);
+  border: 1px solid var(--d-stroke);
+}
+html.docket .message.is-danger, html.docket .notification.is-danger { background: rgba(196, 43, 28, .08); border-color: rgba(196, 43, 28, .3); }
+html.docket .message.is-success, html.docket .notification.is-success { background: rgba(15, 123, 15, .08); border-color: rgba(15, 123, 15, .3); }
+html.docket .message.is-info, html.docket .notification.is-info { background: var(--d-accent-soft); border-color: transparent; }
+html.docket .notifications-list, html.docket .notifications .popup { border-radius: var(--d-r-lg); }
+html.docket .notifications .unread-indicator, html.docket .notifications .is-unread::before { background: var(--d-accent); }
+html.docket .vue-notification-group .vue-notification,
+html.docket .vue-notification {
+  background: var(--d-flyout);
+  color: var(--d-text);
+  border: 1px solid var(--d-stroke-2);
+  border-inline-start: 3px solid var(--d-accent);
+  border-radius: var(--d-r-lg);
+  box-shadow: var(--d-shadow-flyout);
+  font-size: 14px;
+}
+html.docket .vue-notification.error { border-inline-start-color: var(--d-danger); }
+html.docket .vue-notification.success { border-inline-start-color: var(--d-success); }
+html.docket .vue-notification .notification-title { font-weight: 600; }
+html.docket .progress, html.docket progress { border-radius: 2px; block-size: 4px; }
+html.docket progress::-webkit-progress-bar { background: var(--d-stroke-2); }
+html.docket progress::-webkit-progress-value { background: var(--d-accent); }
+html.docket .loader-container.is-loading::after,
+html.docket .loader-container.is-loading-small::after { border-color: transparent transparent var(--d-accent) var(--d-accent); }
+
+/* ---------- Tabs and settings ---------- */
+html.docket .tabs a { color: var(--d-text-2); border-block-end-color: var(--d-stroke-2); }
+html.docket .tabs a:hover { color: var(--d-text); border-block-end-color: var(--d-stroke-strong); }
+html.docket .tabs li.is-active a { color: var(--d-text); border-block-end: 2px solid var(--d-accent); font-weight: 600; }
+html.docket .tabs ul { border-block-end-color: var(--d-stroke-2); }
+html.docket .user-settings .navigation,
+html.docket .settings-navigation,
+html.docket .side-nav-shell nav,
+html.docket .side-nav-shell__nav { background: transparent; }
+html.docket .side-nav-shell a,
+html.docket .user-settings .navigation a {
+  color: var(--d-text);
+  border-radius: var(--d-r-sm);
+  padding: 8px 12px;
+  position: relative;
+  transition: background-color .083s linear;
+}
+html.docket .side-nav-shell a:hover,
+html.docket .user-settings .navigation a:hover { background: var(--d-subtle); }
+html.docket .side-nav-shell a.router-link-active,
+html.docket .user-settings .navigation a.router-link-active { background: var(--d-subtle); color: var(--d-text); font-weight: 400; }
+html.docket .side-nav-shell a.router-link-active::before,
+html.docket .user-settings .navigation a.router-link-active::before {
+  content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 50%; translate: 0 -50%;
+  inline-size: 3px; block-size: 16px; border-radius: 2px; background: var(--d-accent);
+}
+html.docket .checkbox, html.docket .base-checkbox__label { color: var(--d-text); }
+html.docket input[type=checkbox], html.docket input[type=radio] { accent-color: var(--d-accent); }
+
+/* ---------- Projects grid, labels, teams ---------- */
+html.docket .project-grid-item,
+html.docket .project-card,
+html.docket .project-grid .card {
+  border-radius: var(--d-r-lg);
+  border: 1px solid var(--d-stroke);
+  box-shadow: var(--d-shadow-card);
+  transition: background-color .083s linear, box-shadow .15s var(--d-ease);
+}
+html.docket .project-grid-item:hover { box-shadow: var(--d-shadow-flyout); }
+html.docket .project-grid-item:not(.has-background) { background: var(--d-card); color: var(--d-text); }
+
+/* ---------- Sign-in pages ---------- */
+html.docket .no-auth-wrapper { background: var(--d-bg); background-image: none; }
+html.docket .no-auth-wrapper .noauth-container,
+html.docket .no-auth-wrapper .container {
+  background: var(--d-layer);
+  border: 1px solid var(--d-stroke);
+  border-radius: var(--d-r-lg);
+  box-shadow: var(--d-shadow-dialog);
+}
+html.docket .no-auth-wrapper .image, html.docket .no-auth-wrapper .llama, html.docket .llama-cool { display: none; }
+html.docket .no-auth-wrapper { justify-content: flex-start; padding: 8vh 16px 32px; }
+html.docket .no-auth-wrapper > .logo { margin-block-end: 20px; }
+html.docket .no-auth-wrapper .noauth-container {
+  inline-size: 100%;
+  max-inline-size: 440px;
+  min-block-size: 0;
+  padding: 0;
+}
+html.docket .no-auth-wrapper .noauth-container > .content {
+  inline-size: 100%;
+  padding: 32px 32px 24px;
+  background: transparent;
+  justify-content: flex-start;
+}
+html.docket .no-auth-wrapper .noauth-container > .content > div { inline-size: 100%; }
+html.docket .no-auth-wrapper .title { font-size: 24px; font-weight: 600; margin-block-end: 16px; }
+html.docket .no-auth-wrapper .api-url-info { text-align: start; color: var(--d-text-2); font-size: 12px; }
+html.docket .no-auth-wrapper .button.is-primary { inline-size: 100%; block-size: 36px; margin-block-start: 8px; }
+html.docket .no-auth-wrapper .title { color: var(--d-text); }
+
+/* ---------- Things that are Vikunja's own branding ---------- */
+html.docket a[href*="vikunja.io"]:not(.docket-keep),
+html.docket .menu-bottom-link,
+html.docket .powered-by,
+html.docket .footer a[href*="vikunja"] { display: none !important; }
+html.docket .llama, html.docket .llama-cool { display: none !important; }
+
+/* ---------- Docket wordmark, when skin.js has to build one ---------- */
+html.docket .docket-wordmark { display: inline-flex; align-items: center; gap: 10px; color: var(--d-text); font: 600 18px/1 var(--d-font-display); letter-spacing: -.01em; }
+html.docket .docket-wordmark img { inline-size: 28px; block-size: 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.docket * { transition: none !important; }
+}

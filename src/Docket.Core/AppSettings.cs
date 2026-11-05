@@ -59,6 +59,34 @@ public sealed class AppSettings : IDocketState
 
     public bool IsConfigured => Uri.TryCreate(ServerUrl, UriKind.Absolute, out _) && !string.IsNullOrEmpty(Token);
 
+    // ---------- AI in the add bar ----------
+    /// <summary>"ollama", "anthropic", "openai", "gemini" or "off".</summary>
+    public string AiProvider { get; set; } = "ollama";
+    public Dictionary<string, string> AiModels { get; set; } = [];
+    public string OllamaUrl { get; set; } = "http://localhost:11434";
+
+    /// <summary>API keys by provider, each encrypted for this Windows account.</summary>
+    public Dictionary<string, string> ProtectedAiKeys { get; set; } = [];
+
+    public string? GetAiKey(string provider) => Unprotect(ProtectedAiKeys.GetValueOrDefault(provider));
+
+    public void SetAiKey(string provider, string? key)
+    {
+        if (string.IsNullOrWhiteSpace(key)) ProtectedAiKeys.Remove(provider);
+        else ProtectedAiKeys[provider] = Protect(key.Trim())!;
+    }
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public AiConfig Ai => new(AiProvider,
+        AiModels.GetValueOrDefault(AiProvider) is { Length: > 0 } m ? m : AiConfig.DefaultModel(AiProvider),
+        GetAiKey(AiProvider), OllamaUrl);
+
+    /// <summary>The view chosen per list (List, Table, Gantt, Board), kept across restarts.</summary>
+    public Dictionary<string, string> ListViews { get; set; } = [];
+
+    /// <summary>Path of the Vikunja program when the server runs on this PC (used to create accounts for people).</summary>
+    public string? VikunjaExe { get; set; }
+
     public static AppSettings Load()
     {
         try { return File.Exists(FilePath) ? JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(FilePath)) ?? new() : new(); }

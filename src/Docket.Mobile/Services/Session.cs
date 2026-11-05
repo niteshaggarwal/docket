@@ -51,9 +51,9 @@ public sealed class Session
         var jwt = (await res.Content.ReadFromJsonAsync<JsonElement>(ct)).GetProperty("token").GetString()!;
         http.DefaultRequestHeaders.Authorization = new("Bearer", jwt);
 
-        // Everything this app needs (tasks, lists, labels, files, comments), nothing for sharing, teams or CalDAV.
+        // Everything this app needs (tasks, lists, labels, files, comments, sharing, teams), nothing for CalDAV, migration or webhooks.
         var routes = await http.GetFromJsonAsync<Dictionary<string, Dictionary<string, JsonElement>>>("routes", ct) ?? [];
-        string[] skip = ["caldav", "migration", "projects_shares", "projects_users", "projects_teams", "teams", "teams_members", "projects_webhooks", "webhooks"];
+        string[] skip = ["caldav", "migration", "projects_webhooks", "webhooks"];
         var perms = routes.Where(r => !skip.Contains(r.Key)).ToDictionary(r => r.Key, r => r.Value.Keys.ToArray());
         var body = new { title = $"Docket on {DeviceInfo.Current.Name}".Trim(), expires_at = DateTime.UtcNow.AddYears(1).ToString("yyyy-MM-ddTHH:mm:ssZ"), permissions = perms };
         using var tokRes = await http.PutAsJsonAsync("tokens", body, ct);

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Docket.App.Pages.ListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,59 +9,14 @@
 
     <Page.Resources>
         <DataTemplate x:Key="HeaderTemplate" x:DataType="svc:GroupHeader">
-            <StackPanel Orientation="Horizontal" Spacing="8" Padding="4,14,0,4">
+            <StackPanel Orientation="Horizontal" Spacing="8" Padding="4,16,0,6">
                 <TextBlock Text="{x:Bind Title}" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                <TextBlock Text="{x:Bind CountText}" Opacity="0.55" />
+                <TextBlock Text="{x:Bind CountText}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
             </StackPanel>
         </DataTemplate>
 
         <DataTemplate x:Key="TaskTemplate" x:DataType="svc:TaskItem">
-            <Grid ColumnSpacing="12" Padding="12,8" MinHeight="52" CornerRadius="6"
-                  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                  BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <CheckBox IsChecked="{x:Bind IsDone, Mode=OneWay}" Click="Done_Click" Tag="{x:Bind}" MinWidth="0" VerticalAlignment="Center" AutomationProperties.Name="Mark as completed" />
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
-                    <TextBlock Text="{x:Bind Title, Mode=OneWay}" TextWrapping="Wrap" Opacity="{x:Bind TitleOpacity, Mode=OneWay}" />
-                    <StackPanel Orientation="Horizontal" Spacing="10" Visibility="{x:Bind HasMeta, Mode=OneWay}">
-                        <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind InMyDay, Mode=OneWay}">
-                            <FontIcon Glyph="&#xE706;" FontSize="11" Opacity="0.7" />
-                            <TextBlock Text="My Day" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.7" />
-                        </StackPanel>
-                        <TextBlock Text="{x:Bind ProjectTitle}" Visibility="{x:Bind ShowList}" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.7" />
-                        <TextBlock Text="{x:Bind StepsText, Mode=OneWay}" Visibility="{x:Bind HasSteps, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.7" />
-                        <StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind HasDue, Mode=OneWay}">
-                            <FontIcon Glyph="&#xE787;" FontSize="11" Foreground="{x:Bind DueBrush, Mode=OneWay}" />
-                            <TextBlock Text="{x:Bind DueText, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{x:Bind DueBrush, Mode=OneWay}" />
-                        </StackPanel>
-                        <FontIcon Glyph="&#xEA8F;" FontSize="11" Opacity="0.7" Visibility="{x:Bind HasReminder, Mode=OneWay}" ToolTipService.ToolTip="Reminder" />
-                        <FontIcon Glyph="&#xE8EE;" FontSize="11" Opacity="0.7" Visibility="{x:Bind HasRepeat, Mode=OneWay}" ToolTipService.ToolTip="Repeats" />
-                        <FontIcon Glyph="&#xE70B;" FontSize="11" Opacity="0.7" Visibility="{x:Bind HasNotes, Mode=OneWay}" ToolTipService.ToolTip="Note" />
-                        <FontIcon Glyph="&#xE723;" FontSize="11" Opacity="0.7" Visibility="{x:Bind HasFiles, Mode=OneWay}" ToolTipService.ToolTip="Files attached" />
-                        <ItemsControl ItemsSource="{x:Bind Chips, Mode=OneWay}" Visibility="{x:Bind HasChips, Mode=OneWay}">
-                            <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" Spacing="6" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate x:DataType="svc:Chip">
-                                    <Border CornerRadius="4" Padding="6,0" Background="{x:Bind Fill}">
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <Ellipse Width="6" Height="6" Fill="{x:Bind Dot}" VerticalAlignment="Center" />
-                                            <TextBlock Text="{x:Bind Text}" Style="{StaticResource CaptionTextBlockStyle}" />
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </StackPanel>
-                <Button Grid.Column="2" Click="Star_Click" Tag="{x:Bind}" Background="Transparent" BorderThickness="0" Padding="6" VerticalAlignment="Center"
-                        AutomationProperties.Name="Mark as important" ToolTipService.ToolTip="Important">
-                    <FontIcon Glyph="{x:Bind StarGlyph, Mode=OneWay}" FontSize="16" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
-                </Button>
-            </Grid>
+            <ctl:TaskCard Item="{x:Bind}" />
         </DataTemplate>
 
         <local:RowTemplateSelector x:Key="RowSelector" Header="{StaticResource HeaderTemplate}" Task="{StaticResource TaskTemplate}" />
@@ -69,6 +24,7 @@
         <Style x:Key="RowContainer" TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0,2" />
+            <Setter Property="MinHeight" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         </Style>
     </Page.Resources>
@@ -79,15 +35,20 @@
             <ColumnDefinition x:Name="DetailColumn" Width="0" />
         </Grid.ColumnDefinitions>
 
-        <Grid Padding="24,12,24,0">
+        <!-- List background (colour, gradient, accent or image) with a theme scrim so text stays readable -->
+        <Border x:Name="BackgroundLayer" Visibility="Collapsed" Margin="8,0,0,8" CornerRadius="8" />
+        <Border x:Name="Scrim" Visibility="Collapsed" Margin="8,0,0,8" CornerRadius="8" Background="{ThemeResource SolidBackgroundFillColorBaseBrush}" Opacity="0.55" />
+
+        <Grid x:Name="ContentGrid" Padding="32,16,32,16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Grid x:Name="HeaderGrid" ColumnSpacing="8" RowSpacing="8" Margin="0,4,0,12" SizeChanged="HeaderGrid_SizeChanged">
+            <Grid x:Name="HeaderGrid" ColumnSpacing="8" RowSpacing="10" Margin="0,4,0,12" SizeChanged="HeaderGrid_SizeChanged">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -97,19 +58,47 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Spacing="2">
-                    <Grid ColumnSpacing="10">
+                    <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <FontIcon x:Name="HeadingIcon" FontSize="22" VerticalAlignment="Top" Margin="0,6,0,0" />
+                        <ContentControl x:Name="HeadingIcon" VerticalAlignment="Center" IsTabStop="False" />
                         <TextBlock x:Name="Heading" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" DoubleTapped="Heading_DoubleTapped" />
                     </Grid>
-                    <TextBlock x:Name="Subheading" Style="{StaticResource BodyTextBlockStyle}" Opacity="0.65" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <TextBlock x:Name="Subheading" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <StackPanel x:Name="SharedChip" Orientation="Horizontal" Spacing="6" Visibility="Collapsed" ToolTipService.ToolTip="Shared list">
+                            <FontIcon Glyph="&#xE716;" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <TextBlock x:Name="SharedText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel x:Name="HeaderActions" Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalAlignment="Top">
-                    <Button x:Name="SuggestButton" Visibility="Collapsed" ToolTipService.ToolTip="Suggestions for My Day" AutomationProperties.Name="Suggestions">
-                        <StackPanel Orientation="Horizontal" Spacing="6"><FontIcon Glyph="&#xE82F;" FontSize="14" /><TextBlock Text="Suggestions" /></StackPanel>
+                <StackPanel x:Name="HeaderActions" Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                    <SelectorBar x:Name="ViewBar" Visibility="Collapsed" SelectionChanged="ViewBar_SelectionChanged" Margin="0,0,8,0">
+                        <SelectorBarItem Text="List" Tag="List" ToolTipService.ToolTip="List view">
+                            <SelectorBarItem.Icon><FontIcon Glyph="&#xE8FD;" /></SelectorBarItem.Icon>
+                        </SelectorBarItem>
+                        <SelectorBarItem Text="Table" Tag="Table" ToolTipService.ToolTip="Table view">
+                            <SelectorBarItem.Icon><FontIcon Glyph="&#xE80A;" /></SelectorBarItem.Icon>
+                        </SelectorBarItem>
+                        <SelectorBarItem Text="Gantt" Tag="Gantt" ToolTipService.ToolTip="Gantt chart">
+                            <SelectorBarItem.Icon><FontIcon Glyph="&#xE9D2;" /></SelectorBarItem.Icon>
+                        </SelectorBarItem>
+                        <SelectorBarItem Text="Board" Tag="Board" ToolTipService.ToolTip="Board view">
+                            <SelectorBarItem.Icon><FontIcon Glyph="&#xF0E2;" /></SelectorBarItem.Icon>
+                        </SelectorBarItem>
+                    </SelectorBar>
+                    <ComboBox x:Name="RangeBox" Visibility="Collapsed" SelectionChanged="Range_Changed" MinWidth="120" AutomationProperties.Name="How far ahead">
+                        <x:String>Next 7 days</x:String>
+                        <x:String>Next 14 days</x:String>
+                        <x:String>Next 30 days</x:String>
+                    </ComboBox>
+                    <ToggleButton x:Name="OverdueToggle" Visibility="Collapsed" IsChecked="True" Click="Overdue_Click" ToolTipService.ToolTip="Show overdue tasks" AutomationProperties.Name="Show overdue tasks">
+                        <StackPanel Orientation="Horizontal" Spacing="6"><FontIcon Glyph="&#xE7BA;" FontSize="14" /><TextBlock Text="Overdue" /></StackPanel>
+                    </ToggleButton>
+                    <Button x:Name="SuggestButton" Visibility="Collapsed" ToolTipService.ToolTip="Suggestions for My Day" AutomationProperties.Name="Suggestions for My Day">
+                        <StackPanel Orientation="Horizontal" Spacing="6"><FontIcon Glyph="&#xEA80;" FontSize="14" /><TextBlock Text="Suggestions" /></StackPanel>
                         <Button.Flyout>
                             <Flyout x:Name="SuggestFlyout" Placement="BottomEdgeAlignedRight" Opening="Suggest_Opening">
                                 <ScrollViewer MaxHeight="520" Width="380">
@@ -118,77 +107,69 @@
                             </Flyout>
                         </Button.Flyout>
                     </Button>
-                    <DropDownButton x:Name="SortButton" AutomationProperties.Name="Sort">
+                    <DropDownButton x:Name="SortButton" AutomationProperties.Name="Sort" ToolTipService.ToolTip="Sort">
                         <StackPanel Orientation="Horizontal" Spacing="6"><FontIcon Glyph="&#xE8CB;" FontSize="14" /><TextBlock x:Name="SortText" Text="Sort" /></StackPanel>
                         <DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <RadioMenuFlyoutItem x:Name="SortCustom" Text="My order" GroupName="sort" Tag="Custom" Click="Sort_Click" />
-                                <RadioMenuFlyoutItem x:Name="SortImportance" Text="Importance" GroupName="sort" Tag="Importance" Click="Sort_Click" />
-                                <RadioMenuFlyoutItem x:Name="SortDue" Text="Due date" GroupName="sort" Tag="DueDate" Click="Sort_Click" />
-                                <RadioMenuFlyoutItem x:Name="SortAlpha" Text="Alphabetically" GroupName="sort" Tag="Alphabetical" Click="Sort_Click" />
-                                <RadioMenuFlyoutItem x:Name="SortCreated" Text="Creation date" GroupName="sort" Tag="CreationDate" Click="Sort_Click" />
+                            <MenuFlyout x:Name="SortMenu" Placement="BottomEdgeAlignedRight">
+                                <RadioMenuFlyoutItem Text="My order" GroupName="sort" Tag="Custom" Click="Sort_Click" />
+                                <RadioMenuFlyoutItem Text="Importance" GroupName="sort" Tag="Importance" Click="Sort_Click" />
+                                <RadioMenuFlyoutItem Text="Priority" GroupName="sort" Tag="Priority" Click="Sort_Click" />
+                                <RadioMenuFlyoutItem Text="Due date" GroupName="sort" Tag="DueDate" Click="Sort_Click" />
+                                <RadioMenuFlyoutItem Text="Alphabetically" GroupName="sort" Tag="Alphabetical" Click="Sort_Click" />
+                                <RadioMenuFlyoutItem Text="Creation date" GroupName="sort" Tag="CreationDate" Click="Sort_Click" />
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
-                    <Button x:Name="BoardButton" Visibility="Collapsed" Click="Board_Click" ToolTipService.ToolTip="Board view" AutomationProperties.Name="Board view">
-                        <FontIcon Glyph="&#xF0E2;" FontSize="14" />
-                    </Button>
                     <Button x:Name="MoreButton" ToolTipService.ToolTip="List options" AutomationProperties.Name="List options">
                         <FontIcon Glyph="&#xE712;" FontSize="14" />
                         <Button.Flyout>
-                            <MenuFlyout x:Name="MoreMenu" Placement="BottomEdgeAlignedRight" Opening="MoreMenu_Opening">
-                                <MenuFlyoutItem x:Name="RenameItem" Text="Rename list" Icon="Rename" Click="Rename_Click" />
-                                <MenuFlyoutSubItem x:Name="ColorItem" Text="Colour">
-                                    <MenuFlyoutSubItem.Icon><FontIcon Glyph="&#xE790;" /></MenuFlyoutSubItem.Icon>
-                                </MenuFlyoutSubItem>
-                                <MenuFlyoutSubItem x:Name="GroupItem" Text="Move to group">
-                                    <MenuFlyoutSubItem.Icon><FontIcon Glyph="&#xF168;" /></MenuFlyoutSubItem.Icon>
-                                </MenuFlyoutSubItem>
-                                <ToggleMenuFlyoutItem x:Name="ShowCompletedItem" Text="Show completed tasks" Click="ShowCompleted_Click" />
-                                <MenuFlyoutItem Text="Copy list" Icon="Copy" Click="CopyList_Click" />
-                                <MenuFlyoutSeparator x:Name="DeleteSeparator" />
-                                <MenuFlyoutItem x:Name="DeleteListItem" Text="Delete list" Icon="Delete" Click="DeleteList_Click" />
-                            </MenuFlyout>
+                            <MenuFlyout x:Name="MoreMenu" Placement="BottomEdgeAlignedRight" Opening="MoreMenu_Opening" />
                         </Button.Flyout>
                     </Button>
                 </StackPanel>
             </Grid>
 
-            <!-- Add a task -->
-            <Grid Grid.Row="1" x:Name="AddBar" Margin="0,0,0,10" ColumnSpacing="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="AddBox" PlaceholderText="Add a task  (try &quot;Call Pat friday !3&quot;, Ctrl+N)" KeyDown="AddBox_KeyDown" AutomationProperties.Name="Add a task" />
-                <Button Grid.Column="1" Style="{StaticResource AccentButtonStyle}" Click="Add_Click" AutomationProperties.Name="Add task" ToolTipService.ToolTip="Add task">
-                    <FontIcon Glyph="&#xE710;" FontSize="14" />
-                </Button>
+            <!-- Search results from the add bar -->
+            <InfoBar x:Name="ResultsBar" Grid.Row="1" Visibility="Collapsed" IsOpen="True" IsClosable="False" Severity="Informational" Title="Results" Margin="0,0,0,8">
+                <InfoBar.IconSource><FontIconSource Glyph="&#xE721;" /></InfoBar.IconSource>
+                <InfoBar.ActionButton>
+                    <Button Content="Clear search" Click="ClearResults_Click" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+
+            <!-- Content: the nested list, or another view -->
+            <Grid Grid.Row="2">
+                <ProgressRing x:Name="LoadingRing" IsActive="False" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,48,0,0" />
+                <ScrollViewer x:Name="Scroller">
+                    <StackPanel Padding="0,0,0,16">
+                        <StackPanel x:Name="EmptyPanel" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,64,0,0" Spacing="10">
+                            <FontIcon x:Name="EmptyIcon" FontSize="44" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Opacity="0.7" />
+                            <TextBlock x:Name="EmptyTitle" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" />
+                            <TextBlock x:Name="EmptyText" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" MaxWidth="380" />
+                        </StackPanel>
+                        <ListView x:Name="OpenList" SelectionMode="Single" IsItemClickEnabled="True" ItemClick="Row_ItemClick"
+                                  ItemTemplateSelector="{StaticResource RowSelector}" ItemContainerStyle="{StaticResource RowContainer}"
+                                  CanDragItems="True" AllowDrop="True" DragItemsStarting="Rows_DragItemsStarting" DragItemsCompleted="Rows_DragItemsCompleted"
+                                  DragOver="Rows_DragOver" Drop="Rows_Drop"
+                                  RightTapped="Row_RightTapped" KeyDown="List_KeyDown" AutomationProperties.Name="Tasks" />
+                        <Expander x:Name="CompletedExpander" Margin="0,12,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Collapsed" Padding="0">
+                            <Expander.Header>
+                                <TextBlock x:Name="CompletedHeader" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                            </Expander.Header>
+                            <ListView x:Name="DoneList" SelectionMode="Single" IsItemClickEnabled="True" ItemClick="Row_ItemClick"
+                                      ItemTemplateSelector="{StaticResource RowSelector}" ItemContainerStyle="{StaticResource RowContainer}"
+                                      CanDragItems="True" DragItemsStarting="Rows_DragItemsStarting" RightTapped="Row_RightTapped" KeyDown="List_KeyDown"
+                                      AutomationProperties.Name="Completed tasks" />
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
+                <ContentControl x:Name="ViewHost" Visibility="Collapsed" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False" />
             </Grid>
 
-            <ProgressRing x:Name="LoadingRing" Grid.Row="2" IsActive="False" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" />
-            <ScrollViewer Grid.Row="2" x:Name="Scroller">
-                <StackPanel Padding="0,0,0,24">
-                    <StackPanel x:Name="EmptyPanel" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,48,0,0" Spacing="8">
-                        <FontIcon x:Name="EmptyIcon" FontSize="40" Opacity="0.35" />
-                        <TextBlock x:Name="EmptyText" Opacity="0.65" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" MaxWidth="360" />
-                    </StackPanel>
-                    <ListView x:Name="OpenList" SelectionMode="Single" IsItemClickEnabled="True" ItemClick="Row_ItemClick"
-                              ItemTemplateSelector="{StaticResource RowSelector}" ItemContainerStyle="{StaticResource RowContainer}"
-                              CanDragItems="True" DragItemsStarting="Rows_DragItemsStarting" DragItemsCompleted="Rows_DragItemsCompleted"
-                              RightTapped="Row_RightTapped" KeyDown="List_KeyDown" />
-                    <Expander x:Name="CompletedExpander" Margin="0,12,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Collapsed" Padding="0">
-                        <Expander.Header>
-                            <TextBlock x:Name="CompletedHeader" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                        </Expander.Header>
-                        <ListView x:Name="DoneList" SelectionMode="Single" IsItemClickEnabled="True" ItemClick="Row_ItemClick"
-                                  ItemTemplateSelector="{StaticResource RowSelector}" ItemContainerStyle="{StaticResource RowContainer}"
-                                  CanDragItems="True" DragItemsStarting="Rows_DragItemsStarting" RightTapped="Row_RightTapped" KeyDown="List_KeyDown" />
-                    </Expander>
-                </StackPanel>
-            </ScrollViewer>
+            <!-- Add a task (bottom, To Do style) -->
+            <ctl:AddBar x:Name="AddBar" Grid.Row="3" Margin="0,8,0,0" />
         </Grid>
 
-        <ctl:DetailPane x:Name="Detail" Grid.Column="1" Visibility="Collapsed" Closed="Detail_Closed" Changed="Detail_Changed" />
+        <ctl:DetailPane x:Name="Detail" Grid.Column="1" Visibility="Collapsed" Closed="Detail_Closed" Changed="Detail_Changed" OpenTask="Detail_OpenTask" />
     </Grid>
 </Page>

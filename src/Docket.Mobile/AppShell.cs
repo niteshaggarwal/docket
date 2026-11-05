@@ -14,6 +14,11 @@ public sealed class AppShell : Shell
         Routing.RegisterRoute("list", typeof(ListPage));
         Routing.RegisterRoute("task", typeof(TaskPage));
         Routing.RegisterRoute("settings", typeof(SettingsPage));
+        Routing.RegisterRoute("overview", typeof(OverviewPage));
+        Routing.RegisterRoute("people", typeof(PeoplePage));
+        Routing.RegisterRoute("share", typeof(SharePage));
+        Routing.RegisterRoute("liststyle", typeof(ListStylePage));
+        Routing.RegisterRoute("aisettings", typeof(AiSettingsPage));
 
         // Top bar and status bar take the page colour, like a WinUI window with Mica.
         this.SetAppThemeColor(BackgroundColorProperty, Color.FromArgb("#F3F3F3"), Color.FromArgb("#202020"));

@@ -9,6 +9,7 @@
     <Project Path="src/Docket.Cli/Docket.Cli.csproj" />
     <Project Path="src/Docket.Mcp/Docket.Mcp.csproj" />
     <Project Path="src/Docket.Mobile/Docket.Mobile.csproj" />
+    <Project Path="src/Docket.Web/Docket.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Docket.Core.Tests/Docket.Core.Tests.csproj" />

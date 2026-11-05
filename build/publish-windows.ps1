@@ -1,5 +1,6 @@
-# Builds the Windows release: the Docket app, the docket CLI and the docket-mcp connector, self-contained,
-# laid out the way install.ps1 expects (app\, cli\, mcp\ plus the install scripts), and optionally zipped.
+# Builds the Windows release: the Docket app, the docket CLI, the docket-mcp connector and the docket-web skin,
+# self-contained, laid out the way install.ps1 expects (app\, cli\, mcp\ plus the install scripts; web\ is run by hand,
+# see docs/self-hosting.md), and optionally zipped.
 #   powershell -ExecutionPolicy Bypass -File build\publish-windows.ps1 [-Out artifacts\windows] [-Arch x64|arm64] [-Version 0.3.0] [-Zip]
 param(
     [string]$Out = (Join-Path $PSScriptRoot '..\artifacts\windows'),
@@ -26,6 +27,8 @@ function Publish($project, $dest, [string[]]$extra) {
 Publish 'src\Docket.App\Docket.App.csproj' 'app' @("-p:Platform=$platform")
 Publish 'src\Docket.Cli\Docket.Cli.csproj' 'cli' @('-p:PublishSingleFile=true', '-p:IncludeNativeLibrariesForSelfExtract=true', '-p:EnableCompressionInSingleFile=true')
 Publish 'src\Docket.Mcp\Docket.Mcp.csproj' 'mcp' @('-p:PublishSingleFile=true', '-p:IncludeNativeLibrariesForSelfExtract=true', '-p:EnableCompressionInSingleFile=true')
+# docket-web: Vikunja's web app with the Docket look (a small proxy in front of Vikunja; see docs/self-hosting.md).
+Publish 'src\Docket.Web\Docket.Web.csproj' 'web' @('-p:PublishSingleFile=true', '-p:IncludeNativeLibrariesForSelfExtract=true', '-p:EnableCompressionInSingleFile=true')
 
 Copy-Item (Join-Path $repo 'deploy\windows\*.ps1') $Out
 Copy-Item (Join-Path $repo 'LICENSE'), (Join-Path $repo 'NOTICE.md') $Out -ErrorAction SilentlyContinue

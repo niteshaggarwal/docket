@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Docket.Core;
 using Docket.Mobile.Services;
+using Icons = Docket.Mobile.Services.Icons;
 
 namespace Docket.Mobile.ViewModels;
 
@@ -11,6 +12,7 @@ public sealed partial class HomeViewModel(Session session) : ObservableObject
 {
     public ObservableCollection<ListEntry> Smart { get; } = [];
     public ObservableCollection<ListEntry> Lists { get; } = [];
+    public ObservableCollection<ListEntry> Views { get; } = [];
 
     [ObservableProperty] public partial bool IsBusy { get; set; }
     [ObservableProperty] public partial string? Error { get; set; }
@@ -40,24 +42,39 @@ public sealed partial class HomeViewModel(Session session) : ObservableObject
             if (Prefs.ShowCompleted) AddSmart(SmartList.Completed, "", 0);
             AddSmart(SmartList.Tasks, "", open.Count(t => t.ProjectId == inbox.Id));
 
+            Views.Clear();
+            Views.Add(new ListEntry { Key = "overview", Title = "Overview", Glyph = IconChars.Grid });
+            Views.Add(new ListEntry { Key = "view:upcoming", Title = "Upcoming", Glyph = IconChars.CalendarNext, Count = open.Count(t => t.Due is { } d && d.ToLocalTime().Date <= DateTime.Today.AddDays(Prefs.UpcomingDays)) });
+            Views.Add(new ListEntry { Key = "view:open", Title = "Open tasks", Glyph = IconChars.TaskList, Count = open.Count });
+
             Lists.Clear();
+            ListEntry Entry(VProject p, int indent, string fallback)
+            {
+                var style = ListStyle.Parse(p.Description);
+                return new ListEntry
+                {
+                    Key = $"list:{p.Id}", Title = p.Title, Glyph = Icons.Display(style.Icon, fallback), IsEmoji = Icons.IsEmoji(style.Icon), Indent = indent,
+                    Tint = p.HexColor.Length == 6 ? TaskRow.ColorOf(p.HexColor) : null, Count = open.Count(t => t.ProjectId == p.Id),
+                };
+            }
             foreach (var p in projects.Where(p => p.ParentProjectId == 0 && p.Id != inbox.Id))
             {
                 var children = projects.Where(c => c.ParentProjectId == p.Id).ToList();
-                Lists.Add(new ListEntry
-                {
-                    Key = $"list:{p.Id}", Title = p.Title, Glyph = children.Count > 0 ? "" : "",
-                    Tint = p.HexColor.Length == 6 ? TaskRow.ColorOf(p.HexColor) : null, IsGroup = children.Count > 0,
-                    Count = open.Count(t => t.ProjectId == p.Id),
-                });
-                foreach (var c in children)
-                    Lists.Add(new ListEntry { Key = $"list:{c.Id}", Title = c.Title, Glyph = "", Indent = 1, Tint = c.HexColor.Length == 6 ? TaskRow.ColorOf(c.HexColor) : null, Count = open.Count(t => t.ProjectId == c.Id) });
+                var e = Entry(p, 0, children.Count > 0 ? IconChars.Folder : IconChars.List);
+                Lists.Add(children.Count > 0 ? new ListEntry { Key = e.Key, Title = e.Title, Glyph = e.Glyph, IsEmoji = e.IsEmoji, Tint = e.Tint, Count = e.Count, IsGroup = true } : e);
+                foreach (var c in children) Lists.Add(Entry(c, 1, IconChars.List));
             }
             _ = Reminders.RescheduleAsync(svc);
         }
-        catch (Exception ex) when (ex is HttpRequestException or VikunjaException or DocketException or TaskCanceledException)
+        catch (VikunjaException ex) when (ex.Status == System.Net.HttpStatusCode.Unauthorized)
         {
-            Error = ex is HttpRequestException ? $"Can't reach {session.ServerUrl}. Is Tailscale on?" : ex.Message;
+            // The phone's key was removed or expired on the server: sign in again.
+            session.SignOut();
+            await Shell.Current.GoToAsync("//signin");
+        }
+        catch (Exception ex) when (U.IsExpected(ex))
+        {
+            Error = ex is HttpRequestException ? $"Can't reach {session.ServerUrl}. Is Tailscale on?" : U.Friendly(ex);
         }
         finally { IsBusy = false; _refreshing = false; }
     }
@@ -65,7 +82,11 @@ public sealed partial class HomeViewModel(Session session) : ObservableObject
     private bool _refreshing;
 
     [RelayCommand]
-    private Task OpenAsync(ListEntry entry) => Shell.Current.GoToAsync($"list?key={Uri.EscapeDataString(entry.Key)}");
+    private Task OpenAsync(ListEntry entry) => entry.Key == "overview" ? Shell.Current.GoToAsync("overview")
+        : Shell.Current.GoToAsync($"list?key={Uri.EscapeDataString(entry.Key)}");
+
+    [RelayCommand]
+    private Task PeopleAsync() => Shell.Current.GoToAsync("people");
 
     [RelayCommand]
     private Task SearchAsync() => string.IsNullOrWhiteSpace(Search) ? Task.CompletedTask
@@ -112,6 +133,12 @@ public static class Prefs
     public static void SetSort(string key, SortMode s) => Preferences.Default.Set("sort." + key, s.ToString());
     public static bool HideCompleted(string key) => Preferences.Default.Get("hidedone." + key, false);
     public static void SetHideCompleted(string key, bool v) => Preferences.Default.Set("hidedone." + key, v);
+    public static bool SortByPriority(string key) => Preferences.Default.Get("sortprio." + key, false);
+    public static void SetSortByPriority(string key, bool v) => Preferences.Default.Set("sortprio." + key, v);
+    /// <summary>"list", "table", "gantt" or "board".</summary>
+    public static string ViewFor(string key) => Preferences.Default.Get("view." + key, "list");
+    public static void SetView(string key, string view) => Preferences.Default.Set("view." + key, view);
+    public static int UpcomingDays { get => Preferences.Default.Get("upcoming.days", 7); set => Preferences.Default.Set("upcoming.days", value); }
 
     public static void ApplyTheme()
     {

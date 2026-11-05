@@ -16,9 +16,15 @@
 		reverse_proxy connector:8080
 	}
 
-	# Everything else: Vikunja's web app and API (the Docket apps sign in here).
+	# Everything else: Vikunja's web app (in the Docket skin, through docket-web) and its API; the Docket apps sign
+	# in here. docket-web passes the API, WebSocket, uploads and share links straight through. If it is down or
+	# missing (an older connector image), requests go to Vikunja directly, so the site keeps working.
 	handle {
-		reverse_proxy vikunja:3456
+		reverse_proxy web:8080 vikunja:3456 {
+			lb_policy first
+			lb_try_duration 3s
+			fail_duration 30s
+		}
 	}
 
 	header {

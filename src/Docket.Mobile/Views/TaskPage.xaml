@@ -29,23 +29,87 @@
                             <Button Grid.Column="2" Style="{StaticResource IconButton}" Text="{Binding StarGlyph}" FontFamily="{Binding StarFont}" VerticalOptions="Start"
                                     TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" Command="{Binding ToggleStarCommand}" SemanticProperties.Description="Mark as important" />
                         </Grid>
-                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Steps}">
+                        <!-- Subtasks: real tasks, nested to any depth -->
+                        <Label Text="{Binding SubtasksHeader}" Style="{StaticResource Caption}" Margin="44,4,0,2" IsVisible="{Binding SubtasksHeader, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" />
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Subtasks}">
                             <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="vm:StepRow">
-                                    <Grid ColumnDefinitions="44,*,44" HeightRequest="44">
+                                <DataTemplate x:DataType="vm:SubRow">
+                                    <Grid ColumnDefinitions="44,*,Auto,40" MinimumHeightRequest="44" Margin="{Binding Indent}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=OpenSubtaskCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}" />
+                                        </Grid.GestureRecognizers>
                                         <v:FluentCheck IsChecked="{Binding Done}" Scale="0.85"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=ToggleStepCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}" />
-                                        <Label Grid.Column="1" Text="{Binding Title}" Opacity="{Binding Opacity}" VerticalTextAlignment="Center" />
-                                        <Button Grid.Column="2" Style="{StaticResource IconButton}" Text="{StaticResource IcMore}" FontSize="16"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=StepMenuCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}"
-                                                SemanticProperties.Description="Step options" />
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=ToggleSubtaskCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}" />
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Padding="0,4">
+                                            <Label Text="{Binding Title}" Opacity="{Binding Opacity}" TextDecorations="{Binding Decorations}" />
+                                            <Label Text="{Binding Meta}" Style="{StaticResource Caption}" IsVisible="{Binding HasMeta}" />
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="2" Text="{Binding StarGlyph}" FontFamily="FluentIconsFilled" FontSize="14" VerticalTextAlignment="Center"
+                                               TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+                                        <Button Grid.Column="3" Style="{StaticResource IconButton}" Text="{StaticResource IcMore}" FontSize="16" WidthRequest="40"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=SubtaskMenuCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}"
+                                                SemanticProperties.Description="Subtask options" />
                                     </Grid>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </VerticalStackLayout>
-                        <Grid ColumnDefinitions="44,*">
+                        <Grid ColumnDefinitions="44,*,44">
                             <Label Style="{StaticResource AccentIcon}" Text="{StaticResource IcAdd}" FontSize="16" />
-                            <Entry Grid.Column="1" Placeholder="Add step" Text="{Binding NewStep}" ReturnType="Next" ReturnCommand="{Binding AddStepCommand}" />
+                            <Entry Grid.Column="1" Placeholder="Add subtask" Text="{Binding NewSubtask}" ReturnType="Next" ReturnCommand="{Binding AddSubtaskCommand}" />
+                            <Button Grid.Column="2" Style="{StaticResource IconButton}" Text="{StaticResource IcTree}" FontSize="18" Command="{Binding AddExistingSubtaskCommand}"
+                                    TextColor="{AppThemeBinding Light={StaticResource Text2Light}, Dark={StaticResource Text2Dark}}" SemanticProperties.Description="Add an existing task as a subtask" />
+                        </Grid>
+
+                        <!-- Old checklist steps, until they're turned into subtasks -->
+                        <VerticalStackLayout IsVisible="{Binding HasSteps}" Margin="0,6,0,0">
+                            <BoxView HeightRequest="1" Margin="44,0,12,6" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                            <Label Text="Steps (checklist)" Style="{StaticResource Caption}" Margin="44,0,0,0" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Steps}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:StepRow">
+                                        <Grid ColumnDefinitions="44,*,44" HeightRequest="44">
+                                            <v:FluentCheck IsChecked="{Binding Done}" Scale="0.85"
+                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=ToggleStepCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}" />
+                                            <Label Grid.Column="1" Text="{Binding Title}" Opacity="{Binding Opacity}" VerticalTextAlignment="Center" />
+                                            <Button Grid.Column="2" Style="{StaticResource IconButton}" Text="{StaticResource IcMore}" FontSize="16"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=StepMenuCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}"
+                                                    SemanticProperties.Description="Step options" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                            <Button Text="Turn into subtasks" Command="{Binding ConvertStepsCommand}" HorizontalOptions="Start" Margin="44,4,0,4"
+                                    ImageSource="{FontImageSource FontFamily=FluentIcons, Glyph={StaticResource IcTree}, Size=18, Color={AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}}" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Parents -->
+                <Border Style="{StaticResource Card}" Padding="0">
+                    <VerticalStackLayout>
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Parents}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ParentRow">
+                                    <Grid ColumnDefinitions="44,*,44" HeightRequest="48">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=OpenParentCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}" />
+                                        </Grid.GestureRecognizers>
+                                        <Label Style="{StaticResource Icon}" Text="{StaticResource IcParent}" FontSize="18" />
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                            <Label Text="Subtask of" Style="{StaticResource Caption}" />
+                                            <Label Text="{Binding Title}" LineBreakMode="TailTruncation" TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="2" Style="{StaticResource IconButton}" Text="{StaticResource IcDismiss}" FontSize="16"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=RemoveParentCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}"
+                                                SemanticProperties.Description="Take out from under this task" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.GestureRecognizers><TapGestureRecognizer Command="{Binding AddParentCommand}" /></Grid.GestureRecognizers>
+                            <Label Style="{StaticResource Icon}" Text="{StaticResource IcTree}" />
+                            <Label Grid.Column="1" Text="Put under another task" VerticalTextAlignment="Center" />
                         </Grid>
                     </VerticalStackLayout>
                 </Border>
@@ -77,6 +141,57 @@
                             <Label Style="{StaticResource Icon}" Text="{StaticResource IcRepeat}" />
                             <Label Grid.Column="1" Text="{Binding RepeatText}" VerticalTextAlignment="Center" />
                         </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Priority, start and end (what the timeline draws) -->
+                <Border Style="{StaticResource Card}" Padding="0">
+                    <VerticalStackLayout>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.GestureRecognizers><TapGestureRecognizer Command="{Binding PriorityCommand}" /></Grid.GestureRecognizers>
+                            <Label Style="{StaticResource Icon}" Text="{StaticResource IcFlag}" TextColor="{Binding PriorityColor, Converter={StaticResource TextOr}}" />
+                            <Label Grid.Column="1" Text="{Binding PriorityText}" VerticalTextAlignment="Center" TextColor="{Binding PriorityColor, Converter={StaticResource TextOr}}" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.GestureRecognizers><TapGestureRecognizer Command="{Binding StartCommand}" /></Grid.GestureRecognizers>
+                            <Label Style="{StaticResource Icon}" Text="{StaticResource IcCalendarNext}" />
+                            <Label Grid.Column="1" Text="{Binding StartText}" VerticalTextAlignment="Center" />
+                        </Grid>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.GestureRecognizers><TapGestureRecognizer Command="{Binding EndCommand}" /></Grid.GestureRecognizers>
+                            <Label Style="{StaticResource Icon}" Text="{StaticResource IcCalendarDone}" />
+                            <Label Grid.Column="1" Text="{Binding EndText}" VerticalTextAlignment="Center" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Assigned to -->
+                <Border Style="{StaticResource Card}" Padding="0">
+                    <VerticalStackLayout>
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Assignees}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:PersonRow">
+                                    <Grid ColumnDefinitions="44,*,44" HeightRequest="52">
+                                        <Border WidthRequest="28" HeightRequest="28" StrokeShape="RoundRectangle 14" StrokeThickness="0" BackgroundColor="{Binding Color}">
+                                            <Label Text="{Binding Initials}" TextColor="White" FontFamily="SelawikSemibold" FontSize="11" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                            <Label Text="{Binding Name}" />
+                                            <Label Text="{Binding Username}" Style="{StaticResource Caption}" />
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="2" Style="{StaticResource IconButton}" Text="{StaticResource IcDismiss}" FontSize="16"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TaskViewModel}}, Path=RemoveAssigneeCommand, x:DataType=vm:TaskViewModel}" CommandParameter="{Binding .}"
+                                                SemanticProperties.Description="Remove assignee" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.GestureRecognizers><TapGestureRecognizer Command="{Binding AssignCommand}" /></Grid.GestureRecognizers>
+                            <Label Style="{StaticResource Icon}" Text="{StaticResource IcPersonAdd}" />
+                            <Label Grid.Column="1" Text="Assign" VerticalTextAlignment="Center" />
+                        </Grid>
+                        <Label Text="Assigning someone shares this list with them (can edit) if they can't see it yet." Style="{StaticResource Caption}" Margin="44,0,12,10" />
                     </VerticalStackLayout>
                 </Border>
 
@@ -117,6 +232,26 @@
                 <!-- Notes -->
                 <Border Style="{StaticResource Card}" Padding="8,4">
                     <Editor Placeholder="Add note" Text="{Binding Notes}" AutoSize="TextChanges" MinimumHeightRequest="120" Unfocused="Notes_Unfocused" />
+                </Border>
+
+                <!-- History -->
+                <Border Style="{StaticResource Card}" Padding="0,8">
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout Spacing="0" HeightRequest="32">
+                            <Label Style="{StaticResource Icon}" Text="{StaticResource IcHistory}" WidthRequest="44" FontSize="18" />
+                            <Label Text="History" Style="{StaticResource BodyStrong}" VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding History}" Padding="44,0,12,4" Spacing="6">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:HistoryRow">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                        <Label Text="{Binding What}" FontSize="14" />
+                                        <Label Grid.Column="1" Text="{Binding When}" Style="{StaticResource Caption}" VerticalTextAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>
         </ScrollView>

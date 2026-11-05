@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- docket-web: Vikunja's web app with the Docket look and branding, served through a small reverse proxy in
+         front of Vikunja. Cross-platform (Windows release and the Docker image). -->
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Docket.Web</RootNamespace>
+    <AssemblyName>docket-web</AssemblyName>
+    <Version>0.3.0</Version>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ApplicationIcon>skin\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <Using Include="Microsoft.AspNetCore.Builder" />
+    <Using Include="Microsoft.AspNetCore.Hosting" />
+    <Using Include="Microsoft.AspNetCore.Http" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The skin (CSS, JS, icons) is embedded so a single-file exe or container needs nothing beside it. -->
+    <EmbeddedResource Include="skin\*" LogicalName="skin/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

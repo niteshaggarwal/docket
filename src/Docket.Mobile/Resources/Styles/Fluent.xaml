@@ -40,6 +40,24 @@
     <x:String x:Key="IcBulb">&#xF4D7;</x:String>
     <x:String x:Key="IcSend">&#xF69A;</x:String>
     <x:String x:Key="IcSignOut">&#xF6DA;</x:String>
+    <x:String x:Key="IcPeople">&#xF5A9;</x:String>
+    <x:String x:Key="IcShare">&#xF6B0;</x:String>
+    <x:String x:Key="IcBoard">&#xF1E3;</x:String>
+    <x:String x:Key="IcTable">&#xF75E;</x:String>
+    <x:String x:Key="IcGantt">&#xE68F;</x:String>
+    <x:String x:Key="IcSparkle">&#xEB34;</x:String>
+    <x:String x:Key="IcHistory">&#xF47F;</x:String>
+    <x:String x:Key="IcTree">&#xF7AF;</x:String>
+    <x:String x:Key="IcFlag">&#xF40C;</x:String>
+    <x:String x:Key="IcBack">&#xF15C;</x:String>
+    <x:String x:Key="IcChevronDown">&#xF2A4;</x:String>
+    <x:String x:Key="IcCalendarNext">&#xE23E;</x:String>
+    <x:String x:Key="IcCalendarDone">&#xF8C9;</x:String>
+    <x:String x:Key="IcPersonAdd">&#xF5C3;</x:String>
+    <x:String x:Key="IcParent">&#xF1A1;</x:String>
+    <x:String x:Key="IcPalette">&#xF2F6;</x:String>
+    <x:String x:Key="IcLink">&#xF4E5;</x:String>
+    <x:String x:Key="IcCopy">&#xF32C;</x:String>
 
     <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}" />

@@ -1,7 +1,9 @@
+using System.Globalization;
 using Docket.App.Pages;
 using Docket.App.Services;
 using Docket.Core;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Windows.ApplicationModel.DataTransfer;
@@ -12,6 +14,7 @@ namespace Docket.App;
 public sealed partial class MainWindow : Window
 {
     private readonly List<NavigationViewItemBase> _listItems = [];
+    private readonly HashSet<long> _shared = [];
     private Func<Task>? _undo;
     private CancellationTokenSource? _undoTimer;
 
@@ -23,7 +26,7 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBar);
-        AppWindow.Resize(new Windows.Graphics.SizeInt32(1360, 880));
+        SizeForDisplay(1440, 920);
         AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets", "Docket.ico"));
         ApplyTheme();
 
@@ -33,6 +36,20 @@ public sealed partial class MainWindow : Window
         AddKey(VirtualKey.F5, VirtualKeyModifiers.None, () => _ = RefreshAllAsync());
 
         Nav.Loaded += async (_, _) => await StartAsync();
+    }
+
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern uint GetDpiForWindow(nint hwnd);
+
+    /// <summary>Opens at a comfortable size in effective pixels, kept inside the screen's work area.</summary>
+    private void SizeForDisplay(int width, int height)
+    {
+        var scale = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this)) / 96.0;
+        if (scale <= 0) scale = 1;
+        var area = Microsoft.UI.Windowing.DisplayArea.GetFromWindowId(AppWindow.Id, Microsoft.UI.Windowing.DisplayAreaFallback.Primary).WorkArea;
+        var w = Math.Min((int)(width * scale), area.Width - 40);
+        var h = Math.Min((int)(height * scale), area.Height - 40);
+        AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(area.X + (area.Width - w) / 2, area.Y + (area.Height - h) / 2, w, h));
     }
 
     private void AddKey(VirtualKey key, VirtualKeyModifiers mods, Action action)
@@ -51,7 +68,27 @@ public sealed partial class MainWindow : Window
     {
         if (App.Service is null) { Nav.SelectedItem = Nav.SettingsItem; return; }
         await LoadListsAsync();
-        Nav.SelectedItem = MyDayItem;
+        // DOCKET_START picks the first page (used for development and screenshots): overview, people, upcoming, open,
+        // settings, important, planned, or list:<id>[:List|Table|Gantt|Board].
+        var start = Environment.GetEnvironmentVariable("DOCKET_START") ?? "";
+        if (start.StartsWith("list:", StringComparison.Ordinal))
+        {
+            var parts = start.Split(':');
+            if (parts.Length > 2 && Enum.TryParse<ListViewMode>(parts[2], true, out var mode)) ViewPrefs.Set($"list:{parts[1]}", mode);
+            start = $"list:{parts[1]}";
+        }
+        Nav.SelectedItem = start switch
+        {
+            "overview" => OverviewItem,
+            "people" => PeopleItem,
+            "upcoming" => UpcomingItem,
+            "open" => OpenItem,
+            "important" => ImportantItem,
+            "planned" => PlannedItem,
+            "settings" => Nav.SettingsItem,
+            { Length: > 5 } s when s.StartsWith("list:", StringComparison.Ordinal) && long.TryParse(s[5..], CultureInfo.InvariantCulture, out var id) => FindListItem(id) ?? MyDayItem,
+            _ => MyDayItem,
+        };
     }
 
     public async Task RefreshAllAsync()
@@ -74,46 +111,87 @@ public sealed partial class MainWindow : Window
             _listItems.Clear();
             foreach (var p in Projects.Where(p => p.ParentProjectId == 0 && p.Id != DefaultProject.Id))
             {
-                var item = MakeListItem(p);
-                foreach (var child in Projects.Where(c => c.ParentProjectId == p.Id))
-                    item.MenuItems.Add(MakeListItem(child));
-                item.Icon = new FontIcon { Glyph = item.MenuItems.Count > 0 ? "" : "" };
+                var children = Projects.Where(c => c.ParentProjectId == p.Id).ToList();
+                var item = MakeListItem(p, isGroup: children.Count > 0);
+                foreach (var child in children) item.MenuItems.Add(MakeListItem(child, isGroup: false));
                 _listItems.Add(item);
                 Nav.MenuItems.Add(item);
             }
             ListsHeader.Visibility = _listItems.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             if (selectedKey is string key && key.StartsWith("list:", StringComparison.Ordinal))
-                Nav.SelectedItem = FindListItem(long.Parse(key[5..], System.Globalization.CultureInfo.InvariantCulture)) ?? Nav.SelectedItem;
+                Nav.SelectedItem = FindListItem(long.Parse(key[5..], CultureInfo.InvariantCulture)) ?? Nav.SelectedItem;
             await RefreshCountsAsync();
             SetStatus("");
+            _ = UpdateSharedAsync(svc);
         }
         catch (Exception ex) when (ex is HttpRequestException or VikunjaException or DocketException or TaskCanceledException)
         {
-            ShowError("Can't reach Vikunja", ex.Message);
+            ShowError("Can't reach your Docket server", ex.Message);
         }
     }
 
-    private NavigationViewItem MakeListItem(VProject p)
+    private NavigationViewItem MakeListItem(VProject p, bool isGroup)
     {
+        var style = ListStyle.Parse(p.Description);
+        var tint = Ui.IsHex(p.HexColor) ? Ui.Hex(p.HexColor) : null;
+        var title = new TextBlock { Text = p.Title, TextTrimming = TextTrimming.CharacterEllipsis, VerticalAlignment = VerticalAlignment.Center };
+        var people = new FontIcon { Glyph = "", FontSize = 12, Opacity = 0.6, Visibility = _shared.Contains(p.Id) ? Visibility.Visible : Visibility.Collapsed, Margin = new Thickness(8, 0, 4, 0) };
+        ToolTipService.SetToolTip(people, "Shared list");
+        var content = new Grid();
+        content.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        Grid.SetColumn(people, 1);
+        content.Children.Add(title);
+        content.Children.Add(people);
         var item = new NavigationViewItem
         {
-            Content = p.Title, Tag = $"list:{p.Id}", AllowDrop = true,
-            Icon = new FontIcon { Glyph = "", Foreground = string.IsNullOrEmpty(p.HexColor) ? null : TaskItem.ColorBrush(p.HexColor, 1) },
+            Content = content, Tag = $"list:{p.Id}", AllowDrop = true,
+            Icon = Icons.NavIcon(style.Icon, tint, isGroup ? "" : Icons.ListGlyph),
         };
+        AutomationProperties.SetName(item, _shared.Contains(p.Id) ? $"{p.Title}, shared" : p.Title);
         item.DragOver += ListItem_DragOver;
         item.Drop += ListItem_Drop;
         return item;
     }
 
-    private NavigationViewItem? FindListItem(long id)
+    /// <summary>Marks lists shared with others (people, teams or a public link) with a small people icon.</summary>
+    private async Task UpdateSharedAsync(DocketService svc)
+    {
+        var found = new HashSet<long>();
+        var checks = Projects.Select(async p =>
+        {
+            try
+            {
+                var s = await svc.SharingAsync(p.Id);
+                if (s.People.Count + s.Teams.Count + s.Links.Count > 0) lock (found) found.Add(p.Id);
+            }
+            catch (Exception ex) when (ex is HttpRequestException or VikunjaException or TaskCanceledException) { }
+        });
+        await Task.WhenAll(checks);
+        if (found.SetEquals(_shared)) return;
+        _shared.Clear();
+        _shared.UnionWith(found);
+        foreach (var item in AllListItems())
+            if (item.Tag is string tag && long.TryParse(tag.AsSpan(5), CultureInfo.InvariantCulture, out var id) && item.Content is Grid { Children: [_, FontIcon icon] })
+            {
+                icon.Visibility = _shared.Contains(id) ? Visibility.Visible : Visibility.Collapsed;
+                var name = Projects.FirstOrDefault(p => p.Id == id)?.Title ?? "";
+                AutomationProperties.SetName(item, _shared.Contains(id) ? $"{name}, shared" : name);
+            }
+    }
+
+    private IEnumerable<NavigationViewItem> AllListItems()
     {
         foreach (var top in _listItems.OfType<NavigationViewItem>())
         {
-            if ((string)top.Tag == $"list:{id}") return top;
-            foreach (var child in top.MenuItems.OfType<NavigationViewItem>()) if ((string)child.Tag == $"list:{id}") return child;
+            yield return top;
+            foreach (var child in top.MenuItems.OfType<NavigationViewItem>()) yield return child;
         }
-        return null;
     }
+
+    private NavigationViewItem? FindListItem(long id) => AllListItems().FirstOrDefault(i => (string)i.Tag == $"list:{id}");
+
+    public bool IsShared(long projectId) => _shared.Contains(projectId);
 
     public async Task RefreshCountsAsync()
     {
@@ -122,11 +200,15 @@ public sealed partial class MainWindow : Window
         {
             await svc.EnsureMyDayFreshAsync();
             var open = await svc.Client.GetTasksAsync("done = false");
+            var now = DateTimeOffset.Now;
             SetBadge(MyDayBadge, open.Count(DocketService.InMyDay));
             SetBadge(ImportantBadge, open.Count(t => t.IsFavorite));
             SetBadge(PlannedBadge, open.Count(t => t.Due is not null));
+            SetBadge(UpcomingBadge, open.Count(t => t.Due is { } d && d.ToOffset(now.Offset).Date >= now.Date && d < now.Date.AddDays(8)));
+            SetBadge(OverdueBadge, open.Count(t => t.IsOverdue(now)));
             SetBadge(AllBadge, open.Count);
             SetBadge(TasksBadge, open.Count(t => t.ProjectId == DefaultProject?.Id));
+            ToolTipService.SetToolTip(OverviewItem, OverdueBadge.Visibility == Visibility.Visible ? $"Overview: {OverdueBadge.Value} overdue" : "Overview");
             var s = App.Settings;
             ImportantItem.Visibility = Vis(s.ShowImportant && !(s.HideEmptySmartLists && !open.Any(t => t.IsFavorite)));
             PlannedItem.Visibility = Vis(s.ShowPlanned && !(s.HideEmptySmartLists && !open.Any(t => t.Due is not null)));
@@ -149,10 +231,14 @@ public sealed partial class MainWindow : Window
         ErrorBar.IsOpen = false;
         if (args.IsSettingsSelected) { ContentFrame.Navigate(typeof(SettingsPage)); return; }
         if ((args.SelectedItem as NavigationViewItem)?.Tag is not string tag) return;
-        if (tag.StartsWith("smart:", StringComparison.Ordinal))
+        if (tag == "page:Overview") ContentFrame.Navigate(typeof(OverviewPage));
+        else if (tag == "page:People") ContentFrame.Navigate(typeof(PeoplePage));
+        else if (tag.StartsWith("view:", StringComparison.Ordinal))
+            ContentFrame.Navigate(typeof(ListPage), ListKey.Of(Enum.Parse<ExtraView>(tag[5..])));
+        else if (tag.StartsWith("smart:", StringComparison.Ordinal))
             ContentFrame.Navigate(typeof(ListPage), ListKey.Of(Enum.Parse<SmartList>(tag[6..])));
         else if (tag.StartsWith("list:", StringComparison.Ordinal))
-            ContentFrame.Navigate(typeof(ListPage), ListKey.Project(long.Parse(tag[5..], System.Globalization.CultureInfo.InvariantCulture)));
+            ContentFrame.Navigate(typeof(ListPage), ListKey.Project(long.Parse(tag[5..], CultureInfo.InvariantCulture)));
     }
 
     public void SelectList(long projectId)
@@ -161,10 +247,32 @@ public sealed partial class MainWindow : Window
         else if (FindListItem(projectId) is { } item) Nav.SelectedItem = item;
     }
 
+    public void ShowPeople() => Nav.SelectedItem = PeopleItem;
+
+    /// <summary>Opens a smart list or extra view by key (used by the Overview cards).</summary>
+    public void Show(ListKey key)
+    {
+        NavigationViewItem? item = key.Extra switch
+        {
+            ExtraView.Upcoming => UpcomingItem,
+            ExtraView.Open => OpenItem,
+            _ => key.Smart switch
+            {
+                SmartList.MyDay => MyDayItem, SmartList.Important => ImportantItem, SmartList.Planned => PlannedItem,
+                SmartList.All => AllItem, SmartList.Completed => CompletedItem, SmartList.Tasks => TasksItem, _ => null,
+            },
+        };
+        if (item is not null) Nav.SelectedItem = item;
+        else if (key.IsProject) SelectList(key.ProjectId);
+    }
+
     // ---------- drag a task onto a list ----------
+    private string TitleOf(NavigationViewItem item) =>
+        (string)item.Tag == "smart:Tasks" ? "Tasks" : Projects.FirstOrDefault(p => $"list:{p.Id}" == (string)item.Tag)?.Title ?? "list";
+
     private void ListItem_DragOver(object sender, DragEventArgs e)
     {
-        if (e.DataView.Contains(StandardDataFormats.Text)) { e.AcceptedOperation = DataPackageOperation.Move; e.DragUIOverride.Caption = "Move to " + ((NavigationViewItem)sender).Content; }
+        if (e.DataView.Contains(StandardDataFormats.Text)) { e.AcceptedOperation = DataPackageOperation.Move; e.DragUIOverride.Caption = "Move to " + TitleOf((NavigationViewItem)sender); }
     }
 
     private async void ListItem_Drop(object sender, DragEventArgs e)
@@ -176,7 +284,7 @@ public sealed partial class MainWindow : Window
         if (target is null) return;
         await RunAsync("Couldn't move the task", async () =>
         {
-            await svc.UpdateAsync(id, project: target.Id.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            await svc.UpdateAsync(id, project: target.Id.ToString(CultureInfo.InvariantCulture));
             SetStatus($"Moved to {target.Title}");
             await RefreshAllAsync();
         });
@@ -200,7 +308,7 @@ public sealed partial class MainWindow : Window
         await RunAsync("Couldn't create the list", async () =>
         {
             var p = await svc.CreateProjectAsync(name, parent);
-            if (group) await svc.CreateProjectAsync("Untitled list", p.Id.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (group) await svc.CreateProjectAsync("Untitled list", p.Id.ToString(CultureInfo.InvariantCulture));
             await LoadListsAsync();
             SelectList(p.Id);
         });
@@ -220,14 +328,25 @@ public sealed partial class MainWindow : Window
             ContentFrame.Navigate(typeof(ListPage), ListKey.Find(sender.Text.Trim()));
     }
 
-    private async void OpenWeb_Tapped(object sender, TappedRoutedEventArgs e) =>
-        await Launcher.LaunchUriAsync(new Uri(App.Settings.ServerUrl));
+    /// <summary>Opens Docket in the browser: the Docket-styled web app (docket-web) when it runs on this PC, else the server itself.</summary>
+    private async void OpenWeb_Tapped(object sender, TappedRoutedEventArgs e)
+    {
+        var url = App.Settings.ServerUrl;
+        var web = Environment.GetEnvironmentVariable("DOCKET_WEB_URL") ?? "http://localhost:3457";
+        try
+        {
+            using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
+            if ((await http.GetAsync(web.TrimEnd('/') + "/docket-web/health")).IsSuccessStatusCode) url = web;
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException) { }
+        await Launcher.LaunchUriAsync(new Uri(url));
+    }
 
     // ---------- messages ----------
     public void ShowError(string title, string message)
     {
         ErrorBar.Title = title;
-        ErrorBar.Message = message;
+        ErrorBar.Message = message.Replace("Vikunja: ", "", StringComparison.Ordinal).Replace("Vikunja", "the server", StringComparison.Ordinal);
         ErrorBar.IsOpen = true;
     }
 
@@ -250,7 +369,7 @@ public sealed partial class MainWindow : Window
         if (_undo is { } u) { _undo = null; await RunAsync("Couldn't undo", async () => { await u(); await RefreshAllAsync(); }); }
     }
 
-    /// <summary>Runs an action and shows any Vikunja error in the error bar.</summary>
+    /// <summary>Runs an action and shows any server error in the error bar.</summary>
     public async Task RunAsync(string failTitle, Func<Task> action)
     {
         try { await action(); }

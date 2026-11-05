@@ -11,11 +11,17 @@ Docket keeps your tasks on your own [Vikunja](https://vikunja.io) server, on you
 Nobody else holds your data, and every Docket app behaves the same way because they share one core library.
 
 - **My Day** that resets each morning, with suggestions. **Important**, **Planned** grouped by date, **All**, **Completed**.
-- **Lists and groups**, Kanban boards, drag to reorder, colours.
-- **Tasks** with steps, due dates, reminders, repeats (daily, weekdays, weekly, monthly, yearly, every N…), categories,
+- **Lists and groups** with icons and backgrounds, and List, Table, Gantt and Board views. Board columns get their own
+  colours and icons.
+- **Subtasks** nested to any depth (a task can have several parents), **priorities**, an **Overview** dashboard, **Upcoming**.
+- **People and teams:** assign tasks, share lists with people, teams or a public link.
+- **Add bar commands** (`/s` search, `/x` mark done) and **AI planning** with Ollama on your PC or a Claude, ChatGPT or Gemini key.
+- **Tasks** with subtasks, due dates, reminders, repeats (daily, weekdays, weekly, monthly, yearly, every N…), categories,
   files and notes. Quick add: `Send invoice friday !3`.
-- **Windows app** (WinUI 3, Fluent), **Android app** (.NET MAUI, matching Fluent design), **`docket` CLI** with JSON output.
-- **AI connector** (`docket-mcp`): 20 tools over MCP (local or HTTPS with OAuth) and REST with OpenAPI. It can't delete anything.
+- **Windows app** (WinUI 3, Fluent), **Android app** (.NET MAUI, matching Fluent design), **web app** in the same style, **`docket` CLI** with JSON output.
+- **AI connector** (`docket-mcp`): 26 tools over MCP (local or HTTPS with OAuth) and REST with OpenAPI. It can't delete anything.
+
+<p align="center"><img src="docs/screenshots/win-overview.png" width="49%" alt="Docket for Windows: the Overview dashboard"> <img src="docs/screenshots/win-subtasks-and-details.png" width="49%" alt="Docket for Windows: a list with nested subtasks and the details pane"></p>
 
 ## Get started
 
