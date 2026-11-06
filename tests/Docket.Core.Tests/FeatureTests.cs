@@ -129,3 +129,38 @@ public class AiPlanTests
         Assert.Equal("AD", DocketService.Initials(new VUser { Username = "admin" }));
     }
 }
+
+public class DocketCloudAiTests
+{
+    private sealed class Fake(System.Net.HttpStatusCode code, string body) : HttpMessageHandler
+    {
+        public HttpRequestMessage? Seen;
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken ct)
+        {
+            Seen = request;
+            return Task.FromResult(new HttpResponseMessage(code) { Content = new StringContent(body, System.Text.Encoding.UTF8, "application/json") });
+        }
+    }
+
+    private static readonly AiConfig Cloud = new("docket", "", "tok123", CloudUrl: "https://cloud.example.com/");
+
+    [Fact]
+    public async Task Plans_through_docket_cloud_with_the_users_token()
+    {
+        var fake = new Fake(System.Net.HttpStatusCode.OK, "{\"tasks\":[{\"title\":\"Book train\"}],\"credits\":{\"left\":299}}");
+        var plan = await AiPlanner.PlanAsync(Cloud, "trip", DateTimeOffset.Now, ["Home"], new HttpClient(fake));
+        Assert.Equal("Book train", plan.Single().Title);
+        Assert.Equal("https://cloud.example.com/api/pro/ai/plan", fake.Seen!.RequestUri!.ToString());
+        Assert.Equal("tok123", fake.Seen.Headers.Authorization!.Parameter);
+        Assert.True(Cloud.IsReady);
+        Assert.False((Cloud with { CloudUrl = "" }).IsReady);
+    }
+
+    [Fact]
+    public async Task Out_of_credits_shows_the_servers_message()
+    {
+        var fake = new Fake(System.Net.HttpStatusCode.PaymentRequired, "{\"detail\":\"You've used this month's AI credits.\"}");
+        var ex = await Assert.ThrowsAsync<DocketException>(() => AiPlanner.PlanAsync(Cloud, "x", DateTimeOffset.Now, [], new HttpClient(fake)));
+        Assert.Equal("You've used this month's AI credits.", ex.Message);
+    }
+}

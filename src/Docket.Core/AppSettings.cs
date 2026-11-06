@@ -79,7 +79,10 @@ public sealed class AppSettings : IDocketState
     [System.Text.Json.Serialization.JsonIgnore]
     public AiConfig Ai => new(AiProvider,
         AiModels.GetValueOrDefault(AiProvider) is { Length: > 0 } m ? m : AiConfig.DefaultModel(AiProvider),
-        GetAiKey(AiProvider), OllamaUrl);
+        AiProvider == "docket" ? Token : GetAiKey(AiProvider), OllamaUrl, DocketCloudUrl);
+
+    /// <summary>Docket Cloud address for Pro features (hosted AI planning). Empty when not subscribed.</summary>
+    public string DocketCloudUrl { get; set; } = "";
 
     /// <summary>The view chosen per list (List, Table, Gantt, Board), kept across restarts.</summary>
     public Dictionary<string, string> ListViews { get; set; } = [];

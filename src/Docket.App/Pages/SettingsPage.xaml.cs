@@ -9,7 +9,7 @@ namespace Docket.App.Pages;
 
 public sealed partial class SettingsPage : Page
 {
-    private static readonly string[] Providers = ["ollama", "anthropic", "openai", "gemini", "off"];
+    private static readonly string[] Providers = ["ollama", "anthropic", "openai", "gemini", "docket", "off"];
     private bool _loading;
     private CancellationTokenSource? _testCts;
     private List<string>? _installed;
@@ -75,11 +75,19 @@ public sealed partial class SettingsPage : Page
         if (Provider == "ollama") await CheckOllamaAsync();
     }
 
+    private void CloudUrl_LostFocus(object sender, RoutedEventArgs e)
+    {
+        App.Settings.DocketCloudUrl = CloudUrlBox.Text.Trim();
+        App.Settings.Save();
+    }
+
     private void ShowProvider()
     {
         var p = Provider;
         LocalPanel.Visibility = p == "ollama" ? Visibility.Visible : Visibility.Collapsed;
         CloudPanel.Visibility = p is "anthropic" or "openai" or "gemini" ? Visibility.Visible : Visibility.Collapsed;
+        DocketCloudPanel.Visibility = p == "docket" ? Visibility.Visible : Visibility.Collapsed;
+        if (p == "docket") CloudUrlBox.Text = App.Settings.DocketCloudUrl;
         TestButton.IsEnabled = p != "off";
         TestResult.IsOpen = false;
         if (CloudPanel.Visibility == Visibility.Visible)

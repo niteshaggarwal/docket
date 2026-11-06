@@ -6,7 +6,8 @@ using System.Text.Json.Serialization;
 namespace Docket.Core;
 
 /// <summary>Which AI plans tasks from a sentence. Provider: "ollama" (local), "anthropic", "openai", "gemini" or "off".</summary>
-public sealed record AiConfig(string Provider, string Model, string? ApiKey = null, string OllamaUrl = "http://localhost:11434")
+/// <remarks>"docket" = Docket Cloud (Pro): <paramref name="ApiKey"/> is the person's Docket server token and <paramref name="CloudUrl"/> the Docket Cloud address.</remarks>
+public sealed record AiConfig(string Provider, string Model, string? ApiKey = null, string OllamaUrl = "http://localhost:11434", string? CloudUrl = null)
 {
     public static string DefaultModel(string provider) => provider switch
     {
@@ -20,6 +21,7 @@ public sealed record AiConfig(string Provider, string Model, string? ApiKey = nu
     public bool IsReady => Provider switch
     {
         "ollama" => !string.IsNullOrWhiteSpace(Model),
+        "docket" => !string.IsNullOrWhiteSpace(CloudUrl) && !string.IsNullOrWhiteSpace(ApiKey),
         "anthropic" or "openai" or "gemini" => !string.IsNullOrWhiteSpace(ApiKey) && !string.IsNullOrWhiteSpace(Model),
         _ => false,
     };
@@ -27,6 +29,7 @@ public sealed record AiConfig(string Provider, string Model, string? ApiKey = nu
     public string Label => Provider switch
     {
         "ollama" => $"Local AI ({Model})",
+        "docket" => "Docket Cloud AI",
         "anthropic" => "Claude",
         "openai" => "ChatGPT",
         "gemini" => "Gemini",
@@ -65,6 +68,7 @@ public static class AiPlanner
         HttpClient? http = null, CancellationToken ct = default)
     {
         if (!config.IsReady) throw new DocketException("Turn on an AI in Settings first: local (Ollama) or an API key.");
+        if (config.Provider == "docket") return await DocketCloudAsync(http ?? Shared, config, request, now, lists, ct);
         http ??= Shared;
         var system = SystemPrompt(now, lists);
         if (config.Provider == "ollama" && await OllamaModelsAsync(config.OllamaUrl, ct) is { Count: > 0 } installed && !installed.Contains(config.Model))
@@ -159,6 +163,25 @@ public static class AiPlanner
         req.Headers.Add("x-goog-api-key", c.ApiKey);
         using var doc = JsonDocument.Parse(await PostAsync(http, req, ct));
         return doc.RootElement.GetProperty("candidates")[0].GetProperty("content").GetProperty("parts")[0].GetProperty("text").GetString() ?? "";
+    }
+
+    /// <summary>Docket Cloud (Pro): the server plans with its own AI and counts the call against the plan's monthly credits.</summary>
+    private static async Task<List<PlannedTask>> DocketCloudAsync(HttpClient http, AiConfig c, string request, DateTimeOffset now, IEnumerable<string> lists, CancellationToken ct)
+    {
+        var req = new HttpRequestMessage(HttpMethod.Post, $"{c.CloudUrl!.TrimEnd('/')}/api/pro/ai/plan")
+        {
+            Content = JsonContent.Create(new { text = request, lists = lists.ToList(), now = now.ToString("O") }),
+        };
+        req.Headers.Authorization = new("Bearer", c.ApiKey);
+        using var res = await http.SendAsync(req, ct);
+        var body = await res.Content.ReadAsStringAsync(ct);
+        if (!res.IsSuccessStatusCode)
+        {
+            var msg = body;
+            try { using var d = JsonDocument.Parse(body); if (d.RootElement.TryGetProperty("detail", out var x)) msg = x.GetString() ?? body; } catch (JsonException) { }
+            throw new DocketException((int)res.StatusCode == 402 ? msg : $"Docket Cloud: {Trim(msg)}");
+        }
+        return ParsePlan(body);
     }
 
     // ---------- local AI (Ollama) ----------

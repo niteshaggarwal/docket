@@ -45,11 +45,12 @@
                         Turn on the sparkle in the add bar (or type /ai) and describe what you need; the AI plans the tasks and subtasks and you choose which to add.
                         Local AI runs on this PC and nothing leaves it. Claude, ChatGPT and Gemini send your text to that company.
                     </TextBlock>
-                    <RadioButtons x:Name="ProviderChoice" Header="Provider" MaxColumns="5" SelectionChanged="Provider_Changed">
+                    <RadioButtons x:Name="ProviderChoice" Header="Provider" MaxColumns="3" SelectionChanged="Provider_Changed">
                         <x:String>Local (Ollama)</x:String>
                         <x:String>Claude</x:String>
                         <x:String>ChatGPT</x:String>
                         <x:String>Gemini</x:String>
+                        <x:String>Docket Cloud (Pro)</x:String>
                         <x:String>Off</x:String>
                     </RadioButtons>
 
@@ -82,6 +83,12 @@
                             <ProgressBar x:Name="PullProgress" Visibility="Collapsed" Maximum="1" Width="420" HorizontalAlignment="Left" />
                             <TextBlock x:Name="PullText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                         </StackPanel>
+                    </StackPanel>
+
+                    <!-- Docket Cloud (Pro) -->
+                    <StackPanel x:Name="DocketCloudPanel" Spacing="8" Visibility="Collapsed">
+                        <TextBox x:Name="CloudUrlBox" Header="Docket Cloud address" PlaceholderText="https://cloud.example.com" Width="380" HorizontalAlignment="Left" LostFocus="CloudUrl_LostFocus" />
+                        <TextBlock Style="{StaticResource Note}" Text="With Docket Pro, planning runs on Docket Cloud with no key to set up. Each plan uses one of your monthly AI credits." />
                     </StackPanel>
 
                     <!-- Online -->
