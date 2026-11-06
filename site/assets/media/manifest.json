@@ -1,0 +1,361 @@
+{
+  "generated": "2026-11-06",
+  "notes": "Fictional demo data on a throwaway Vikunja server. Windows captures at 125% scale, 1440x920 effective window (board views 1600 wide). Android: AVD \"docket\", 1080x2400.",
+  "items": [
+    {
+      "file": "win-overview-dark.webp",
+      "fallback": "win-overview-dark.png",
+      "type": "image",
+      "caption": "Windows app: Overview dashboard with counts, 14-day completion chart, priorities and today/overdue lists (dark).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 72358,
+      "fallbackBytes": 275102
+    },
+    {
+      "file": "win-overview-light.webp",
+      "fallback": "win-overview-light.png",
+      "type": "image",
+      "caption": "Windows app: Overview dashboard (light theme).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 71426,
+      "fallbackBytes": 267269
+    },
+    {
+      "file": "win-subtasks-dark.webp",
+      "fallback": "win-subtasks-dark.png",
+      "type": "image",
+      "caption": "Windows app: nested subtasks two levels deep, details pane showing subtasks, parent, priority, assignees and history.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 79060,
+      "fallbackBytes": 320823
+    },
+    {
+      "file": "win-subtasks-light.webp",
+      "fallback": "win-subtasks-light.png",
+      "type": "image",
+      "caption": "Windows app: nested subtasks with the details pane open (light theme).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 77374,
+      "fallbackBytes": 306877
+    },
+    {
+      "file": "win-two-parents-dark.webp",
+      "fallback": "win-two-parents-dark.png",
+      "type": "image",
+      "caption": "Windows app: one task kept under two parents (\"Travel adapters\" under Kids' bag and Shopping before we leave).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 76008,
+      "fallbackBytes": 310033
+    },
+    {
+      "file": "win-board-dark.webp",
+      "fallback": "win-board-dark.png",
+      "type": "image",
+      "caption": "Windows app: Board view with custom coloured columns and icons, assignees, priorities and due dates.",
+      "width": 1600,
+      "height": 920,
+      "bytes": 74006,
+      "fallbackBytes": 310993
+    },
+    {
+      "file": "win-board-light.webp",
+      "fallback": "win-board-light.png",
+      "type": "image",
+      "caption": "Windows app: Board view with coloured columns (light theme).",
+      "width": 1600,
+      "height": 920,
+      "bytes": 73700,
+      "fallbackBytes": 302561
+    },
+    {
+      "file": "win-table-dark.webp",
+      "fallback": "win-table-dark.png",
+      "type": "image",
+      "caption": "Windows app: Table view with done, due, priority, assignees, labels and created columns.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 86368,
+      "fallbackBytes": 336755
+    },
+    {
+      "file": "win-gantt-dark.webp",
+      "fallback": "win-gantt-dark.png",
+      "type": "image",
+      "caption": "Windows app: Gantt view of the next two weeks with a today line and drag-to-reschedule bars.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 76522,
+      "fallbackBytes": 307825
+    },
+    {
+      "file": "win-list-dark.webp",
+      "fallback": "win-list-dark.png",
+      "type": "image",
+      "caption": "Windows app: a shared list with labels, priorities, assignees and expandable subtasks.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 65796,
+      "fallbackBytes": 275736
+    },
+    {
+      "file": "win-upcoming-dark.webp",
+      "fallback": "win-upcoming-dark.png",
+      "type": "image",
+      "caption": "Windows app: Upcoming, tasks grouped by day with overdue first.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 64380,
+      "fallbackBytes": 249515
+    },
+    {
+      "file": "win-people-dark.webp",
+      "fallback": "win-people-dark.png",
+      "type": "image",
+      "caption": "Windows app: People and teams page (accounts and teams on the server).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 61814,
+      "fallbackBytes": 233855
+    },
+    {
+      "file": "win-share-dark.webp",
+      "fallback": "win-share-dark.png",
+      "type": "image",
+      "caption": "Windows app: Share dialog with a person, a team and a public link.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 64706,
+      "fallbackBytes": 285157
+    },
+    {
+      "file": "win-ai-plan-dark.webp",
+      "fallback": "win-ai-plan-dark.png",
+      "type": "image",
+      "caption": "Windows app: AI plan preview in the add bar, nested tasks with dates and priorities, nothing added until confirmed.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 71994,
+      "fallbackBytes": 383815
+    },
+    {
+      "file": "win-slash-dark.webp",
+      "fallback": "win-slash-dark.png",
+      "type": "image",
+      "caption": "Windows app: slash-command popup in the add bar (/s, /x, /m, /i, /ai, /?).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 51504,
+      "fallbackBytes": 317015
+    },
+    {
+      "file": "win-home-dark.webp",
+      "fallback": "win-home-dark.png",
+      "type": "image",
+      "caption": "Windows app: a list with a gradient background and emoji icon.",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 54072,
+      "fallbackBytes": 334595
+    },
+    {
+      "file": "win-home-light.webp",
+      "fallback": "win-home-light.png",
+      "type": "image",
+      "caption": "Windows app: list with a gradient background and emoji icon (light theme).",
+      "width": 1600,
+      "height": 1024,
+      "bytes": 53314,
+      "fallbackBytes": 311623
+    },
+    {
+      "file": "web-overview-dark.webp",
+      "fallback": "web-overview-dark.png",
+      "type": "image",
+      "caption": "Web (docket-web skin): overview with current tasks (dark).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 87738,
+      "fallbackBytes": 153918
+    },
+    {
+      "file": "web-overview-light.webp",
+      "fallback": "web-overview-light.png",
+      "type": "image",
+      "caption": "Web (docket-web skin): overview with current tasks (light).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 86178,
+      "fallbackBytes": 150668
+    },
+    {
+      "file": "web-list-dark.webp",
+      "fallback": "web-list-dark.png",
+      "type": "image",
+      "caption": "Web: list view of a shared project with labels, priorities and subtasks (dark).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 79654,
+      "fallbackBytes": 156647
+    },
+    {
+      "file": "web-list-light.webp",
+      "fallback": "web-list-light.png",
+      "type": "image",
+      "caption": "Web: list view (light).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 76968,
+      "fallbackBytes": 151565
+    },
+    {
+      "file": "web-kanban-dark.webp",
+      "fallback": "web-kanban-dark.png",
+      "type": "image",
+      "caption": "Web: Kanban board with Backlog / In progress / Review / Done (dark).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 83928,
+      "fallbackBytes": 161645
+    },
+    {
+      "file": "web-kanban-light.webp",
+      "fallback": "web-kanban-light.png",
+      "type": "image",
+      "caption": "Web: Kanban board (light).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 81914,
+      "fallbackBytes": 156054
+    },
+    {
+      "file": "web-trip-dark.webp",
+      "fallback": "web-trip-dark.png",
+      "type": "image",
+      "caption": "Web: nested subtasks in the Family trip list (dark).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 55350,
+      "fallbackBytes": 109456
+    },
+    {
+      "file": "web-trip-light.webp",
+      "fallback": "web-trip-light.png",
+      "type": "image",
+      "caption": "Web: nested subtasks in the Family trip list (light).",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 53524,
+      "fallbackBytes": 106117
+    },
+    {
+      "file": "android-home.webp",
+      "fallback": "android-home.png",
+      "type": "image",
+      "caption": "Android: home screen with smart lists, groups and list icons.",
+      "width": 1080,
+      "height": 2400,
+      "bytes": 42776,
+      "fallbackBytes": 115031
+    },
+    {
+      "file": "android-overview.webp",
+      "fallback": "android-overview.png",
+      "type": "image",
+      "caption": "Android: Overview dashboard with completion chart and priorities.",
+      "width": 1080,
+      "height": 2400,
+      "bytes": 67172,
+      "fallbackBytes": 141463
+    },
+    {
+      "file": "android-subtasks.webp",
+      "fallback": "android-subtasks.png",
+      "type": "image",
+      "caption": "Android: list with nested subtasks expanded two levels.",
+      "width": 1080,
+      "height": 2400,
+      "bytes": 82288,
+      "fallbackBytes": 187445
+    },
+    {
+      "file": "android-task.webp",
+      "fallback": "android-task.png",
+      "type": "image",
+      "caption": "Android: task screen with subtasks, parent, dates and priority.",
+      "width": 1080,
+      "height": 2400,
+      "bytes": 56576,
+      "fallbackBytes": 125898
+    },
+    {
+      "file": "android-board.webp",
+      "fallback": "android-board.png",
+      "type": "image",
+      "caption": "Android: Board view, swipe between coloured columns.",
+      "width": 1080,
+      "height": 2400,
+      "bytes": 68546,
+      "fallbackBytes": 158657
+    },
+    {
+      "file": "rec-win-views.mp4",
+      "type": "video",
+      "caption": "Recording (Windows): switching List, Table, Gantt and Board views.",
+      "width": 1600,
+      "height": 920,
+      "seconds": 11.7,
+      "poster": "rec-win-views.png",
+      "bytes": 295687,
+      "note": "H.264, silent, loop"
+    },
+    {
+      "file": "rec-win-subtasks.mp4",
+      "type": "video",
+      "caption": "Recording (Windows): expanding nested subtasks and opening the details pane.",
+      "width": 1600,
+      "height": 1024,
+      "seconds": 12.4,
+      "poster": "rec-win-subtasks.png",
+      "bytes": 229017,
+      "note": "H.264, silent, loop"
+    },
+    {
+      "file": "rec-win-ai.mp4",
+      "type": "video",
+      "caption": "Recording (Windows): typing an /ai request, reviewing the plan, adding 7 tasks.",
+      "width": 1600,
+      "height": 1024,
+      "seconds": 12.9,
+      "poster": "rec-win-ai.png",
+      "bytes": 163944,
+      "note": "H.264, silent, loop"
+    },
+    {
+      "file": "rec-android-overview.mp4",
+      "type": "video",
+      "caption": "Recording (Android): scrolling the Overview dashboard.",
+      "width": 720,
+      "height": 1600,
+      "seconds": 11.8,
+      "poster": "rec-android-overview.png",
+      "bytes": 1271381,
+      "note": "H.264, silent, loop"
+    },
+    {
+      "file": "rec-web-kanban.mp4",
+      "type": "video",
+      "caption": "Recording (web): dragging cards across Kanban columns.",
+      "width": 1440,
+      "height": 900,
+      "seconds": 10.9,
+      "poster": "rec-web-kanban.png",
+      "bytes": 196505,
+      "note": "H.264, silent, loop"
+    }
+  ]
+}

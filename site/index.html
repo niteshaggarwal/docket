@@ -480,6 +480,86 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
   .bigkb { height: 320px; } .bigkb .kb { width: 760px; bottom: 16px; }
   .keyboard .kb { transform: rotateX(14deg); }
 }
+/* ---------- real screenshots and videos ---------- */
+.tv-light { display: none !important; }
+:root[data-theme="light"] .tv-light { display: block !important; } :root[data-theme="light"] .tv-dark { display: none !important; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .tv-light { display: block !important; } :root:not([data-theme="dark"]) .tv-dark { display: none !important; } }
+picture { display: block; }
+picture img, video.lazyvid { display: block; width: 100%; height: auto; }
+video.lazyvid { background: #1b1b1f; object-fit: cover; }
+.app.shots { display: block; top: 6%; width: 78%; height: auto; aspect-ratio: 1600 / 1024; background: #202020; box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 30px 70px rgba(0,0,0,.55); }
+:root[data-theme="light"] .app.shots { background: #f3f3f3; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .app.shots { background: #f3f3f3; } }
+.shot-scene { position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease; }
+.shot-scene.on { opacity: 1; }
+.shot-scene picture, .shot-scene img { width: 100%; height: 100%; }
+.shot-scene img { object-fit: cover; object-position: left top; }
+
+/* feature rows */
+.new-sec { padding: 40px 0 60px; }
+.feats { display: grid; gap: 120px; }
+.frow { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.frow.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr); }
+.frow.flip .f-media { order: 2; }
+.f-media { position: relative; border-radius: 14px; }
+.f-media > picture, .f-media > video, .f-media > .tv-dark { border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px var(--line-2), var(--shadow), 0 0 100px rgba(255,106,61,.07); }
+.f-inset { position: absolute; width: 46%; right: -5%; bottom: -12%; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px var(--line-2), 0 24px 60px rgba(0,0,0,.5); }
+.f-stack { position: relative; padding-bottom: 16%; }
+.f-stack picture { border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px var(--line-2), var(--shadow); }
+.f-stack .s1 { width: 84%; }
+.f-stack .s2 { position: absolute; width: 70%; right: 0; bottom: 0; box-shadow: 0 0 0 1px var(--line-2), 0 24px 60px rgba(0,0,0,.5); }
+.f-copy { display: grid; gap: 12px; align-content: center; }
+.f-eb { display: inline-flex; align-items: center; gap: 8px; font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
+.f-eb svg { width: 16px; height: 16px; }
+.f-copy h3 { font-size: clamp(24px, 2.8vw, 32px); font-weight: 650; line-height: 1.12; }
+.f-copy p { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--fg-2); max-width: 44ch; }
+.f-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.f-chips span { font: 500 12px/1 var(--mono); padding: 6px 9px; border-radius: 8px; color: var(--fg-2); box-shadow: 0 0 0 1px var(--line-2) inset; background: var(--panel); }
+.f-link { font-size: 14px; font-weight: 500; color: var(--fg); width: fit-content; border-bottom: 1px solid rgba(255,106,61,.5); padding-bottom: 2px; }
+.f-link:hover { color: var(--brand); }
+
+/* AI planning panel */
+.plan-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 8px; }
+.plan-grid video, .plan-grid picture { border-radius: 12px; overflow: hidden; }
+.pg-side { display: grid; gap: 8px; align-content: start; }
+.panel .cap code { font: 12px var(--mono); padding: 1px 5px; border-radius: 5px; background: var(--line); color: var(--fg); }
+
+/* self-healing card */
+.bento .wide.flip { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.heal { position: absolute; inset: 22px 26px; display: grid; align-content: center; gap: 8px; font: 12.5px/1.4 var(--mono); }
+.heal .hl { display: flex; gap: 12px; padding: 8px 12px; border-radius: 8px; background: var(--panel-2); box-shadow: 0 0 0 1px var(--line) inset; color: var(--fg-3); }
+.heal .hl.ok { color: var(--fg); box-shadow: 0 0 0 1px rgba(63,185,138,.4) inset; }
+.heal .t { color: var(--fg-3); }
+
+/* android */
+.ph.media { padding: 0; overflow: hidden; background: #111; }
+.ph.media::before { z-index: 2; }
+.ph.media picture, .ph.media img, .ph.media video { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 38px; }
+.droid-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; max-width: 860px; margin-top: 70px; }
+.droid-strip figure { margin: 0; display: grid; gap: 10px; justify-items: center; }
+.droid-strip picture { border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px var(--line-2), 0 20px 40px rgba(0,0,0,.35); }
+.droid-strip figcaption { font-size: 13px; color: var(--fg-3); }
+.comm.three { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1020px; margin-top: -30px; }
+.comm.three .h svg { width: 20px; height: 20px; flex: none; }
+@media (max-width: 980px) {
+  .frow, .frow.flip { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .frow.flip .f-media { order: 0; }
+  .f-inset { right: 3%; }
+  .feats { gap: 96px; }
+  .bento .wide.flip { grid-template-columns: minmax(0, 1fr); }
+  .bento .wide.flip .bvis { min-height: 230px; order: 2; }
+}
+@media (max-width: 680px) {
+  .desktop.has-shots { aspect-ratio: 10 / 8.6; }
+  .app.shots { width: 94%; top: 4%; }
+  .f-inset { width: 50%; bottom: -10%; }
+  .f-copy p { font-size: 15.5px; }
+  .plan-grid { grid-template-columns: minmax(0, 1fr); }
+  .pg-side { grid-template-columns: 1fr 1fr; }
+  .droid-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 40px; }
+  .comm.three { grid-template-columns: minmax(0, 1fr); margin-top: 0; }
+  .heal { inset: 16px; font-size: 11.5px; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; scroll-behavior: auto !important; }
 }
@@ -519,6 +599,13 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
   <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></symbol>
   <symbol id="i-undo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
   <symbol id="i-repeat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></g></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5 4v13a2 2 0 0 0 2 2h3M5 9h5"/><rect x="11" y="6.5" width="9" height="5" rx="1.5"/><rect x="11" y="16.5" width="9" height="5" rx="1.5"/></g></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-1.4-1.3-1.6-1.3-2.9 0-1 .8-1.6 1.8-1.6H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></g></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2A6.5 6.5 0 0 1 21.5 20"/></g></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 3c.6 4.2 2.8 6.4 7 7-4.2.6-6.4 2.8-7 7-.6-4.2-2.8-6.4-7-7 4.2-.6 6.4-2.8 7-7zM19 15.5c.3 1.6 1 2.3 2.5 2.5-1.5.2-2.2.9-2.5 2.5-.2-1.6-1-2.3-2.5-2.5 1.5-.2 2.3-.9 2.5-2.5z"/></symbol>
+  <symbol id="i-heal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/><path d="M12 8v4l2.5 1.5"/></g></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></g></symbol>
   <symbol id="i-bell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
 </svg>
 
@@ -560,28 +647,53 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
   <section class="showcase" id="features">
     <div class="container">
       <div class="sec-head reveal"><h2>Plan less. Finish more.</h2><p>One list for today, everything else when it's due.</p></div>
-      <div class="desktop reveal" id="desktop">
+      <div class="desktop has-shots reveal" id="desktop">
         <div class="wallpaper"></div>
-        <div class="app" role="img" aria-label="The Docket app for Windows">
-          <div class="titlebar"><img src="assets/docket-64.png" alt="">Docket<div class="wc"><span>–</span><span>▢</span><span>✕</span></div></div>
-          <div class="app-body">
-            <div class="side">
-              <div class="it" data-s="0"><i>☀</i>My Day<span class="n">4</span></div>
-              <div class="it"><i>☆</i>Important<span class="n">2</span></div>
-              <div class="it" data-s="1"><i>▦</i>Planned<span class="n">7</span></div>
-              <div class="it"><i>∞</i>All<span class="n">18</span></div>
-              <div class="it"><i>✓</i>Completed</div>
-              <hr>
-              <div class="it" data-s="2"><i>≡</i>Studio<span class="n">6</span></div>
-              <div class="it" data-s="3"><i>▥</i>Website launch<span class="n">5</span></div>
-              <div class="it"><i>≡</i>Home<span class="n">4</span></div>
-            </div>
-            <div class="main" id="scenes"></div>
-          </div>
+        <div class="app shots" role="group" aria-label="Docket for Windows">
+          <div class="shot-scene on"><picture class="tv-dark"><source srcset="assets/media/win-overview-dark.webp" type="image/webp"><img src="assets/media/win-overview-dark.png" alt="Docket for Windows: the Overview dashboard" width="1600" height="1024" loading="lazy" decoding="async"></picture><picture class="tv-light"><source srcset="assets/media/win-overview-light.webp" type="image/webp"><img src="assets/media/win-overview-light.png" alt="Docket for Windows: the Overview dashboard" width="1600" height="1024" loading="lazy" decoding="async"></picture></div>
+          <div class="shot-scene"><picture class="tv-dark"><source data-srcset="assets/media/win-subtasks-dark.webp" type="image/webp"><img data-src="assets/media/win-subtasks-dark.png" alt="Docket for Windows: nested subtasks with the details pane open" width="1600" height="1024" decoding="async"></picture><picture class="tv-light"><source data-srcset="assets/media/win-subtasks-light.webp" type="image/webp"><img data-src="assets/media/win-subtasks-light.png" alt="Docket for Windows: nested subtasks with the details pane open" width="1600" height="1024" decoding="async"></picture></div>
+          <div class="shot-scene"><picture class="tv-dark"><source data-srcset="assets/media/win-board-dark.webp" type="image/webp"><img data-src="assets/media/win-board-dark.png" alt="Docket for Windows: a board with coloured columns and icons" width="1600" height="920" decoding="async"></picture><picture class="tv-light"><source data-srcset="assets/media/win-board-light.webp" type="image/webp"><img data-src="assets/media/win-board-light.png" alt="Docket for Windows: a board with coloured columns and icons" width="1600" height="920" decoding="async"></picture></div>
+          <div class="shot-scene"><picture class="tv-dark"><source data-srcset="assets/media/win-home-dark.webp" type="image/webp"><img data-src="assets/media/win-home-dark.png" alt="Docket for Windows: a list with an emoji icon and a gradient background" width="1600" height="1024" decoding="async"></picture><picture class="tv-light"><source data-srcset="assets/media/win-home-light.webp" type="image/webp"><img data-src="assets/media/win-home-light.png" alt="Docket for Windows: a list with an emoji icon and a gradient background" width="1600" height="1024" decoding="async"></picture></div>
+          <div class="shot-scene"><picture class=""><source data-srcset="assets/media/win-upcoming-dark.webp" type="image/webp"><img data-src="assets/media/win-upcoming-dark.png" alt="Docket for Windows: Upcoming, tasks grouped by day" width="1600" height="1024" decoding="async"></picture></div>
+          <div class="shot-scene"><picture class=""><source data-srcset="assets/media/win-share-dark.webp" type="image/webp"><img data-src="assets/media/win-share-dark.png" alt="Docket for Windows: sharing a list with a person, a team and a public link" width="1600" height="1024" decoding="async"></picture></div>
+          <div class="shot-scene"><picture class=""><source data-srcset="assets/media/win-ai-plan-dark.webp" type="image/webp"><img data-src="assets/media/win-ai-plan-dark.png" alt="Docket for Windows: an AI plan to confirm in the add bar" width="1600" height="1024" decoding="async"></picture></div>
         </div>
         <div class="taskbar" id="taskbar" role="tablist" aria-label="Features"></div>
       </div>
       <p class="caption" id="caption" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- NEW IN 0.3 -->
+  <section class="new-sec" id="new">
+    <div class="container">
+      <div class="sec-head reveal"><span class="eyebrow">New in 0.3</span><h2 style="margin-top:10px">Everything you'd expect. Then some.</h2><p>Subtasks, four views, people and a web app, in every Docket app.</p></div>
+      <div class="feats">
+      <div class="frow reveal">
+        <div class="f-media"><video class="lazyvid" width="1600" height="920" style="aspect-ratio:1600/920" muted loop playsinline preload="none" data-poster="assets/media/rec-win-views.png" aria-label="Switching a list between List, Table, Gantt and Board views"><source data-src="assets/media/rec-win-views.mp4" type="video/mp4"></video></div>
+        <div class="f-copy"><span class="f-eb"><svg><use href="#i-board"/></svg>Views</span><h3>One list, four ways to see it.</h3><p>Switch any list between List, Table, Gantt and Board. Drag a Gantt bar to reschedule, drag a card to move it on.</p><div class="f-chips"><span>List</span><span>Table</span><span>Gantt</span><span>Board</span></div><a class="f-link" href="docs/using/views-and-boards.html">Views and boards →</a></div>
+      </div>
+      <div class="frow flip reveal">
+        <div class="f-media"><video class="lazyvid" width="1600" height="1024" style="aspect-ratio:1600/1024" muted loop playsinline preload="none" data-poster="assets/media/rec-win-subtasks.png" aria-label="Expanding nested subtasks and opening the details pane"><source data-src="assets/media/rec-win-subtasks.mp4" type="video/mp4"></video><div class="f-inset"><picture class=""><source srcset="assets/media/win-two-parents-dark.webp" type="image/webp"><img src="assets/media/win-two-parents-dark.png" alt="One task kept under two parents" width="1600" height="1024" loading="lazy" decoding="async"></picture></div></div>
+        <div class="f-copy"><span class="f-eb"><svg><use href="#i-tree"/></svg>Subtasks</span><h3>Subtasks, as deep as you need.</h3><p>Every subtask is a real task with its own dates, star, reminders and subtasks. One task can even sit under two parents, like travel adapters under both the kids’ bag and the shopping list.</p><a class="f-link" href="docs/using/windows.html#subtasks-and-steps">How subtasks work →</a></div>
+      </div>
+      <div class="frow reveal">
+        <div class="f-media"><picture class="tv-dark"><source srcset="assets/media/win-board-dark.webp" type="image/webp"><img src="assets/media/win-board-dark.png" alt="A board with custom coloured columns, icons, assignees and priorities" width="1600" height="920" loading="lazy" decoding="async"></picture><picture class="tv-light"><source srcset="assets/media/win-board-light.webp" type="image/webp"><img src="assets/media/win-board-light.png" alt="A board with custom coloured columns, icons, assignees and priorities" width="1600" height="920" loading="lazy" decoding="async"></picture></div>
+        <div class="f-copy"><span class="f-eb"><svg><use href="#i-board"/></svg>Boards</span><h3>Boards in your colours.</h3><p>Add as many columns as you like, give each a colour and an icon or emoji, and drag cards across. Moving a card to Done completes the task everywhere.</p><a class="f-link" href="docs/using/views-and-boards.html#boards">Boards →</a></div>
+      </div>
+      <div class="frow flip reveal">
+        <div class="f-media"><div class="f-stack"><picture class="s1"><source srcset="assets/media/win-people-dark.webp" type="image/webp"><img src="assets/media/win-people-dark.png" alt="The People and teams page" width="1600" height="1024" loading="lazy" decoding="async"></picture><picture class="s2"><source srcset="assets/media/win-share-dark.webp" type="image/webp"><img src="assets/media/win-share-dark.png" alt="Sharing a list with a person, a team and a public link" width="1600" height="1024" loading="lazy" decoding="async"></picture></div></div>
+        <div class="f-copy"><span class="f-eb"><svg><use href="#i-people"/></svg>People</span><h3>Share lists. Assign tasks.</h3><p>Add people and teams on your own server, share a list with someone, a whole team or a public link, and assign tasks to anyone who can see it.</p><a class="f-link" href="docs/using/people-and-sharing.html">People, teams and sharing →</a></div>
+      </div>
+      <div class="frow reveal">
+        <div class="f-media"><picture class="tv-dark"><source srcset="assets/media/win-home-dark.webp" type="image/webp"><img src="assets/media/win-home-dark.png" alt="A list with an emoji icon and a gradient background" width="1600" height="1024" loading="lazy" decoding="async"></picture><picture class="tv-light"><source srcset="assets/media/win-home-light.webp" type="image/webp"><img src="assets/media/win-home-light.png" alt="A list with an emoji icon and a gradient background" width="1600" height="1024" loading="lazy" decoding="async"></picture></div>
+        <div class="f-copy"><span class="f-eb"><svg><use href="#i-palette"/></svg>List style</span><h3>Make every list yours.</h3><p>Give a list an emoji or a Fluent icon, and a colour, gradient, accent or your own photo as its background.</p><a class="f-link" href="docs/using/views-and-boards.html#list-icons-and-backgrounds">List icons and backgrounds →</a></div>
+      </div>
+      <div class="frow flip reveal">
+        <div class="f-media"><div class="tv-dark"><video class="lazyvid" width="1440" height="900" style="aspect-ratio:1440/900" muted loop playsinline preload="none" data-poster="assets/media/rec-web-kanban.png" aria-label="Dragging cards across Kanban columns in Docket web"><source data-src="assets/media/rec-web-kanban.mp4" type="video/mp4"></video></div><picture class="tv-light"><source srcset="assets/media/web-kanban-light.webp" type="image/webp"><img src="assets/media/web-kanban-light.png" alt="Docket web: a Kanban board in the light theme" width="1600" height="1000" loading="lazy" decoding="async"></picture></div>
+        <div class="f-copy"><span class="f-eb"><svg><use href="#i-code"/></svg>Web</span><h3>Docket in any browser.</h3><p>Docket web gives Vikunja’s web app the Docket look, light and dark, with list, table, Gantt and Kanban views. Use it on a Mac, a Linux PC or anyone’s laptop.</p><a class="f-link" href="docs/using/web.html">Docket web →</a></div>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -642,10 +754,10 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
           <div class="panel glow-follow reveal">
             <div class="qa">
               <div class="qa-input"><span aria-hidden="true">＋</span><span id="qaText"></span><span class="caret"></span></div>
-              <div class="parsed" id="parsed"><span class="pchip due">Fri 20 Nov</span><span class="pchip pri">High priority</span><span class="pchip">#Admin</span><span class="pchip">Studio</span></div>
-              <div class="qa-list"><span>Call the printer tomorrow</span><span>Water the plants in 3 days</span><span>Pay rent 1/12 !2</span><span>Review designs mon #Client</span></div>
+              <div class="parsed" id="parsed"><span class="pchip due">Due Friday</span><span class="pchip pri">High priority</span><span class="pchip">Studio</span></div>
+              <div class="qa-list"><span>Call the printer tomorrow</span><span>Water the plants in 3 days</span><span>Pay rent 1/12 !2</span><span>Review designs mon</span></div>
             </div>
-            <div class="cap"><h4>Quick add</h4><p>Type it the way you'd say it. Dates, priority and categories come out of the title by themselves.</p></div>
+            <div class="cap"><h4>Quick add</h4><p>Type it the way you'd say it. Dates and priority come out of the title by themselves.</p></div>
           </div>
           <div class="panel glow-follow reveal">
             <div class="orbit" id="orbit" aria-hidden="true">
@@ -655,8 +767,16 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
             <div class="cap"><h4>Cloud or fully offline</h4><p>Claude, ChatGPT, Gemini, LM Studio or Ollama. One connector, over MCP or a plain REST API.</p></div>
           </div>
         </div>
+
+        <div class="panel glow-follow reveal">
+          <div class="plan-grid">
+            <div class="pg-main"><video class="lazyvid" width="1600" height="1024" style="aspect-ratio:1600/1024" muted loop playsinline preload="none" data-poster="assets/media/rec-win-ai.png" aria-label="Typing an /ai request in the add bar, reviewing the plan and adding seven tasks"><source data-src="assets/media/rec-win-ai.mp4" type="video/mp4"></video></div>
+            <div class="pg-side"><picture class=""><source srcset="assets/media/win-slash-dark.webp" type="image/webp"><img src="assets/media/win-slash-dark.png" alt="The add bar showing its slash commands" width="1600" height="1024" loading="lazy" decoding="async"></picture><picture class=""><source srcset="assets/media/win-ai-plan-dark.webp" type="image/webp"><img src="assets/media/win-ai-plan-dark.png" alt="An AI plan with nested tasks, dates and priorities, waiting to be confirmed" width="1600" height="1024" loading="lazy" decoding="async"></picture></div>
+          </div>
+          <div class="cap"><h4>AI planning, right in the add bar</h4><p>Type <code>/ai</code> and what you need, then confirm the plan. <code>/s</code>, <code>/x</code>, <code>/m</code> and <code>/i</code> search, finish, add to My Day and star in one go. Runs on Ollama on your PC, or your own Claude, ChatGPT or Gemini key.</p></div>
+        </div>
       </div>
-      <p class="learn"><a href="docs/ai/index.html">Learn more about Docket and AI →</a></p>
+      <p class="learn"><a href="docs/ai/index.html">Learn more about Docket and AI →</a> &nbsp;·&nbsp; <a href="docs/using/ai-planning.html">AI planning in the app →</a></p>
     </div>
   </section>
 
@@ -688,6 +808,15 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
           <div class="bvis"><div class="keys"><div class="bkey press"><span class="t">⌃</span><span class="b">Ctrl</span></div>+<div class="bkey big press k2">T</div></div></div>
           <div class="txt"><h4><svg><use href="#i-kbd"/></svg>Shortcuts</h4><p>Ctrl+N to add, Ctrl+T for My Day, Ctrl+D to finish. Your hands never leave the keys.</p></div>
         </div>
+        <div class="bcard wide flip glow-follow reveal">
+          <div class="bvis"><div class="heal" aria-hidden="true">
+            <div class="hl"><span class="t">09:41</span>Task server stopped</div>
+            <div class="hl ok"><span class="t">09:41</span>Starting your task server…</div>
+            <div class="hl ok"><span class="t">09:41</span>Back in 3 s, carried on with “Add task”</div>
+            <div class="hl"><span class="t">09:45</span>5-minute check: all good</div>
+          </div></div>
+          <div class="txt"><h4><svg><use href="#i-heal"/></svg>Self-healing server</h4><p>If your server stops, Docket starts it again. The apps, the CLI and the AI connector restart it and carry on, and Windows checks it every 5 minutes.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -710,25 +839,19 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
       <div class="mobile-copy reveal">
         <span class="eyebrow">Docket on your phone</span>
         <h2 style="margin-top:12px">Your lists in your pocket.</h2>
-        <p>The same My Day, steps and reminders on Android and iPhone, synced with your own server. Sign in with its address and you're done.</p>
+        <p>Overview, nested subtasks, boards, sharing and AI planning on Android, synced with your own server. Sign in with its address and you're done. iPhone is on the way.</p>
         <div class="stores">
           <div class="store" aria-label="Google Play, beta testing"><svg class="lg"><use href="#l-googleplay"/></svg><span><small>Beta testing on</small><b>Google Play</b></span><span class="badge">Beta</span></div>
           <div class="store soon" aria-label="App Store, coming soon"><svg class="lg"><use href="#l-apple"/></svg><span><small>Coming soon on the</small><b>App Store</b></span><span class="badge">Soon</span></div>
         </div>
         <a class="apk" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg class="lg"><use href="#l-android"/></svg>Can't wait? Get the Android APK from GitHub →</a>
       </div>
-      <div class="phones reveal" aria-hidden="true">
-        <div class="ph a"><h6>My Day</h6><div class="d">Wednesday, 4 November</div>
-          <div class="task"><span class="ck"></span><span class="t">Send Q3 invoice<span class="meta">Studio · 4:00 pm</span></span><span class="star on">★</span></div>
-          <div class="task"><span class="ck"></span><span class="t">Review homepage copy<span class="meta">1 of 3 steps</span></span></div>
-          <div class="task"><span class="ck"></span><span class="t">Call the printer<span class="meta">Overdue</span></span></div>
-          <div class="task done"><span class="ck"></span><span class="t">Book train tickets</span></div><span class="fab">+</span></div>
-        <div class="ph b"><h6>Planned</h6><div class="d">7 tasks</div><div class="grp">Today</div>
-          <div class="task"><span class="ck"></span><span class="t">Send Q3 invoice</span></div><div class="grp">Tomorrow</div>
-          <div class="task"><span class="ck"></span><span class="t">Water the plants<span class="meta">↻ every 3 days</span></span></div><div class="grp">This week</div>
-          <div class="task"><span class="ck"></span><span class="t">Launch the new site</span></div><span class="fab">+</span></div>
+      <div class="phones reveal">
+        <div class="ph a media"><video class="lazyvid" width="720" height="1600" style="aspect-ratio:720/1600" muted loop playsinline preload="none" data-poster="assets/media/rec-android-overview.png" aria-label="Docket for Android: scrolling the Overview dashboard"><source data-src="assets/media/rec-android-overview.mp4" type="video/mp4"></video></div>
+        <div class="ph b media"><picture class=""><source srcset="assets/media/android-subtasks.webp" type="image/webp"><img src="assets/media/android-subtasks.png" alt="Docket for Android: a list with nested subtasks" width="1080" height="2400" loading="lazy" decoding="async"></picture></div>
       </div>
     </div>
+    <div class="container droid-strip reveal"><figure><picture class=""><source srcset="assets/media/android-home.webp" type="image/webp"><img src="assets/media/android-home.png" alt="Docket for Android: home with smart lists and list icons" width="1080" height="2400" loading="lazy" decoding="async"></picture><figcaption>Home</figcaption></figure><figure><picture class=""><source srcset="assets/media/android-task.webp" type="image/webp"><img src="assets/media/android-task.png" alt="Docket for Android: a task with subtasks, parent, dates and priority" width="1080" height="2400" loading="lazy" decoding="async"></picture><figcaption>Task details</figcaption></figure><figure><picture class=""><source srcset="assets/media/android-board.webp" type="image/webp"><img src="assets/media/android-board.png" alt="Docket for Android: a board with coloured columns" width="1080" height="2400" loading="lazy" decoding="async"></picture><figcaption>Board</figcaption></figure><figure><picture class=""><source srcset="assets/media/android-overview.webp" type="image/webp"><img src="assets/media/android-overview.png" alt="Docket for Android: the Overview dashboard" width="1080" height="2400" loading="lazy" decoding="async"></picture><figcaption>Overview</figcaption></figure></div>
   </section>
 
   <!-- STAY IN THE LOOP -->
@@ -741,6 +864,11 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
         <a class="ccard" href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener"><div class="h"><svg width="20" height="20"><use href="#i-code"/></svg>Discussions<small>Q&amp;A</small></div><p>Setup help, ideas and show-and-tell from people running Docket.</p><span class="go">Join →</span></a>
       </div>
     </div>
+    <div class="container"><div class="comm three reveal">
+      <a class="ccard" href="docs/index.html"><div class="h"><svg width="20" height="20"><use href="#i-book"/></svg>Docs<small>Guides</small></div><p>Set up on Windows, Docker or your phone, learn every feature and the CLI, and fix things fast.</p><span class="go">Read the docs →</span></a>
+      <a class="ccard" href="docs/ai/claude-skill.html"><div class="h"><svg class="lg"><use href="#l-claude"/></svg>Claude skill<small>Free</small></div><p>Teach Claude how to work with your tasks: plan your day, break work down, keep your words.</p><span class="go">Get the skill →</span></a>
+      <a class="ccard" href="pro.html"><div class="h"><svg width="20" height="20"><use href="#i-sparkle"/></svg>Docket Pro<small>Roadmap</small></div><p>Docket stays free. See what's coming, from Docket Cloud to iPhone, and join the waitlist.</p><span class="go">See the roadmap →</span></a>
+    </div></div>
     <div class="guides" id="guides"></div>
     <p class="loop-note container">Step-by-step guides for every way to run Docket.</p>
   </section>
@@ -859,42 +987,59 @@ void main(){
   addEventListener('scroll', () => { const y = Math.min(scrollY / 700, 1); c.style.opacity = 1 - y * .9; c.style.transform = `translateY(${y * 80}px) scale(${1 + y * .05})`; }, { passive: true });
 })();
 
-/* ---------- showcase scenes ---------- */
+/* ---------- showcase scenes (real screenshots; the next scene loads while one shows) ---------- */
 (() => {
-  const T = (t, o = {}) => `<div class="task${o.done ? ' done' : ''}"><span class="ck"></span><span class="t">${t}${o.meta ? `<span class="meta">${o.meta}</span>` : ''}</span>${o.chip ? `<span class="chip">${o.chip}</span>` : ''}<span class="star${o.star ? ' on' : ''}">${o.star ? '★' : '☆'}</span></div>`;
   const scenes = [
-    { icon: 'i-sun-day', name: 'My Day', side: 0, cap: '<b>My Day.</b> A fresh list every morning. Pull in what matters from Suggestions and leave the rest for later.',
-      html: `<h4>My Day</h4><div class="date">Wednesday, 4 November</div>${T('Send Q3 invoice', { meta: 'Studio · Due today · ⏰ 4:00 pm', star: 1, chip: 'Admin' })}${T('Review homepage copy', { meta: 'Website launch · 1 of 3 steps' })}${T('Call the printer', { meta: 'Studio · Overdue, yesterday', star: 1 })}${T('Book train tickets', { meta: 'Home', done: 1 })}<div class="addbar">＋ Add a task</div>` },
-    { icon: 'i-cal', name: 'Planned', side: 1, cap: '<b>Planned.</b> Everything with a date, grouped into Earlier, Today, Tomorrow, This week and Later.',
-      html: `<h4>Planned</h4><div class="grp">Today</div>${T('Send Q3 invoice', { meta: 'Studio · 4:00 pm', star: 1 })}<div class="grp">Tomorrow</div>${T('Team call notes', { meta: 'Studio' })}${T('Water the plants', { meta: 'Home · ↻ every 3 days' })}<div class="grp">This week</div>${T('Launch the new site', { meta: 'Website launch · Fri', chip: 'Client' })}` },
-    { icon: 'i-steps', name: 'Steps', side: 2, cap: '<b>Steps, reminders and repeats.</b> Break any task into a checklist, set a reminder and make it come back on schedule.',
-      html: `<div class="detail"><div><h4>Studio</h4><div class="date">6 tasks</div>${T('Prepare client proposal', { meta: '2 of 4 steps · Due Fri', star: 1 })}${T('Update portfolio', { meta: 'Studio' })}${T('Renew domain', { meta: '↻ yearly' })}</div><div class="dpane extra"><b style="font-size:14px">Prepare client proposal</b><div class="row">✓ <span style="text-decoration:line-through;opacity:.6">Gather references</span></div><div class="row">✓ <span style="text-decoration:line-through;opacity:.6">Rough pricing</span></div><div class="row">○ Write scope</div><div class="row">○ Design PDF</div><div class="row">☀ <b>Added to My Day</b></div><div class="row">⏰ Remind me Fri 9:00</div><div class="row">↻ Every weekday</div></div></div>` },
-    { icon: 'i-board', name: 'Board', side: 3, cap: '<b>Boards.</b> Every list is also a Kanban board. Drag a card to Done and it\'s finished everywhere.',
-      html: `<h4>Website launch</h4><div class="date">Board</div><div class="board"><div class="col"><h5>To-Do · 3</h5><div class="card">Write FAQ</div><div class="card">Press kit</div><div class="card">OG images</div></div><div class="col"><h5>Doing · 1</h5><div class="card">Review homepage copy<br><span style="opacity:.6">1 of 3 steps</span></div></div><div class="col"><h5>Done · 2</h5><div class="card" style="opacity:.6">Pick fonts</div><div class="card" style="opacity:.6">Domain DNS</div></div></div>` },
-    { icon: 'i-phone', name: 'Android', side: 0, cap: '<b>Docket for Android.</b> The same lists and the same Fluent look, with reminders as phone notifications.',
-      html: `<div class="sync"><h4>On your phone too</h4><div class="date">Synced with your own server</div><div class="line">Swipe right to add to My Day, left to delete. Quick add works the same everywhere.</div>${T('Send Q3 invoice', { meta: 'Studio · 4:00 pm', star: 1 })}${T('Call the printer', { meta: 'Overdue' })}</div><div class="phone"><b style="font-size:15px">My Day</b><div style="font-size:10.5px;opacity:.6;margin:2px 0 10px">Wed, 4 Nov</div>${T('Send Q3 invoice', { meta: '4:00 pm' })}${T('Review copy')}${T('Call the printer')}</div>` },
+    { icon: 'i-grid', name: 'Overview', cap: '<b>Overview.</b> Open, due today, overdue and the next 7 days at a glance, with your last 14 days and progress per list.' },
+    { icon: 'i-tree', name: 'Subtasks', cap: '<b>Nested subtasks.</b> Break work down as deep as you like. Every subtask is a full task with its own dates, star and reminders.' },
+    { icon: 'i-board', name: 'Boards', cap: '<b>Boards.</b> Every list is also a Kanban board, with columns in your own colours and icons.' },
+    { icon: 'i-palette', name: 'List style', cap: '<b>Make lists yours.</b> An emoji or Fluent icon, and a colour, gradient or photo behind every list.' },
+    { icon: 'i-cal', name: 'Upcoming', cap: '<b>Upcoming.</b> The days ahead, grouped by day, overdue first.' },
+    { icon: 'i-people', name: 'Sharing', cap: '<b>Share and assign.</b> Share a list with a person, a team or a public link, then assign tasks.' },
+    { icon: 'i-sparkle', name: 'AI planning', cap: '<b>AI planning.</b> Type /ai and what you need. Docket drafts a nested plan, and nothing is added until you say so.' },
   ];
-  const host = $('#scenes'), bar = $('#taskbar'), cap = $('#caption'), desk = $('#desktop'), sides = document.querySelectorAll('.side .it');
+  const host = $('#desktop .shots'), bar = $('#taskbar'), cap = $('#caption'), desk = $('#desktop');
+  const views = [...host.querySelectorAll('.shot-scene')];
+  const hydrate = n => views[n].querySelectorAll('[data-src],[data-srcset]').forEach(e => {
+    if (e.dataset.srcset) { e.srcset = e.dataset.srcset; delete e.dataset.srcset; }
+    if (e.dataset.src) { e.src = e.dataset.src; delete e.dataset.src; }
+  });
   const dur = 5200; let i = 0, timer = null, paused = false, seen = false;
   scenes.forEach((s, n) => {
-    host.appendChild(el('div', 'scene', s.html));
     const b = el('button', 'tb', `<svg><use href="#${s.icon}"/></svg><span class="tip">${s.name}</span><span class="prog"></span>`);
     b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-label', s.name); b.style.setProperty('--dur', dur + 'ms');
     b.addEventListener('click', () => { show(n); restart(); });
     bar.appendChild(b);
   });
   const show = n => {
-    i = n;
-    host.querySelectorAll('.scene').forEach((e, k) => e.classList.toggle('on', k === n));
+    i = n; hydrate(n);
+    views.forEach((e, k) => e.classList.toggle('on', k === n));
     bar.querySelectorAll('.tb').forEach((e, k) => { e.classList.toggle('on', k === n); e.setAttribute('aria-selected', k === n); const p = e.querySelector('.prog'); p.replaceWith(p.cloneNode()); });
-    sides.forEach(e => e.classList.toggle('on', +e.dataset.s === scenes[n].side && e.dataset.s != null));
     cap.innerHTML = scenes[n].cap;
+    if (seen) setTimeout(() => hydrate((n + 1) % scenes.length), 1200);
   };
   const restart = () => { clearInterval(timer); if (!reduce && seen) timer = setInterval(() => { if (!paused) show((i + 1) % scenes.length); }, dur); };
   desk.addEventListener('mouseenter', () => { paused = true; desk.classList.add('paused'); });
   desk.addEventListener('mouseleave', () => { paused = false; desk.classList.remove('paused'); });
-  new IntersectionObserver(es => { if (es[0].isIntersecting && !seen) { seen = true; show(0); restart(); } }, { threshold: .3 }).observe(desk);
+  new IntersectionObserver(es => { if (es[0].isIntersecting && !seen) { seen = true; show(i); restart(); } }, { threshold: .3 }).observe(desk);
   show(0);
+})();
+
+/* ---------- videos: load and play only near the viewport; reduced motion shows the poster ---------- */
+(() => {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) {
+      if (!v.dataset.ready) {
+        v.dataset.ready = '1'; v.poster = v.dataset.poster; v.preload = 'metadata';
+        v.querySelectorAll('source[data-src]').forEach(s => { s.src = s.dataset.src; });
+        if (reduce) v.controls = true; else v.autoplay = true;
+        v.load();
+      }
+      if (!reduce) v.play().catch(() => {});
+    } else if (v.dataset.ready && !v.paused) v.pause();
+  }), { rootMargin: '250px 0px' });
+  document.querySelectorAll('video.lazyvid').forEach(v => io.observe(v));
 })();
 
 /* ---------- keyboards ---------- */
@@ -970,15 +1115,15 @@ buildKb($('#kb2'), { hot: ['5:0', '4:6'] }); // Ctrl + N
   };
   new IntersectionObserver(es => { if (es[0].isIntersecting) run(); }, { threshold: .5 }).observe(chat);
 
-  const text = 'Send invoice friday !3 #Admin';
+  const text = 'Send invoice friday !3';
   const out = $('#qaText'), chips = $('#parsed').querySelectorAll('.pchip');
-  const marks = { 19: 0, 22: 1, 29: 2 };
+  const marks = { 19: 0, 22: 1 };
   let n = 0;
   const tick = () => {
     if (n === 0) chips.forEach(c => c.classList.remove('show'));
     n++; out.textContent = text.slice(0, n);
     if (marks[n] != null) chips[marks[n]].classList.add('show');
-    if (n === text.length) { chips[3].classList.add('show'); setTimeout(() => { n = 0; tick(); }, 3200); }
+    if (n === text.length) { chips[2].classList.add('show'); setTimeout(() => { n = 0; tick(); }, 3200); }
     else setTimeout(tick, 70 + Math.random() * 60);
   };
   if (reduce) { out.textContent = text; chips.forEach(c => c.classList.add('show')); } else tick();
@@ -1022,14 +1167,16 @@ buildKb($('#kb2'), { hot: ['5:0', '4:6'] }); // Ctrl + N
 (() => {
   const items = [
     { p: 'It can plan your day.', t: 'My Day', n: 'A fresh list every morning, with suggestions from what\'s due.', h: '<h5>My Day</h5>' + ['Send Q3 invoice', 'Review homepage copy', 'Call the printer'].map(x => `<div class="task"><span class="ck"></span>${x}</div>`).join('') },
-    { p: 'Break tasks into steps.', t: 'Steps', n: 'A checklist inside any task, ticked off one by one.', h: '<h5>Prepare proposal</h5>' + ['Gather references', 'Rough pricing', 'Write scope'].map((x, i) => `<div class="task${i < 2 ? ' done' : ''}"><span class="ck"></span><span class="t">${x}</span></div>`).join('') },
+    { p: 'Nest subtasks under subtasks.', t: 'Subtasks', n: 'Real tasks inside tasks, as deep as you like, even under two parents.', h: '<h5>Family trip</h5>' + [['Kids\u2019 bag', 0], ['Travel adapters', 1], ['Snacks', 1]].map(([x, d]) => `<div class="task" style="margin-left:${d * 18}px"><span class="ck"></span><span class="t">${x}</span></div>`).join('') },
     { p: 'Remind you on time.', t: 'Reminders', n: 'Windows and Android notifications with Complete and Snooze.', h: '<h5>⏰ 4:00 pm</h5><div class="task"><span class="ck"></span>Send Q3 invoice</div><div style="opacity:.6">Snooze 10 min · Complete</div>' },
     { p: 'Repeat on weekdays.', t: 'Repeats', n: 'Daily, weekdays, monthly, yearly or every N of anything.', h: '<h5>↻ Every weekday</h5><div class="task"><span class="ck"></span>Stand-up notes</div><div style="opacity:.6">Next: Thu 5 Nov</div>' },
     { p: 'Sort by importance.', t: 'Important', n: 'Star what matters and it rises to the top.', h: '<h5>Important</h5>' + ['Send Q3 invoice', 'Call the printer'].map(x => `<div class="task"><span class="ck"></span>${x}<span class="star on" style="margin-left:auto">★</span></div>`).join('') },
-    { p: 'Show a Kanban board.', t: 'Board', n: 'To-Do, Doing and Done for every list.', h: '<h5>Website launch</h5><div class="board" style="grid-template-columns:1fr 1fr 1fr"><div class="col"><div class="card">FAQ</div></div><div class="col"><div class="card">Copy</div></div><div class="col"><div class="card">Fonts</div></div></div>' },
+    { p: 'Switch to a board or a Gantt chart.', t: 'Views', n: 'List, Table, Gantt and Board for every list.', h: '<h5>Website launch</h5><div class="board" style="grid-template-columns:1fr 1fr 1fr"><div class="col"><div class="card">FAQ</div></div><div class="col"><div class="card">Copy</div></div><div class="col"><div class="card">Fonts</div></div></div>' },
+    { p: 'Share a list with your team.', t: 'Sharing', n: 'People, teams and public links on your own server.', h: '<h5>Shared with</h5><div class="task">Sam · can edit</div><div class="task">Studio team · can view</div><div class="task">🔗 Public link</div>' },
     { p: 'Attach files.', t: 'Files', n: 'Briefs, receipts and photos stay with the task.', h: '<h5>Renew passport</h5><div class="task">📎 photo.jpg · 1.2 MB</div><div class="task">📎 form.pdf · 220 KB</div>' },
     { p: 'Sync to your phone.', t: 'Android', n: 'The same lists in your pocket, from your own server.', h: '<h5>Docket for Android</h5><div class="task"><span class="ck"></span>Pick up parcel</div><div style="opacity:.6">Synced just now</div>' },
     { p: 'Back up every night.', t: 'Backups', n: 'A full dump at 11 pm, the newest 14 kept.', h: '<h5>Backups</h5><div class="task">vikunja-dump_2026-11-04.zip</div><div class="task">vikunja-dump_2026-11-03.zip</div>' },
+    { p: 'Plan a project with AI.', t: 'AI planning', n: 'Type /ai in the add bar and confirm the plan.', h: '<h5>/ai plan the trip</h5><div class="task"><span class="ck"></span>Book flights</div><div class="task" style="margin-left:18px"><span class="ck"></span>Compare prices</div><div style="opacity:.6">Add 7 tasks?</div>' },
     { p: 'Talk to your AI.', t: 'AI connector', n: 'Claude, ChatGPT or a local model, through one connector.', h: '<h5>Claude</h5><div class="task">“Move everything overdue to Friday.”</div><div style="opacity:.6">update_task × 4 · done</div>' },
   ];
   const flow = $('#flow'), stage = $('#stage'), note = $('#elseNote');

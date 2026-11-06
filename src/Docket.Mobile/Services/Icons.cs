@@ -43,8 +43,14 @@ public static class Icons
         "\U0001F331", "\U0001F436", "\U0001F476", "\U0001F527", "\U0001F4BB", "\U0001F41E", "\U0001F4DD", "\U0001F389",
     ];
 
+    /// <summary>Names the other app's picker has, shown here with the nearest icon, so a list styled on one platform looks right on the other.</summary>
+    public static readonly (string Name, string Glyph)[] Aliases =
+    [
+        ("Card", ""), ("Lightning", ""),
+    ];
+
     public static string? GlyphOf(string? icon) =>
-        icon is null ? null : Catalog.FirstOrDefault(c => c.Name.Equals(icon, StringComparison.OrdinalIgnoreCase)).Glyph;
+        icon is null ? null : Catalog.Concat(Aliases).FirstOrDefault(c => c.Name.Equals(icon, StringComparison.OrdinalIgnoreCase)).Glyph;
 
     public static bool IsEmoji(string? icon) => !string.IsNullOrWhiteSpace(icon) && GlyphOf(icon) is null;
 
