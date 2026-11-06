@@ -38,6 +38,37 @@
                 </StackPanel>
             </Border>
 
+            <TextBlock Text="Docket Pro" Style="{StaticResource Heading}" />
+            <Border Style="{StaticResource Section}">
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource Note}" Text="Docket stays free. Docket Pro adds hosted extras that cost money to run: AI planning with no key, cloud backups, a calendar feed and email-to-task. Billing is handled by Dodo Payments." />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox x:Name="ProUrlBox" Header="Docket Cloud address" PlaceholderText="https://cloud.example.com" Width="380" LostFocus="ProUrl_LostFocus" />
+                        <Button Content="Check" VerticalAlignment="Bottom" Click="ProRefresh_Click" />
+                    </StackPanel>
+                    <TextBlock x:Name="ProStatusText" Style="{StaticResource BodyStrongTextBlockStyle}" TextWrapping="Wrap" />
+                    <StackPanel x:Name="ProBuyPanel" Orientation="Horizontal" Spacing="8">
+                        <ComboBox x:Name="ProPlanBox" Header="Plan" SelectedIndex="0" MinWidth="140">
+                            <x:String>Pro</x:String>
+                            <x:String>Family</x:String>
+                            <x:String>Team</x:String>
+                        </ComboBox>
+                        <ComboBox x:Name="ProIntervalBox" Header="Billing" SelectedIndex="1" MinWidth="140">
+                            <x:String>Monthly</x:String>
+                            <x:String>Yearly</x:String>
+                        </ComboBox>
+                        <NumberBox x:Name="ProSeatsBox" Header="Seats (Team)" Value="2" Minimum="1" Maximum="500" SpinButtonPlacementMode="Compact" Width="120" />
+                        <Button x:Name="ProSubscribeButton" Content="Subscribe" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Bottom" Click="ProSubscribe_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="ProBillingButton" Content="Manage billing" Click="ProBilling_Click" />
+                        <TextBox x:Name="ProKeyBox" PlaceholderText="Paste a licence key" Width="280" />
+                        <Button Content="Activate" Click="ProActivate_Click" />
+                    </StackPanel>
+                    <InfoBar x:Name="ProMessage" IsOpen="False" IsClosable="True" />
+                </StackPanel>
+            </Border>
+
             <TextBlock Text="AI" Style="{StaticResource Heading}" />
             <Border Style="{StaticResource Section}">
                 <StackPanel Spacing="14">

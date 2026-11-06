@@ -164,3 +164,32 @@ public class DocketCloudAiTests
         Assert.Equal("You've used this month's AI credits.", ex.Message);
     }
 }
+
+public class DocketCloudClientTests
+{
+    private sealed class Fake(Func<HttpRequestMessage, HttpResponseMessage> answer) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage r, CancellationToken ct) => Task.FromResult(answer(r));
+    }
+
+    private static HttpResponseMessage Json(int code, string body) =>
+        new((System.Net.HttpStatusCode)code) { Content = new StringContent(body, System.Text.Encoding.UTF8, "application/json") };
+
+    [Fact]
+    public async Task Reads_plan_opens_checkout_and_shows_server_errors()
+    {
+        var cloud = new DocketCloud("https://cloud.test/", "tok", new HttpClient(new Fake(r => r.RequestUri!.AbsolutePath switch
+        {
+            "/api/pro/me" => Json(200, "{\"plan\":\"Pro\",\"planExpires\":\"2026-12-06T00:00:00Z\",\"credits\":{\"limit\":300,\"left\":299}}"),
+            "/api/pro/checkout" => Json(200, "{\"url\":\"https://test.checkout.dodopayments.com/abc\"}"),
+            _ => Json(404, "{\"detail\":\"You don't have a subscription to manage yet.\"}"),
+        })));
+        var st = await cloud.StatusAsync();
+        Assert.True(st.IsPaid);
+        Assert.Equal(299, st.Credits.Left);
+        Assert.StartsWith("https://test.checkout", await cloud.CheckoutUrlAsync("Pro", "year"));
+        var ex = await Assert.ThrowsAsync<DocketException>(() => cloud.BillingPortalUrlAsync());
+        Assert.Equal("You don't have a subscription to manage yet.", ex.Message);
+        Assert.False(DocketCloud.IsConfigured(""));
+    }
+}

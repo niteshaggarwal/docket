@@ -36,6 +36,8 @@ public sealed partial class SettingsPage : Page
         ProviderChoice.SelectedIndex = Math.Max(0, Array.IndexOf(Providers, s.AiProvider));
         _loading = false;
         ShowProvider();
+        ProUrlBox.Text = s.DocketCloudUrl;
+        _ = RefreshProAsync();
         await CheckOllamaAsync();
     }
 
@@ -79,6 +81,88 @@ public sealed partial class SettingsPage : Page
     {
         App.Settings.DocketCloudUrl = CloudUrlBox.Text.Trim();
         App.Settings.Save();
+    }
+
+    // ---------- Docket Pro ----------
+    private DocketCloud? Cloud() =>
+        DocketCloud.IsConfigured(App.Settings.DocketCloudUrl) && App.Settings.Token is { } t ? new DocketCloud(App.Settings.DocketCloudUrl, t) : null;
+
+    private void ProUrl_LostFocus(object sender, RoutedEventArgs e)
+    {
+        if (App.Settings.DocketCloudUrl == ProUrlBox.Text.Trim()) return;
+        App.Settings.DocketCloudUrl = ProUrlBox.Text.Trim();
+        App.Settings.Save();
+        _ = RefreshProAsync();
+    }
+
+    private async void ProRefresh_Click(object sender, RoutedEventArgs e)
+    {
+        ProUrl_LostFocus(sender, e);
+        await RefreshProAsync();
+    }
+
+    private async Task RefreshProAsync()
+    {
+        if (Cloud() is not { } cloud)
+        {
+            ProStatusText.Text = "Add your Docket Cloud address to see your plan.";
+            ProBuyPanel.Visibility = ProBillingButton.Visibility = Visibility.Collapsed;
+            return;
+        }
+        try
+        {
+            var st = await cloud.StatusAsync();
+            ProStatusText.Text = st.IsPaid
+                ? $"Docket {st.Plan}" + (st.PlanExpires is { } x ? $", paid up to {x.ToLocalTime():d MMMM yyyy}" : "") + $". AI credits: {st.Credits.Left} of {st.Credits.Limit} left this month."
+                : "Free plan. Subscribe below for Docket Pro.";
+            ProBuyPanel.Visibility = st.IsPaid ? Visibility.Collapsed : Visibility.Visible;
+            ProBillingButton.Visibility = st.IsPaid ? Visibility.Visible : Visibility.Collapsed;
+        }
+        catch (DocketException ex) { ProStatusText.Text = ex.Message; }
+    }
+
+    private async void ProSubscribe_Click(object sender, RoutedEventArgs e)
+    {
+        if (Cloud() is not { } cloud) return;
+        var plan = (string)ProPlanBox.SelectedItem;
+        var interval = ProIntervalBox.SelectedIndex == 0 ? "month" : "year";
+        await ProDo(async () =>
+        {
+            var url = await cloud.CheckoutUrlAsync(plan, interval, plan == "Team" ? (int)ProSeatsBox.Value : null);
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+            ProShow("Checkout opened in your browser. Come back and press Check when you've paid.", InfoBarSeverity.Informational);
+        });
+    }
+
+    private async void ProBilling_Click(object sender, RoutedEventArgs e)
+    {
+        if (Cloud() is not { } cloud) return;
+        await ProDo(async () => await Windows.System.Launcher.LaunchUriAsync(new Uri(await cloud.BillingPortalUrlAsync())));
+    }
+
+    private async void ProActivate_Click(object sender, RoutedEventArgs e)
+    {
+        if (Cloud() is not { } cloud || ProKeyBox.Text.Trim().Length == 0) return;
+        await ProDo(async () =>
+        {
+            await cloud.ActivateLicenceAsync(ProKeyBox.Text);
+            ProKeyBox.Text = "";
+            ProShow("Licence activated.", InfoBarSeverity.Success);
+            await RefreshProAsync();
+        });
+    }
+
+    private async Task ProDo(Func<Task> action)
+    {
+        try { await action(); }
+        catch (DocketException ex) { ProShow(ex.Message, InfoBarSeverity.Error); }
+    }
+
+    private void ProShow(string text, InfoBarSeverity severity)
+    {
+        ProMessage.Message = text;
+        ProMessage.Severity = severity;
+        ProMessage.IsOpen = true;
     }
 
     private void ShowProvider()
