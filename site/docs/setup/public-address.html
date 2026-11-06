@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Public address for AI · Docket docs</title>
+<meta name="description" content="claude.ai and ChatGPT run in the cloud, so they connect to your tasks from the internet. That means the AI connector needs a public HTTPS address. The Docket ap">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="windows.html">Windows PC</a><a href="phone.html">Phone access (Tailscale)</a><a href="docker.html">Docker server</a><a href="public-address.html" class="on" aria-current="page">Public address for AI</a><a href="existing-vikunja.html">Existing Vikunja</a><a href="docket-web.html">Docket web</a><a href="updating.html">Updating</a><a href="backups.html">Backups and restore</a><a href="uninstalling.html">Uninstalling</a><a href="security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Set up</p>
+      <h1 id="public-address-for-ai">Public address for AI</h1>
+<p>claude.ai and ChatGPT run in the cloud, so they connect to your tasks from the internet. That means the <strong>AI
+connector</strong> needs a public HTTPS address. The Docket apps, Claude Desktop, Claude Code and local models don't need
+this; they work privately.</p>
+<p>You have three options:</p>
+<div class="table-wrap"><table><thead><tr><th>Option</th><th>Good for</th><th>Opens ports?</th></tr></thead><tbody><tr><td>A <a href="docker.html">Docker server</a> with a domain</td><td>Always-on servers</td><td>Yes, 80 and 443</td></tr><tr><td><a href="#tailscale-funnel">Tailscale Funnel</a></td><td>The Windows install</td><td>No</td></tr><tr><td><a href="#cloudflare-tunnel">Cloudflare Tunnel</a></td><td>A Docker server at home</td><td>No</td></tr></tbody></table></div>
+<p>Whichever you pick, only the connector becomes public, and it's protected by your connector key. Pick a long random
+key and keep it private.</p>
+<h2 id="tailscale-funnel"><a class="anchor" href="#tailscale-funnel" aria-label="Link to this section">#</a>Tailscale Funnel</h2>
+<p>Funnel publishes one port of your PC on a public <code>ts.net</code> address with an HTTPS certificate. Use it to let claude.ai
+or ChatGPT reach a Windows install.</p>
+<ol><li><p>Set up <a href="phone.html">Tailscale</a> on the PC, and turn on <strong>Funnel</strong> for your tailnet in the Tailscale admin console
+(Access controls; Tailscale's <a href="https://tailscale.com/kb/1223/funnel" target="_blank" rel="noopener">Funnel guide</a> has the current steps).</p></li><li><p>Run the connector over HTTP on the PC, with a key and your public address:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">$env:DOCKET_MCP_KEY = &quot;a-long-random-key-of-24-or-more-characters&quot;
+$env:DOCKET_PUBLIC_URL = &quot;https://my-pc.tail1234.ts.net&quot;
+&amp; &quot;$env:LOCALAPPDATA\Programs\Docket\mcp\docket-mcp.exe&quot; --http</code></pre></div>
+<p>It listens on <code>http://127.0.0.1:8080</code> and reads your Docket settings for the server and token.</p></li><li><p>In another PowerShell window, publish it:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">tailscale funnel --bg 8080</code></pre></div></li><li><p>Connect <a href="../ai/claude.html#claudeai-web-desktop-and-phone">Claude</a> or <a href="../ai/chatgpt.html">ChatGPT</a> to
+<code>https://my-pc.tail1234.ts.net/mcp</code>, and type the key when asked.</p></li></ol>
+<p>Vikunja itself stays private. The connector needs to keep running: to start it at sign-in, add it to Task
+Scheduler or a startup script with the same environment variables.</p>
+<div class="callout callout-warning"><p class="callout-title">Warning</p><p>Funnel and <code>serve</code> share ports on the PC. If you use <code>tailscale serve</code> for your phone on 3457, keep Funnel on a
+different port (8080 above).</p></div>
+<h2 id="cloudflare-tunnel"><a class="anchor" href="#cloudflare-tunnel" aria-label="Link to this section">#</a>Cloudflare Tunnel</h2>
+<p>Good for a Docker server at home. Run <code>cloudflared</code> with a hostname on your Cloudflare domain, and set
+<code>DOCKET_DOMAIN</code> and <code>DOCKET_PUBLIC_URL</code> to that hostname. Cloudflare handles HTTPS, so leave Caddy out and point the
+tunnel at the services directly:</p>
+<div class="table-wrap"><table><thead><tr><th>Path</th><th>Send to</th></tr></thead><tbody><tr><td><code>/mcp</code>, <code>/oauth/*</code>, <code>/.well-known/oauth-*</code>, <code>/api/tools/*</code>, <code>/openapi.json</code></td><td><code>connector:8080</code></td></tr><tr><td>everything else</td><td><code>web:8080</code> (<a href="docket-web.html">Docket web</a>)</td></tr></tbody></table></div>
+<p>See Cloudflare's <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/" target="_blank" rel="noopener">tunnel documentation</a>
+for creating the tunnel.</p>
+<h2 id="check-it-from-outside"><a class="anchor" href="#check-it-from-outside" aria-label="Link to this section">#</a>Check it from outside</h2>
+<p>From a phone on mobile data (not your Wi-Fi), open the connector's health page: <code>https://your-address/health</code> when
+the connector is published directly (Funnel), or <code>https://your-domain/connector/health</code> on the Docker server. It
+should say <code>&quot;status&quot;:&quot;ok&quot;</code>. If it doesn't load there, claude.ai and ChatGPT can't reach it either.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/setup/public-address.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="docker.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Docker server</b></a><a class="pn next" href="existing-vikunja.html"><span>Next</span><b>Existing Vikunja<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#tailscale-funnel" class="l2">Tailscale Funnel</a><a href="#cloudflare-tunnel" class="l2">Cloudflare Tunnel</a><a href="#check-it-from-outside" class="l2">Check it from outside</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

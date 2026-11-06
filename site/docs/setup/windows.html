@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Install on a Windows PC · Docket docs</title>
+<meta name="description" content="The Windows installer sets up everything on one PC: the Vikunja task server, the Docket app, the docket command, Docket web and the AI connector. It takes about">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="windows.html" class="on" aria-current="page">Windows PC</a><a href="phone.html">Phone access (Tailscale)</a><a href="docker.html">Docker server</a><a href="public-address.html">Public address for AI</a><a href="existing-vikunja.html">Existing Vikunja</a><a href="docket-web.html">Docket web</a><a href="updating.html">Updating</a><a href="backups.html">Backups and restore</a><a href="uninstalling.html">Uninstalling</a><a href="security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Set up</p>
+      <h1 id="install-on-a-windows-pc">Install on a Windows PC</h1>
+<p>The Windows installer sets up everything on one PC: the Vikunja task server, the Docket app, the <code>docket</code> command,
+Docket web and the AI connector. It takes about five minutes and needs no admin rights. Everything is installed for
+your Windows account only.</p>
+<p><strong>You need</strong> Windows 10 or 11 (x64 or Arm64) and an internet connection for the download.</p>
+<h2 id="step-by-step"><a class="anchor" href="#step-by-step" aria-label="Link to this section">#</a>Step by step</h2>
+<ol><li><p><strong>Download.</strong> Get <code>docket-&lt;version&gt;-windows-x64.zip</code> (or <code>-arm64.zip</code> for Arm PCs such as Surface Pro X or
+Snapdragon laptops) from the <a href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener">latest release</a>.</p></li><li><p><strong>Unzip it</strong> into any folder, for example your Downloads folder. (Don't run it from inside the zip.)</p></li><li><p><strong>Run the installer.</strong> Right-click <code>install.ps1</code> and choose <strong>Run with PowerShell</strong>. If PowerShell asks about
+the execution policy, or the window closes straight away, open PowerShell in that folder (in File Explorer:
+<strong>File &gt; Open Windows PowerShell</strong>, or type <code>powershell</code> in the address bar) and run:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">powershell -ExecutionPolicy Bypass -File install.ps1</code></pre></div></li><li><p><strong>Answer the questions</strong> (explained below). Your browser opens Vikunja: create your account there.</p></li><li><p><strong>Open Docket</strong> from the Start menu.</p></li></ol>
+<h2 id="what-each-question-means"><a class="anchor" href="#what-each-question-means" aria-label="Link to this section">#</a>What each question means</h2>
+<p>The installer prints what it's doing in sections (<code>== Vikunja</code>, <code>== Scheduled tasks</code>, <code>== Your account</code>…). It asks
+only a few things:</p>
+<div class="table-wrap"><table><thead><tr><th>The installer asks</th><th>What it means</th><th>What to answer</th></tr></thead><tbody><tr><td><code>Your time zone, e.g. Europe/London, America/New_York, Asia/Kolkata</code></td><td>Used for &quot;today&quot;, due dates and reminders</td><td>Your <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener">time zone name</a>, like <code>Europe/London</code></td></tr><tr><td><code>Press Enter when your account exists</code></td><td>Your browser has opened Vikunja's sign-up page at <code>http://localhost:3456/register</code></td><td>Create an account (username, email, password), then press <kbd>Enter</kbd></td></tr><tr><td><code>Vikunja username</code> and <code>Vikunja password</code></td><td>One sign-in, so the installer can make keys (API tokens) for the app and for AI</td><td>The account you just created. The password isn't saved</td></tr><tr><td><code>Two-factor code (press Enter if you have not turned it on)</code></td><td>Only if you've turned on two-factor sign-in in Vikunja</td><td>Press <kbd>Enter</kbd> on a fresh install</td></tr><tr><td><code>Close sign-ups so nobody else can make an account on this server? [Y/n]</code></td><td>Stops new accounts being created on your server</td><td><strong>Y</strong> (you can still add people from the Docket app)</td></tr><tr><td><code>Docket is already connected to an account. Connect again (new tokens)? [y/N]</code></td><td>Only when you run the installer again</td><td><strong>N</strong> to keep things as they are; <strong>Y</strong> to make fresh tokens</td></tr></tbody></table></div>
+<p>After signing in, the installer:</p>
+<ul><li>makes a token for the Docket app and CLI, and a separate <strong>no-delete</strong> token for the AI connector;</li><li>adds Docket to <strong>Claude Desktop</strong> and <strong>Claude Code</strong> if you have them (quit and reopen Claude Desktop to load it);</li><li>prints where everything is, and how to uninstall.</li></ul>
+<div class="callout callout-note"><p class="callout-title">Note</p><p>Windows may show &quot;Windows protected your PC&quot; for the downloaded script or app. Choose <strong>More info &gt; Run anyway</strong>.
+The release builds aren't code-signed yet.</p></div>
+<h2 id="what-gets-installed-where"><a class="anchor" href="#what-gets-installed-where" aria-label="Link to this section">#</a>What gets installed where</h2>
+<div class="table-wrap"><table><thead><tr><th>What</th><th>Where</th></tr></thead><tbody><tr><td>Docket app, <code>docket</code> CLI, <code>docket-mcp</code>, Docket web</td><td><code>%LOCALAPPDATA%\Programs\Docket</code> (the CLI is added to your PATH; Start menu shortcut <strong>Docket</strong>)</td></tr><tr><td>Vikunja and your data</td><td><code>%LOCALAPPDATA%\Docket\server</code> (kept outside OneDrive: a live database and file sync don't mix)</td></tr><tr><td>Backups</td><td><code>Documents\Docket\backups</code>, every night at 11 pm, newest 14 kept</td></tr><tr><td>Settings and tokens</td><td><code>%LOCALAPPDATA%\Docket\settings.json</code> (tokens encrypted with Windows DPAPI for your account)</td></tr><tr><td>Server log</td><td><code>%LOCALAPPDATA%\Docket\server\logs</code></td></tr></tbody></table></div>
+<p><strong>Scheduled tasks</strong> (Task Scheduler &gt; Task Scheduler Library &gt; <strong>Docket</strong>):</p>
+<div class="table-wrap"><table><thead><tr><th>Task</th><th>What it does</th></tr></thead><tbody><tr><td>Vikunja server</td><td>Starts the task server when you sign in, then checks every 5 minutes and restarts it if it stopped</td></tr><tr><td>Docket web</td><td>Runs <a href="docket-web.html">Docket web</a> at <code>http://localhost:3457</code>, with the same 5-minute check</td></tr><tr><td>Vikunja backup</td><td>Nightly backup at 11 pm</td></tr><tr><td>Docket reminders</td><td>Only with <code>-Reminders</code>: shows reminder notifications from sign-in</td></tr></tbody></table></div>
+<p>The server listens on <code>127.0.0.1</code> only, so other devices on your network can't reach it. To use your phone, see
+<a href="phone.html">phone access</a>.</p>
+<h2 id="options"><a class="anchor" href="#options" aria-label="Link to this section">#</a>Options</h2>
+<p>Add these after <code>install.ps1</code> when you run it from PowerShell:</p>
+<div class="table-wrap"><table><thead><tr><th>Option</th><th>What it does</th></tr></thead><tbody><tr><td><code>-Reminders</code></td><td>Shows reminder notifications from sign-in (adds the &quot;Docket reminders&quot; task). Recommended</td></tr><tr><td><code>-TimeZone Europe/London</code></td><td>Skips the time-zone question</td></tr><tr><td><code>-Port 3500</code></td><td>Runs Vikunja on another port (default 3456)</td></tr><tr><td><code>-NoScheduledTasks -NoPath -NoStartMenu</code></td><td>A portable setup: no scheduled tasks, PATH entry or shortcut</td></tr><tr><td><code>-SkipAccountSetup</code></td><td>Installs the programs but doesn't ask you to sign in</td></tr></tbody></table></div>
+<p>For example:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">powershell -ExecutionPolicy Bypass -File install.ps1 -Reminders -TimeZone Asia/Kolkata</code></pre></div>
+<p>Run the installer again at any time to upgrade or repair; your tasks stay. See <a href="updating.html">updating</a>.</p>
+<h2 id="if-the-server-stops"><a class="anchor" href="#if-the-server-stops" aria-label="Link to this section">#</a>If the server stops</h2>
+<p>The task server keeps itself running, with three layers of protection:</p>
+<ol><li><strong>The apps restart it.</strong> When the Docket app, the <code>docket</code> CLI or the AI connector finds the server on this PC
+stopped, it starts it again (through its scheduled task, or the server program directly), waits for it, and then
+carries on with what you asked. You see &quot;Starting your task server…&quot; for a few seconds instead of an error.</li><li><strong>The scheduled tasks check every 5 minutes.</strong> &quot;Vikunja server&quot;, &quot;Docket web&quot; and &quot;Docket reminders&quot; run at sign-in
+and again every 5 minutes. A running copy is left alone; a stopped one starts again.</li><li><strong>The reminders watcher heals it too.</strong> <code>docket notify --watch</code> runs all day; if the server stops, it restarts it
+and keeps watching.</li></ol>
+<p>If the server still can't start, the app says so and offers <strong>Start server and retry</strong>. If that fails too, restart
+the PC, or run <code>install.ps1</code> again (it keeps your data). The server's log is in <code>%LOCALAPPDATA%\Docket\server\logs</code>.</p>
+<p>A server on another machine (Docker, a VPS) can't be started from your PC: there the app tells you it can't reach it.</p>
+<h2 id="connect-it-to-your-account-again"><a class="anchor" href="#connect-it-to-your-account-again" aria-label="Link to this section">#</a>Connect it to your account again</h2>
+<p>If tokens stop working (they last a year), or the app says a token can't do something, make new ones:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">&amp; &quot;$env:LOCALAPPDATA\Programs\Docket\setup-tokens.ps1&quot;</code></pre></div>
+<p>It asks for your Vikunja username and password once, replaces the app's and the AI connector's tokens, and
+reconnects Claude Desktop and Claude Code. For a server elsewhere, add <code>-ServerUrl https://your-server</code>.</p>
+<h2 id="from-source"><a class="anchor" href="#from-source" aria-label="Link to this section">#</a>From source</h2>
+<p>To build from the repository instead of a release: install the <a href="https://dotnet.microsoft.com/download" target="_blank" rel="noopener">.NET 10 SDK</a>,
+clone the repo, and run <code>deploy\windows\install.ps1</code>. It builds the app first (a few minutes).</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/setup/windows.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="../self-hosting.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Choose a setup</b></a><a class="pn next" href="phone.html"><span>Next</span><b>Phone access (Tailscale)<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#step-by-step" class="l2">Step by step</a><a href="#what-each-question-means" class="l2">What each question means</a><a href="#what-gets-installed-where" class="l2">What gets installed where</a><a href="#options" class="l2">Options</a><a href="#if-the-server-stops" class="l2">If the server stops</a><a href="#connect-it-to-your-account-again" class="l2">Connect it to your account again</a><a href="#from-source" class="l2">From source</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

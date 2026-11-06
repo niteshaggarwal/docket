@@ -9,8 +9,8 @@ Four ways to work with Docket from code, from highest to lowest level:
 | [`docket` CLI with `--json`](#cli) | Shell scripts on Windows | Docket settings |
 | [Vikunja REST API](#vikunja-api) | Anything the tools don't cover | Vikunja API token |
 
-The first two are served by `docket-mcp --http` (the [Docker server](self-hosting.md) runs it). They share one
-implementation, so they always offer the same 20 tools with the same behaviour as the Docket apps: My Day, steps,
+The first two are served by `docket-mcp --http` (the [Docker server](setup/docker.md) runs it). They share one
+implementation, so they always offer the same 26 tools with the same behaviour as the Docket apps: My Day, steps,
 repeats and quick-add words work the same way everywhere. None of them delete.
 
 ## REST tools and OpenAPI
@@ -58,34 +58,13 @@ print(r.json()["result"])
 
 ### Tool reference
 
-Arguments in **bold** are required. Dates accept `2026-11-20`, `2026-11-20T15:00`, `today`, `tomorrow`, weekdays
-(`fri`), `in 3 days`, `20/11` (day/month) or `none` to clear. Lists (projects) can be given by name or id.
+Every tool, with its arguments and whether it changes data, is in the [tool reference](ai/tools.md). It's generated
+from the connector's source, so it matches `/openapi.json`. The tool name is the `{tool}` in the URL and the
+arguments are the JSON body.
 
-| Tool | Arguments | Changes data |
-|---|---|---|
-| `list_tasks` | `view` (today, upcoming, overdue, open, done, my_day, important, planned, all, completed), `project`, `search`, `limit` (1-200) | no |
-| `get_task` | **`id`** | no |
-| `add_task` | **`title`** (quick-add words allowed), `project`, `due`, `priority` (0-5), `description`, `labels[]` | yes |
-| `update_task` | **`id`**, `title`, `description`, `due`, `priority`, `project` | yes |
-| `complete_task` | **`ids[]`**, `done` (default true; false reopens) | yes |
-| `move_task` | **`id`**, **`column`** | yes |
-| `add_comment` | **`id`**, **`text`** | yes |
-| `add_label` | **`id`**, **`label`** | yes |
-| `set_categories` | **`id`**, **`categories[]`** | yes |
-| `list_projects` | none | no |
-| `get_board` | **`project`** | no |
-| `create_project` | **`title`**, `parent` | yes |
-| `create_list` | **`title`**, `group` | yes |
-| `my_day` | `suggestions` | no |
-| `set_my_day` | **`ids[]`**, `in_my_day` | yes |
-| `set_important` | **`ids[]`**, `important` | yes |
-| `steps` | **`id`**, **`action`** (add, complete, uncomplete, remove), `text`, `index` (1-based) | yes |
-| `set_repeat` | **`id`**, **`repeat`** (daily, weekdays, weekly, monthly, yearly, "every N days/weeks/months/years", none) | yes |
-| `set_reminder` | **`id`**, **`times[]`** (empty clears) | yes |
-| `set_notes` | **`id`**, **`notes`** | yes |
-
-Quick-add words in titles: `today`, `tomorrow`, a weekday, `in 3 days`, `20/11` set the due date; `!1` to `!5` set the
-priority. They're removed from the title.
+Dates accept `2026-11-20`, `2026-11-20T15:00`, `today`, `tomorrow`, weekdays (`fri`), `in 3 days`, `20/11`
+(day/month) or `none` to clear. Lists (projects) can be given by name or id. Quick-add words in titles (`today`,
+`tomorrow`, a weekday, `in 3 days`, `20/11`, `!1` to `!5`) set the due date and priority and are removed from the title.
 
 ## MCP
 

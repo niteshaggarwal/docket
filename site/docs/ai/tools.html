@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tool reference · Docket docs</title>
+<meta name="description" content="These are the tools the Docket connector (docket-mcp) gives an AI assistant. The same tools are available over MCP, and as REST at POST /api/tools/{name} (devel">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="index.html">How AI works with Docket</a><a href="claude.html">Claude</a><a href="claude-skill.html">Claude skill</a><a href="chatgpt.html">ChatGPT</a><a href="local-ai.html">Local models</a><a href="other-clients.html">Other MCP clients</a><a href="tools.html" class="on" aria-current="page">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">AI assistants</p>
+      <h1 id="tool-reference">Tool reference</h1>
+<p>These are the tools the Docket connector (<code>docket-mcp</code>) gives an AI assistant. The same tools are available over
+MCP, and as REST at <code>POST /api/tools/{name}</code> (<a href="../api.html#rest-tools-and-openapi">developer API</a>).</p>
+<p>A few things hold for all of them:</p>
+<ul><li><strong>Nothing deletes or shares.</strong> Deleting tasks or lists, sharing lists and managing teams are left to the Docket
+apps, and the connector's token couldn't do them anyway.</li><li><strong>Results are readable text</strong>, with task ids written as <code>#123</code>. Use those ids in follow-up calls.</li><li><strong>Dates</strong> accept <code>2026-11-20</code>, <code>2026-11-20T15:00</code>, <code>today</code>, <code>tomorrow</code>, a weekday (<code>fri</code>), <code>in 3 days</code>, <code>20/11</code>
+(day/month) or <code>none</code> to clear.</li><li><strong>Lists</strong> (Vikunja calls them projects) can be named or given by id.</li><li><strong>Read-only tools</strong> are marked as such to MCP clients (<code>readOnlyHint</code>), so Claude and ChatGPT can run them without
+asking. Changing tools ask first, unless you allow them.</li></ul>
+<p>&lt;!-- sync:tools --&gt;
+Docket's connector has <strong>26 tools</strong>: 8 only read, and 18 change tasks. None delete or share.</p>
+<div class="table-wrap"><table><thead><tr><th>Tool</th><th>Changes data</th><th>In short</th></tr></thead><tbody><tr><td><a href="#list_tasks"><code>list_tasks</code></a></td><td>no</td><td>List the user's tasks.</td></tr><tr><td><a href="#get_task"><code>get_task</code></a></td><td>no</td><td>Full details of one task: important, My Day, due date, repeat, reminders, priority, categories, steps (numbered), notes, file attachments, its Kanban column and the board's columns, and comments.</td></tr><tr><td><a href="#add_task"><code>add_task</code></a></td><td>yes</td><td>Add a task.</td></tr><tr><td><a href="#update_task"><code>update_task</code></a></td><td>yes</td><td>Change a task's title, due date, priority or list.</td></tr><tr><td><a href="#complete_task"><code>complete_task</code></a></td><td>yes</td><td>Mark one or more tasks done, or reopen them with done=false.</td></tr><tr><td><a href="#move_task"><code>move_task</code></a></td><td>yes</td><td>Move a task to a column of its list's Kanban board, by column name (e.g.</td></tr><tr><td><a href="#add_comment"><code>add_comment</code></a></td><td>yes</td><td>Add a comment to a task, for progress notes or context.</td></tr><tr><td><a href="#add_label"><code>add_label</code></a></td><td>yes</td><td>Attach one category (label) to a task, keeping its others.</td></tr><tr><td><a href="#list_projects"><code>list_projects</code></a></td><td>no</td><td>All lists (projects, with groups shown as Parent / Child) with their open-task counts and Kanban columns.</td></tr><tr><td><a href="#get_board"><code>get_board</code></a></td><td>no</td><td>A list's Kanban board: each column with its tasks.</td></tr><tr><td><a href="#create_project"><code>create_project</code></a></td><td>yes</td><td>Create a list (a project; it gets a list view and a Kanban board with To-Do, Doing and Done).</td></tr><tr><td><a href="#my_day"><code>my_day</code></a></td><td>no</td><td>The user's My Day list (resets each day), with its completed tasks.</td></tr><tr><td><a href="#set_my_day"><code>set_my_day</code></a></td><td>yes</td><td>Add tasks to My Day (in_my_day=true, default) or remove them (false).</td></tr><tr><td><a href="#set_important"><code>set_important</code></a></td><td>yes</td><td>Mark tasks important (starred) or not.</td></tr><tr><td><a href="#steps"><code>steps</code></a></td><td>yes</td><td>Work with a task's steps (a checklist inside the task).</td></tr><tr><td><a href="#set_repeat"><code>set_repeat</code></a></td><td>yes</td><td>Make a task repeat, or stop it repeating.</td></tr><tr><td><a href="#set_reminder"><code>set_reminder</code></a></td><td>yes</td><td>Replace a task's reminders.</td></tr><tr><td><a href="#set_categories"><code>set_categories</code></a></td><td>yes</td><td>Replace a task's categories (labels) with these names; missing ones are created.</td></tr><tr><td><a href="#set_notes"><code>set_notes</code></a></td><td>yes</td><td>Replace a task's notes (plain text).</td></tr><tr><td><a href="#create_list"><code>create_list</code></a></td><td>yes</td><td>Create a list, optionally inside a group (an existing list used as its parent).</td></tr><tr><td><a href="#add_subtask"><code>add_subtask</code></a></td><td>yes</td><td>Add a subtask under a task.</td></tr><tr><td><a href="#link_subtask"><code>link_subtask</code></a></td><td>yes</td><td>Make an existing task a subtask of another one too.</td></tr><tr><td><a href="#task_tree"><code>task_tree</code></a></td><td>no</td><td>A list's open tasks as a tree, with subtasks indented under their parents (a task with two parents appears under both).</td></tr><tr><td><a href="#assign"><code>assign</code></a></td><td>yes</td><td>Assign a task to a person who can already see its list (see the people tool).</td></tr><tr><td><a href="#people"><code>people</code></a></td><td>no</td><td>Everyone the user works with on their lists (usernames and names).</td></tr><tr><td><a href="#overview"><code>overview</code></a></td><td>no</td><td>Dashboard numbers: open, due today, overdue, next 7 days, done this week, by priority and per list.</td></tr></tbody></table></div>
+<h2 id="tasks-lists-and-boards"><a class="anchor" href="#tasks-lists-and-boards" aria-label="Link to this section">#</a>Tasks, lists and boards</h2>
+<h3 id="list_tasks"><a class="anchor" href="#list_tasks" aria-label="Link to this section">#</a>list_tasks</h3>
+<p>List the user's tasks. Views: today (due today or overdue), upcoming (next 7 days), overdue, open (everything unfinished), done (recently finished), my_day (the user's My Day list), important (starred), planned (has a due date, grouped Earlier/Today/Tomorrow/This week/Later), all (every open task), completed. Optionally narrow to one list (project) or search words. Lines show ★ for important, My Day, steps progress, ↻ repeat and ⏰ next reminder.</p>
+<p><em>Read-only.</em></p>
+<ul><li><code>view</code> (text): today | upcoming | overdue | open | done | my_day | important | planned | all | completed. Default today.</li><li><code>project</code> (text): List (project) name or id to narrow to. Optional.</li><li><code>search</code> (text): Words to search in titles and notes. Optional.</li><li><code>limit</code> (integer): Maximum tasks to return, 1-200. Default 50.</li></ul>
+<h3 id="get_task"><a class="anchor" href="#get_task" aria-label="Link to this section">#</a>get_task</h3>
+<p>Full details of one task: important, My Day, due date, repeat, reminders, priority, categories, steps (numbered), notes, file attachments, its Kanban column and the board's columns, and comments.</p>
+<p><em>Read-only.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id, e.g. 12</li></ul>
+<h3 id="add_task"><a class="anchor" href="#add_task" aria-label="Link to this section">#</a>add_task</h3>
+<p>Add a task. The title may include quick-add words, which are taken out of the title: today, tomorrow, a weekday, &quot;in 3 days&quot;, 20/11 for the due date and !1 to !5 for priority (&quot;Send invoice friday !3&quot;). Without a list it goes to the user's default list (usually Inbox). Use set_my_day, set_important, steps, set_repeat and set_reminder afterwards for the rest.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>title</code></strong> (text, required): Task title, optionally with quick-add words.</li><li><code>project</code> (text): List (project) name or id. Optional.</li><li><code>due</code> (text): Due date: 2026-11-20, 2026-11-20T15:00, today, tomorrow, a weekday (fri), &quot;in 3 days&quot;, 20/11 (day/month), or none to clear. Optional; overrides quick-add words.</li><li><code>priority</code> (integer): 0 none, 1 low, 2 medium, 3 high, 4 urgent, 5 do now. Optional.</li><li><code>description</code> (text): Notes for the task. Optional.</li><li><code>labels</code> (list of text): Category (label) names to attach; missing ones are created. Optional.</li></ul>
+<h3 id="update_task"><a class="anchor" href="#update_task" aria-label="Link to this section">#</a>update_task</h3>
+<p>Change a task's title, due date, priority or list. Only the fields you pass change. To change notes without losing steps use set_notes; <code>description</code> here replaces the whole description including steps.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><code>title</code> (text): New title. Optional.</li><li><code>description</code> (text): Replaces the entire description, including steps. Prefer set_notes. Optional.</li><li><code>due</code> (text): Due date: 2026-11-20, 2026-11-20T15:00, today, tomorrow, a weekday (fri), &quot;in 3 days&quot;, 20/11 (day/month), or none to clear. Optional.</li><li><code>priority</code> (integer): 0-5. Optional.</li><li><code>project</code> (text): Move to this list (name or id). Optional.</li></ul>
+<h3 id="complete_task"><a class="anchor" href="#complete_task" aria-label="Link to this section">#</a>complete_task</h3>
+<p>Mark one or more tasks done, or reopen them with done=false. A repeating task moves to its next date and stays open, with its steps unticked.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>ids</code></strong> (list of ids, required): Task ids.</li><li><code>done</code> (true/false): true marks done (default), false reopens.</li></ul>
+<h3 id="move_task"><a class="anchor" href="#move_task" aria-label="Link to this section">#</a>move_task</h3>
+<p>Move a task to a column of its list's Kanban board, by column name (e.g. Doing). Moving into the Done column marks it done.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>column</code></strong> (text, required): Column name, e.g. To-Do, Doing, Done.</li></ul>
+<h3 id="add_comment"><a class="anchor" href="#add_comment" aria-label="Link to this section">#</a>add_comment</h3>
+<p>Add a comment to a task, for progress notes or context.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>text</code></strong> (text, required): Comment text.</li></ul>
+<h3 id="add_label"><a class="anchor" href="#add_label" aria-label="Link to this section">#</a>add_label</h3>
+<p>Attach one category (label) to a task, keeping its others. The category is created if it doesn't exist. To replace all categories use set_categories.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>label</code></strong> (text, required): Category name.</li></ul>
+<h3 id="list_projects"><a class="anchor" href="#list_projects" aria-label="Link to this section">#</a>list_projects</h3>
+<p>All lists (projects, with groups shown as Parent / Child) with their open-task counts and Kanban columns.</p>
+<p><em>Read-only.</em></p>
+<p>No arguments.</p>
+<h3 id="get_board"><a class="anchor" href="#get_board" aria-label="Link to this section">#</a>get_board</h3>
+<p>A list's Kanban board: each column with its tasks.</p>
+<p><em>Read-only.</em></p>
+<ul><li><strong><code>project</code></strong> (text, required): List (project) name or id.</li></ul>
+<h3 id="create_project"><a class="anchor" href="#create_project" aria-label="Link to this section">#</a>create_project</h3>
+<p>Create a list (a project; it gets a list view and a Kanban board with To-Do, Doing and Done). Optionally inside a parent list, which then acts as a group. Same as create_list.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>title</code></strong> (text, required): List name.</li><li><code>parent</code> (text): Parent list (group) name or id. Optional.</li></ul>
+<h2 id="my-day-stars-steps-repeats-and-reminders"><a class="anchor" href="#my-day-stars-steps-repeats-and-reminders" aria-label="Link to this section">#</a>My Day, stars, steps, repeats and reminders</h2>
+<h3 id="my_day"><a class="anchor" href="#my_day" aria-label="Link to this section">#</a>my_day</h3>
+<p>The user's My Day list (resets each day), with its completed tasks. With suggestions=true also lists suggested tasks to add (overdue, due today, upcoming, recently added).</p>
+<p><em>Read-only.</em></p>
+<ul><li><code>suggestions</code> (true/false): Also show suggestions. Default false.</li></ul>
+<h3 id="set_my_day"><a class="anchor" href="#set_my_day" aria-label="Link to this section">#</a>set_my_day</h3>
+<p>Add tasks to My Day (in_my_day=true, default) or remove them (false).</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>ids</code></strong> (list of ids, required): Task ids.</li><li><code>in_my_day</code> (true/false): true adds, false removes. Default: <code>true</code>.</li></ul>
+<h3 id="set_important"><a class="anchor" href="#set_important" aria-label="Link to this section">#</a>set_important</h3>
+<p>Mark tasks important (starred) or not.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>ids</code></strong> (list of ids, required): Task ids.</li><li><code>important</code> (true/false): true stars, false unstars. Default: <code>true</code>.</li></ul>
+<h3 id="steps"><a class="anchor" href="#steps" aria-label="Link to this section">#</a>steps</h3>
+<p>Work with a task's steps (a checklist inside the task). action: add (needs text), complete / uncomplete / remove (need index, 1-based as shown by get_task). Returns the updated steps.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>action</code></strong> (text, required): add | complete | uncomplete | remove</li><li><code>text</code> (text): Step text, for add.</li><li><code>index</code> (integer): Step number (1-based), for complete, uncomplete and remove.</li></ul>
+<h3 id="set_repeat"><a class="anchor" href="#set_repeat" aria-label="Link to this section">#</a>set_repeat</h3>
+<p>Make a task repeat, or stop it repeating. When it's completed it moves to the next date and stays open. A task without a due date gets today as its due date.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>repeat</code></strong> (text, required): daily | weekdays | weekly | monthly | yearly | &quot;every N days|weeks|months|years&quot; | none</li></ul>
+<h3 id="set_reminder"><a class="anchor" href="#set_reminder" aria-label="Link to this section">#</a>set_reminder</h3>
+<p>Replace a task's reminders. Each time: ISO date-time (2026-11-20T09:00), or natural: &quot;tomorrow 9:00&quot;, &quot;in 2 hours&quot;, &quot;fri 5pm&quot;, &quot;today 17:30&quot;, &quot;20/11 14:00&quot;. An empty list clears all reminders. Reminders show as Windows notifications on the user's PC.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>times</code></strong> (list of text, required): Reminder times; empty clears.</li></ul>
+<h3 id="set_categories"><a class="anchor" href="#set_categories" aria-label="Link to this section">#</a>set_categories</h3>
+<p>Replace a task's categories (labels) with these names; missing ones are created. An empty list clears them. My Day and repeat settings are kept.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>categories</code></strong> (list of text, required): Category names.</li></ul>
+<h3 id="set_notes"><a class="anchor" href="#set_notes" aria-label="Link to this section">#</a>set_notes</h3>
+<p>Replace a task's notes (plain text). Its steps are kept. Read the task first if you mean to add to the existing notes.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>notes</code></strong> (text, required): The new notes, plain text. Empty clears them.</li></ul>
+<h3 id="create_list"><a class="anchor" href="#create_list" aria-label="Link to this section">#</a>create_list</h3>
+<p>Create a list, optionally inside a group (an existing list used as its parent).</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>title</code></strong> (text, required): List name.</li><li><code>group</code> (text): Group (parent list) name or id. Optional.</li></ul>
+<h2 id="subtasks-people-and-the-overview"><a class="anchor" href="#subtasks-people-and-the-overview" aria-label="Link to this section">#</a>Subtasks, people and the overview</h2>
+<h3 id="add_subtask"><a class="anchor" href="#add_subtask" aria-label="Link to this section">#</a>add_subtask</h3>
+<p>Add a subtask under a task. Subtasks are full tasks (own star, dates, reminders, subtasks) and can nest to any depth. Quick-add words work in the text: &quot;Book train friday !3&quot;.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>parent_id</code></strong> (integer, required): Parent task id.</li><li><strong><code>text</code></strong> (text, required): Subtask text.</li></ul>
+<h3 id="link_subtask"><a class="anchor" href="#link_subtask" aria-label="Link to this section">#</a>link_subtask</h3>
+<p>Make an existing task a subtask of another one too. A task may have several parents. Refuses loops.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>parent_id</code></strong> (integer, required): Parent task id.</li><li><strong><code>child_id</code></strong> (integer, required): The task that goes under it.</li></ul>
+<h3 id="task_tree"><a class="anchor" href="#task_tree" aria-label="Link to this section">#</a>task_tree</h3>
+<p>A list's open tasks as a tree, with subtasks indented under their parents (a task with two parents appears under both).</p>
+<p><em>Read-only.</em></p>
+<ul><li><code>list</code> (text): List name or id. Default: the default list.</li></ul>
+<h3 id="assign"><a class="anchor" href="#assign" aria-label="Link to this section">#</a>assign</h3>
+<p>Assign a task to a person who can already see its list (see the people tool). Use the username.</p>
+<p><em>Changes data.</em></p>
+<ul><li><strong><code>id</code></strong> (integer, required): Task id.</li><li><strong><code>person</code></strong> (text, required): Username or display name.</li></ul>
+<h3 id="people"><a class="anchor" href="#people" aria-label="Link to this section">#</a>people</h3>
+<p>Everyone the user works with on their lists (usernames and names).</p>
+<p><em>Read-only.</em></p>
+<p>No arguments.</p>
+<h3 id="overview"><a class="anchor" href="#overview" aria-label="Link to this section">#</a>overview</h3>
+<p>Dashboard numbers: open, due today, overdue, next 7 days, done this week, by priority and per list.</p>
+<p><em>Read-only.</em></p>
+<p>No arguments.</p>
+<p>This reference is generated from <code>src/Docket.Mcp</code> by <code>tools/build-docs.mjs</code>, so it always matches the connector.
+&lt;!-- /sync:tools --&gt;</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/ai/tools.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="other-clients.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Other MCP clients</b></a><a class="pn next" href="../api.html"><span>Next</span><b>Developer API<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#tasks-lists-and-boards" class="l2">Tasks, lists and boards</a><a href="#list_tasks" class="l3">list_tasks</a><a href="#get_task" class="l3">get_task</a><a href="#add_task" class="l3">add_task</a><a href="#update_task" class="l3">update_task</a><a href="#complete_task" class="l3">complete_task</a><a href="#move_task" class="l3">move_task</a><a href="#add_comment" class="l3">add_comment</a><a href="#add_label" class="l3">add_label</a><a href="#list_projects" class="l3">list_projects</a><a href="#get_board" class="l3">get_board</a><a href="#create_project" class="l3">create_project</a><a href="#my-day-stars-steps-repeats-and-reminders" class="l2">My Day, stars, steps, repeats and reminders</a><a href="#my_day" class="l3">my_day</a><a href="#set_my_day" class="l3">set_my_day</a><a href="#set_important" class="l3">set_important</a><a href="#steps" class="l3">steps</a><a href="#set_repeat" class="l3">set_repeat</a><a href="#set_reminder" class="l3">set_reminder</a><a href="#set_categories" class="l3">set_categories</a><a href="#set_notes" class="l3">set_notes</a><a href="#create_list" class="l3">create_list</a><a href="#subtasks-people-and-the-overview" class="l2">Subtasks, people and the overview</a><a href="#add_subtask" class="l3">add_subtask</a><a href="#link_subtask" class="l3">link_subtask</a><a href="#task_tree" class="l3">task_tree</a><a href="#assign" class="l3">assign</a><a href="#people" class="l3">people</a><a href="#overview" class="l3">overview</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 # Docket with Claude
 
 Three ways in, depending on where you use Claude. You can use more than one; they all work on the same tasks.
+Once connected, add the [Docket skill](claude-skill.md) so Claude knows how to work with your tasks.
 
 | Where | Setup | Needs |
 |---|---|---|

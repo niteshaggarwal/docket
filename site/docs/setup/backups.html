@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Backups and restore · Docket docs</title>
+<meta name="description" content="All your tasks, lists, files and people live in Vikunja, so backing up Vikunja backs up Docket. Vikunja's dump command makes one zip with the database, your att">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="windows.html">Windows PC</a><a href="phone.html">Phone access (Tailscale)</a><a href="docker.html">Docker server</a><a href="public-address.html">Public address for AI</a><a href="existing-vikunja.html">Existing Vikunja</a><a href="docket-web.html">Docket web</a><a href="updating.html">Updating</a><a href="backups.html" class="on" aria-current="page">Backups and restore</a><a href="uninstalling.html">Uninstalling</a><a href="security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Set up</p>
+      <h1 id="backups-and-restore">Backups and restore</h1>
+<p>All your tasks, lists, files and people live in Vikunja, so backing up Vikunja backs up Docket. Vikunja's <code>dump</code>
+command makes one zip with the database, your attachments and its settings.</p>
+<h2 id="windows"><a class="anchor" href="#windows" aria-label="Link to this section">#</a>Windows</h2>
+<p>The installer already backs up for you:</p>
+<ul><li><strong>When:</strong> every night at 11 pm (scheduled task <strong>Vikunja backup</strong>). If the PC is off, it runs at the next chance.</li><li><strong>Where:</strong> <code>Documents\Docket\backups</code>, files named <code>vikunja-dump_&lt;date&gt;.zip</code>. The newest 14 are kept.</li><li><strong>Make one now:</strong> Task Scheduler &gt; Task Scheduler Library &gt; <strong>Docket</strong> &gt; <strong>Vikunja backup</strong> &gt; <strong>Run</strong>.</li></ul>
+<p><code>Documents</code> is often backed up by OneDrive, which gives you an off-PC copy. The live database itself is kept outside
+OneDrive on purpose.</p>
+<h3 id="restore-on-windows"><a class="anchor" href="#restore-on-windows" aria-label="Link to this section">#</a>Restore on Windows</h3>
+<ol><li><p>Quit the Docket app.</p></li><li><p>Stop the server: Task Scheduler &gt; <strong>Docket</strong> &gt; right-click <strong>Vikunja server</strong> &gt; <strong>End</strong>, and also <strong>Disable</strong> it for
+now so the 5-minute check doesn't start it again while you restore.</p></li><li><p>In PowerShell, run (with the backup you want):</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">$server = &quot;$env:LOCALAPPDATA\Docket\server&quot;
+&amp; &quot;$server\bin\vikunja.exe&quot; --config &quot;$server\config.yml&quot; restore &quot;$env:USERPROFILE\Documents\Docket\backups\vikunja-dump_XXXX.zip&quot;</code></pre></div></li><li><p><strong>Enable</strong> the <strong>Vikunja server</strong> task again and <strong>Run</strong> it, then open Docket.</p></li></ol>
+<div class="callout callout-warning"><p class="callout-title">Warning</p><p>Restoring replaces everything on the server with the backup. Make a fresh backup first if you might want today's
+tasks back.</p></div>
+<h2 id="docker-server"><a class="anchor" href="#docker-server" aria-label="Link to this section">#</a>Docker server</h2>
+<p>Make a backup inside the container, then copy it out:</p>
+<div class="code"><div class="code-head"><span>Shell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">docker compose exec vikunja /app/vikunja/vikunja dump --path /app/vikunja/files/backups
+docker compose cp vikunja:/app/vikunja/files/backups ./backups</code></pre></div>
+<p>Run this from cron (for example nightly) and copy <code>./backups</code> somewhere off the server.</p>
+<h3 id="restore-on-docker"><a class="anchor" href="#restore-on-docker" aria-label="Link to this section">#</a>Restore on Docker</h3>
+<p>Copy the zip into the container and run <code>restore</code>, then restart Vikunja:</p>
+<div class="code"><div class="code-head"><span>Shell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">docker compose cp ./backups/vikunja-dump_XXXX.zip vikunja:/app/vikunja/files/restore.zip
+docker compose exec vikunja /app/vikunja/vikunja restore /app/vikunja/files/restore.zip
+docker compose restart vikunja</code></pre></div>
+<p>The connector's volume holds only its token and OAuth sign-ins. You don't need to back it up: run
+<code>docker compose exec connector docket-mcp setup</code> again and reconnect your AI apps.</p>
+<h2 id="moving-from-your-pc-to-a-server"><a class="anchor" href="#moving-from-your-pc-to-a-server" aria-label="Link to this section">#</a>Moving from your PC to a server</h2>
+<ol><li>On the PC, make a backup now (see above).</li><li>Set up the <a href="docker.html">Docker server</a> and create an account.</li><li>Restore the PC's backup on the server (above). Your account from the PC comes along with it.</li><li>Point the apps at the server: Android, sign in with <code>https://your-domain</code>; Windows, run
+<code>setup-tokens.ps1 -ServerUrl https://your-domain</code>.</li></ol>
+<p>Vikunja's <a href="https://vikunja.io/docs/backups/" target="_blank" rel="noopener">backup documentation</a> has more detail, including database-specific options.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/setup/backups.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="updating.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Updating</b></a><a class="pn next" href="uninstalling.html"><span>Next</span><b>Uninstalling<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#windows" class="l2">Windows</a><a href="#restore-on-windows" class="l3">Restore on Windows</a><a href="#docker-server" class="l2">Docker server</a><a href="#restore-on-docker" class="l3">Restore on Docker</a><a href="#moving-from-your-pc-to-a-server" class="l2">Moving from your PC to a server</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

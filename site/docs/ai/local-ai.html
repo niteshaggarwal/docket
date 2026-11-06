@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Docket with local AI (LM Studio, Ollama, Jan, Open WebUI) · Docket docs</title>
+<meta name="description" content="You can run your task assistant entirely on your own computer: a local model, a local MCP client, the local Docket connector and your own Vikunja. Nothing leave">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="index.html">How AI works with Docket</a><a href="claude.html">Claude</a><a href="claude-skill.html">Claude skill</a><a href="chatgpt.html">ChatGPT</a><a href="local-ai.html" class="on" aria-current="page">Local models</a><a href="other-clients.html">Other MCP clients</a><a href="tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">AI assistants</p>
+      <h1 id="docket-with-local-ai-lm-studio-ollama-jan-open-webui">Docket with local AI (LM Studio, Ollama, Jan, Open WebUI)</h1>
+<p>You can run your task assistant entirely on your own computer: a local model, a local MCP client, the local Docket
+connector and your own Vikunja. Nothing leaves your machine or network.</p>
+<p><strong>What you need</strong></p>
+<ol><li>Docket set up (the Windows installer, or a <a href="../self-hosting.html">Docket server</a> on your network).</li><li>A model that's good at tool calling. Recent instruction-tuned models with tool support work best, for example
+Qwen 3 (8B or larger), Llama 3.1/3.3 (8B or larger), Mistral Small or gpt-oss. Very small models (under ~4B)
+often call tools with wrong arguments.</li><li>An app that connects models to MCP servers. Ollama itself doesn't load MCP servers; pair it with one of the
+clients below.</li></ol>
+<h2 id="lm-studio"><a class="anchor" href="#lm-studio" aria-label="Link to this section">#</a>LM Studio</h2>
+<p>LM Studio is both the model runner and an MCP client.</p>
+<ol><li>Load a model with tool use (the model list shows a hammer icon for tool-capable models).</li><li>In the right sidebar open <strong>Program &gt; Install &gt; Edit mcp.json</strong> and add Docket:</li></ol>
+<div class="code"><div class="code-head"><span>JSON</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;docket&quot;: {
+      &quot;command&quot;: &quot;C:\\Users\\you\\AppData\\Local\\Programs\\Docket\\mcp\\docket-mcp.exe&quot;
+    }
+  }
+}</code></pre></div>
+<p>On macOS/Linux add <code>&quot;env&quot;: { &quot;DOCKET_VIKUNJA_URL&quot;: &quot;http://localhost:3456&quot;, &quot;DOCKET_VIKUNJA_TOKEN_FILE&quot;: &quot;/home/you/.config/docket/vikunja-token&quot; }</code>.
+For a Docket server instead: <code>&quot;docket&quot;: { &quot;url&quot;: &quot;https://tasks.example.com/mcp&quot;, &quot;headers&quot;: { &quot;Authorization&quot;: &quot;Bearer YOUR_CONNECTOR_KEY&quot; } }</code>.</p>
+<ol start="3"><li>Save. In a chat, LM Studio asks before each tool call; approve it, or allow Docket's read-only tools permanently.</li></ol>
+<h2 id="ollama"><a class="anchor" href="#ollama" aria-label="Link to this section">#</a>Ollama</h2>
+<p>Use Ollama for the model and one of these as the MCP client:</p>
+<ul><li><strong>Open WebUI</strong> (browser UI for Ollama): in <strong>Admin Settings &gt; External Tools</strong>, add a server of type <strong>MCP
+(Streamable HTTP)</strong> with URL <code>http://your-docket-server:8080/mcp</code> (or <code>https://tasks.example.com/mcp</code>) and a
+Bearer key. Then turn the tool on in a chat. Open WebUI calls HTTP servers, so run the connector with <code>--http</code>
+(<a href="#run-the-connector-over-http-on-your-network">below</a>).</li><li><strong>Jan, Msty, Cherry Studio, 5ire</strong> and other desktop chat apps with MCP support: add a local (stdio) server with
+the <code>docket-mcp</code> command, like the LM Studio example, and pick an Ollama model.</li><li><strong>Continue (VS Code / JetBrains)</strong>: add Docket under <code>mcpServers</code> in Continue's config and choose an Ollama model.</li><li><strong>Terminal</strong>: <a href="https://github.com/jonigl/mcp-client-for-ollama" target="_blank" rel="noopener">ollmcp</a> connects Ollama models to MCP servers;
+give it the <code>docket-mcp</code> command as a server (see its README for the current flags).</li></ul>
+<h2 id="run-the-connector-over-http-on-your-network"><a class="anchor" href="#run-the-connector-over-http-on-your-network" aria-label="Link to this section">#</a>Run the connector over HTTP on your network</h2>
+<p>Some local clients only speak HTTP. Run the connector on the machine with Docket:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell"># Windows, with your Docket settings
+$env:DOCKET_MCP_KEY = &quot;a-long-random-key-of-24-or-more-characters&quot;
+$env:DOCKET_MCP_URLS = &quot;http://127.0.0.1:8080&quot;     # use 0.0.0.0:8080 to allow other devices on your network
+&amp; &quot;$env:LOCALAPPDATA\Programs\Docket\mcp\docket-mcp.exe&quot; --http</code></pre></div>
+<p>Then use <code>http://127.0.0.1:8080/mcp</code> with <code>Authorization: Bearer &lt;that key&gt;</code>. Plain HTTP is fine on one computer;
+across a network, put it behind HTTPS (Tailscale, Caddy) or use the <a href="../self-hosting.html">Docker server</a>.</p>
+<h2 id="tips-for-small-models"><a class="anchor" href="#tips-for-small-models" aria-label="Link to this section">#</a>Tips for small models</h2>
+<ul><li>Name the tool in your request: &quot;Use list_tasks with view today.&quot; Small models follow explicit tool names well.</li><li>Keep the conversation short; start a new chat for a new job so the tool list and results fit the context window.</li><li>Give the model a system prompt such as:
+<blockquote><p>You manage the user's to-do list with the Docket tools. Task ids look like #123. Look tasks up before changing
+them, never guess ids, and confirm what you changed in one short sentence.</p></blockquote></li><li>Raise the context length to at least 8k tokens; Docket's 26 tool descriptions take about 5k.</li></ul>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/ai/local-ai.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="chatgpt.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>ChatGPT</b></a><a class="pn next" href="other-clients.html"><span>Next</span><b>Other MCP clients<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#lm-studio" class="l2">LM Studio</a><a href="#ollama" class="l2">Ollama</a><a href="#run-the-connector-over-http-on-your-network" class="l2">Run the connector over HTTP on your network</a><a href="#tips-for-small-models" class="l2">Tips for small models</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Docket Pro and roadmap</title>
+<meta name="description" content="Docket stays free and open source. Pro adds a hosted, zero-setup Docket and features that cost money to run. See what's coming and join the waitlist.">
+<link rel="icon" href="assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="docs/assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+/* Docket Pro: the roadmap and plans. Shares tokens, nav and footer with the docs (docs/assets/docs.css). */
+.pro { padding-bottom: 40px; }
+.eyebrow { font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
+.pro section { padding: 88px 0 0; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 36px; text-align: center; justify-items: center; }
+.sec-head h2 { margin: 0; font-size: clamp(24px, 3vw, 32px); font-weight: 700; letter-spacing: -.03em; text-wrap: balance; }
+.sec-head p { margin: 0; max-width: 56ch; color: var(--fg-2); font-size: 16px; }
+
+/* hero */
+.hero { position: relative; padding: 96px 0 24px; text-align: center; display: grid; justify-items: center; gap: 18px; }
+.hero::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 10px; width: min(900px, 100%); height: 360px; transform: translateX(-50%);
+  background: repeating-linear-gradient(135deg, transparent 0 40px, rgba(255,90,54,.55) 40px 90px, transparent 90px 140px); filter: blur(34px); opacity: .55;
+  -webkit-mask: radial-gradient(ellipse 50% 50% at 50% 50%, #000, transparent 72%); mask: radial-gradient(ellipse 50% 50% at 50% 50%, #000, transparent 72%); }
+.hero h1 { margin: 0; max-width: 18ch; font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.04; letter-spacing: -.04em; text-wrap: balance; }
+.hero .lede { margin: 0; max-width: 46ch; font-size: clamp(16px, 1.8vw, 19px); line-height: 1.55; color: var(--fg-2); text-wrap: balance; }
+.cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+.btn.brand { background: linear-gradient(180deg, #ff7a4f, var(--brand-deep)); color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,.14) inset, 0 10px 30px var(--glow); }
+.btn.ghost { background: var(--panel); color: var(--fg); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.btn.lg { height: 44px; padding: 0 18px; font-size: 15px; border-radius: 12px; }
+.tba { display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1 var(--mono); letter-spacing: .06em; color: var(--fg-3); }
+.tba::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-2); box-shadow: 0 0 0 4px rgba(255,180,92,.18); }
+
+/* plans */
+.plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.plan { position: relative; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 10px; padding: 22px 20px 20px; border-radius: 18px; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.plan.hl { box-shadow: 0 0 0 1px rgba(255,106,61,.6) inset, 0 20px 60px var(--glow); }
+.plan .tag { position: absolute; top: -10px; right: 16px; padding: 3px 9px; border-radius: 999px; font: 600 10.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--brand); }
+.plan h3 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+.plan .for { margin: 0; font-size: 13.5px; color: var(--fg-3); min-height: 2.8em; }
+.plan .price { font-size: 15px; font-weight: 600; color: var(--fg); padding: 10px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.plan .price small { display: block; font-weight: 400; font-size: 12.5px; color: var(--fg-3); margin-top: 2px; }
+.plan ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 8px; align-content: start; font-size: 14px; color: var(--fg-2); }
+.plan li { display: grid; grid-template-columns: 16px 1fr; gap: 8px; line-height: 1.45; }
+.plan li svg { width: 16px; height: 16px; margin-top: 2px; color: var(--brand); }
+.plan .btn { justify-content: center; margin-top: 8px; }
+
+/* roadmap */
+.road { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.road::before { content: ""; position: absolute; left: 20px; right: 20px; top: 19px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--green) 0 22%, var(--brand) 30%, var(--brand-2) 60%, var(--line-2)); opacity: .9; }
+.stop { position: relative; display: grid; gap: 12px; align-content: start; }
+.dot { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font: 600 13px/1 var(--mono); color: var(--fg);
+  background: var(--bg); box-shadow: 0 0 0 2px var(--c), 0 0 0 7px var(--bg), 0 0 24px var(--c); }
+.dot svg { width: 18px; height: 18px; color: var(--c); }
+.stop .card { padding: 18px 18px 16px; border-radius: 16px; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset, inset 0 2px 0 var(--c); }
+.stop h3 { margin: 0 0 2px; font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+.stop .sub { margin: 0 0 12px; font-size: 13px; color: var(--fg-3); }
+.stop ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; font-size: 14px; color: var(--fg-2); }
+.stop li { display: grid; grid-template-columns: 10px 1fr; gap: 9px; line-height: 1.45; }
+.stop li::before { content: ""; width: 6px; height: 6px; margin-top: 7px; border-radius: 2px; background: var(--c); }
+.s0 { --c: var(--green); } .s1 { --c: var(--brand); } .s2 { --c: var(--brand-2); } .s3 { --c: var(--blue); }
+
+/* comparison table */
+.cmp-wrap { border-radius: 18px; overflow-x: auto; box-shadow: 0 0 0 1px var(--line-2) inset; background: var(--panel); scrollbar-width: thin; }
+.cmp { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+.cmp thead th { position: sticky; top: 0; padding: 18px 14px 14px; text-align: center; font-size: 15px; font-weight: 700; color: var(--fg); background: var(--panel); border-bottom: 1px solid var(--line-2); }
+.cmp thead th small { display: block; font-size: 12px; font-weight: 500; color: var(--fg-3); margin-top: 2px; }
+.cmp thead th:first-child { text-align: left; }
+.cmp thead th.hl { color: var(--brand); }
+.cmp td, .cmp tbody th { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.cmp tbody th[scope="row"] { text-align: left; font-weight: 500; color: var(--fg); width: 38%; }
+.cmp tbody th small { display: block; font-weight: 400; font-size: 12.5px; color: var(--fg-3); margin-top: 1px; }
+.cmp td { text-align: center; color: var(--fg-2); }
+.cmp td:nth-child(3) { background: rgba(255,106,61,.045); }
+.cmp tr.ph th { padding: 20px 14px 10px; text-align: left; background: var(--panel-2); border-bottom: 1px solid var(--line-2); }
+.cmp tbody tr:last-child td, .cmp tbody tr:last-child th { border-bottom: 0; }
+.ph-note { margin-left: 10px; font-size: 13px; font-weight: 500; color: var(--fg-3); }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font: 600 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); box-shadow: 0 0 0 1px var(--c) inset; }
+.pill-now { --c: var(--green); } .pill-phase1 { --c: var(--brand); } .pill-phase2 { --c: var(--brand-2); } .pill-phase3 { --c: var(--blue); }
+.ck { width: 18px; height: 18px; color: var(--green); vertical-align: middle; }
+.no { color: var(--fg-3); opacity: .6; }
+.note { font-size: 12.5px; line-height: 1.35; color: var(--fg); }
+.legend { margin: 14px 2px 0; font-size: 13px; color: var(--fg-3); }
+.scroll-hint { display: none; margin: -20px 0 12px; text-align: center; font-size: 12.5px; color: var(--fg-3); }
+
+/* faq */
+.faq { max-width: 780px; margin: 0 auto; display: grid; gap: 10px; }
+.faq details { border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 18px; font-weight: 600; font-size: 15.5px; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--brand); font-weight: 500; font-size: 20px; line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: 0; padding: 0 18px 16px; color: var(--fg-2); font-size: 15px; line-height: 1.65; }
+.faq a, .fine a { color: var(--fg); text-decoration: underline; text-decoration-color: rgba(255,106,61,.55); text-underline-offset: 3px; }
+
+.fine { max-width: 780px; margin: 40px auto 0; padding: 16px 18px; border-radius: 14px; font-size: 13.5px; color: var(--fg-3); background: var(--panel); box-shadow: 0 0 0 1px var(--line) inset, inset 3px 0 0 var(--brand-2); }
+.fine b { color: var(--fg-2); }
+.final { text-align: center; display: grid; justify-items: center; gap: 14px; }
+.final h2 { margin: 0; font-size: clamp(24px, 3vw, 32px); letter-spacing: -.03em; }
+.final p { margin: 0; color: var(--fg-2); }
+
+@media (max-width: 1080px) { .plans, .road { grid-template-columns: repeat(2, minmax(0, 1fr)); } .road::before { display: none; } }
+@media (max-width: 620px) {
+  .pro section { padding-top: 64px; }
+  .hero { padding-top: 56px; }
+  .plans, .road { grid-template-columns: minmax(0, 1fr); }
+  .plan .for { min-height: 0; }
+  .road { padding-left: 20px; }
+  .road::before { display: block; left: 19px; right: auto; top: 20px; bottom: 20px; width: 2px; height: auto;
+    background: linear-gradient(180deg, var(--green) 0 22%, var(--brand) 30%, var(--brand-2) 60%, var(--blue)); }
+  .stop { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; margin-left: -20px; }
+  .cmp { font-size: 13px; min-width: 620px; }
+  .cmp tbody th[scope="row"] { position: sticky; left: 0; z-index: 1; background: var(--panel); width: 150px; min-width: 150px; max-width: 150px; box-shadow: 1px 0 0 var(--line-2); }
+  .cmp tbody th small { display: none; }
+  .cmp td, .cmp tbody th { padding: 10px 10px; }
+  .scroll-hint { display: block; }
+  .cmp thead th:first-child { position: sticky; left: 0; z-index: 2; }
+  .cmp tr.ph th { position: sticky; left: 0; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></g></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<div class="nav-wrap"><div class="container">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="index.html"><img src="assets/docket-64.png" alt="">Docket <span class="logo-sub">Pro</span></a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a><a href="index.html#ai">AI</a><a href="index.html#mobile">Mobile</a><a href="index.html#self-host">Self-host</a>
+      <a href="docs/index.html">Docs</a><a href="pro.html" class="on" aria-current="page">Pro</a><a href="docs/changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<main class="container pro" id="main">
+  <header class="hero">
+    <span class="eyebrow">Docket Pro · Roadmap</span>
+    <h1>Docket stays free and open source.</h1>
+    <p class="lede">Pro adds a hosted, zero-setup Docket and features that cost money to run.</p>
+    <div class="cta">
+      <a class="btn brand lg" href="mailto:hello@quartifex.com?subject=Docket%20Pro%20waitlist"><svg><use href="#i-mail"/></svg>Join the waitlist</a>
+      <a class="btn ghost lg" href="docs/index.html">Self-host it free today</a>
+    </div>
+    <span class="tba">Pricing to be announced</span>
+  </header>
+
+  <section aria-labelledby="plans-h">
+    <div class="sec-head"><span class="eyebrow">Plans</span><h2 id="plans-h">One app, four ways to run it</h2><p>Every plan uses the same open-source apps. Paid plans add the parts that need servers and people to run.</p></div>
+    <div class="plans">
+      <article class="plan">
+        <h3>Free</h3><p class="for">Self-host on your PC or your own server.</p>
+        <div class="price">Free forever<small>AGPL-3.0 open source</small></div>
+        <ul>
+          <li><svg><use href="#i-check"/></svg>Every app: Windows, Android, web, CLI</li>
+          <li><svg><use href="#i-check"/></svg>AI connector for Claude, ChatGPT and local models</li>
+          <li><svg><use href="#i-check"/></svg>AI planning with your own key or local AI</li>
+          <li><svg><use href="#i-check"/></svg>Subtasks, boards, people and sharing</li>
+          <li><svg><use href="#i-check"/></svg>Community support</li>
+        </ul>
+        <a class="btn ghost" href="docs/index.html">Get started</a>
+      </article>
+      <article class="plan hl">
+        <span class="tag">Phase 1</span>
+        <h3>Pro</h3><p class="for">For one person who wants Docket without running a server.</p>
+        <div class="price">Pricing to be announced<small>Per person</small></div>
+        <ul>
+          <li><svg><use href="#i-check"/></svg>Docket Cloud: sign in with Google or Microsoft</li>
+          <li><svg><use href="#i-check"/></svg>Cloud backup with a year of history</li>
+          <li><svg><use href="#i-check"/></svg>300 AI planning credits a month</li>
+          <li><svg><use href="#i-check"/></svg>Calendar sync, push and real-time sync</li>
+          <li><svg><use href="#i-check"/></svg>Email support</li>
+        </ul>
+        <a class="btn brand" href="mailto:hello@quartifex.com?subject=Docket%20Pro%20waitlist">Join the waitlist</a>
+      </article>
+      <article class="plan">
+        <h3>Family</h3><p class="for">For a household sharing lists, chores and plans.</p>
+        <div class="price">Pricing to be announced<small>One plan for the family</small></div>
+        <ul>
+          <li><svg><use href="#i-check"/></svg>Everything in Pro, for everyone at home</li>
+          <li><svg><use href="#i-check"/></svg>Shared family space and chores</li>
+          <li><svg><use href="#i-check"/></svg>500 AI planning credits a month, shared</li>
+          <li><svg><use href="#i-check"/></svg>Cloud backup with a year of history</li>
+          <li><svg><use href="#i-check"/></svg>Email support</li>
+        </ul>
+        <a class="btn ghost" href="mailto:hello@quartifex.com?subject=Docket%20Pro%20waitlist%20(Family)">Join the waitlist</a>
+      </article>
+      <article class="plan">
+        <h3>Team</h3><p class="for">For studios and small teams working with clients.</p>
+        <div class="price">Pricing to be announced<small>Per user</small></div>
+        <ul>
+          <li><svg><use href="#i-check"/></svg>Everything in Pro, for each person</li>
+          <li><svg><use href="#i-check"/></svg>Admin console, roles, audit log and SSO</li>
+          <li><svg><use href="#i-check"/></svg>Unlimited version history</li>
+          <li><svg><use href="#i-check"/></svg>1,000 AI planning credits per user a month</li>
+          <li><svg><use href="#i-check"/></svg>Email support and an onboarding call</li>
+        </ul>
+        <a class="btn ghost" href="mailto:hello@quartifex.com?subject=Docket%20Pro%20waitlist%20(Team)">Join the waitlist</a>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="road-h">
+    <div class="sec-head"><span class="eyebrow">Roadmap</span><h2 id="road-h">Where Docket is going</h2><p>Phases ship in order. Features that run in the apps land in the free, open-source version too.</p></div>
+    <div class="road">
+      <div class="stop s0"><span class="dot"><svg><use href="#i-check"/></svg></span><div class="card"><h3>Now</h3><p class="sub">Free and open source today</p><ul>
+        <li>Windows, Android, web and CLI apps</li><li>AI connector for Claude, ChatGPT and local models</li><li>Subtasks, boards, people and sharing</li><li>Self-host on your PC or a server</li></ul></div></div>
+      <div class="stop s1"><span class="dot">1</span><div class="card"><h3>Phase 1</h3><p class="sub">Docket Cloud</p><ul>
+        <li>Hosted Docket with Google or Microsoft sign-in</li><li>Cloud backup and version history</li><li>Signed Windows app in the Microsoft Store</li><li>Hosted AI planning, calendar sync and push</li></ul></div></div>
+      <div class="stop s2"><span class="dot">2</span><div class="card"><h3>Phase 2</h3><p class="sub">More places, more ways to capture</p><ul>
+        <li>iPhone, iPad and Mac apps, offline mode</li><li>Widgets, tray and quick capture</li><li>Email to task, scan to tasks, voice and location</li><li>Focus timer, habits and insights</li></ul></div></div>
+      <div class="stop s3"><span class="dot">3</span><div class="card"><h3>Phase 3</h3><p class="sub">Teams and integrations</p><ul>
+        <li>Admin console, roles, audit log and SSO</li><li>Automations, webhooks, Zapier, Make and n8n</li><li>Slack, Teams, Gmail and Outlook add-ins</li><li>Dependencies, workload and encrypted lists</li></ul></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cmp-h">
+    <div class="sec-head"><span class="eyebrow">Compare</span><h2 id="cmp-h">What each plan gets, phase by phase</h2><p>Everything Docket does today stays in every plan.</p></div>
+    <p class="scroll-hint">Swipe the table sideways to see every plan →</p>
+    <div class="cmp-wrap" tabindex="0" aria-label="Plan comparison table, scrolls sideways on small screens">
+      <table class="cmp">
+        <thead><tr><th scope="col">Feature</th><th scope="col">Free<small>Self-host</small></th><th scope="col" class="hl">Pro<small>To be announced</small></th><th scope="col">Family<small>To be announced</small></th><th scope="col">Team<small>To be announced</small></th></tr></thead>
+        <tbody>
+<tr class="ph"><th colspan="5" scope="colgroup"><span class="pill pill-now">Now</span><span class="ph-note">Available today</span></th></tr>
+<tr><th scope="row">All current apps and features<small>Windows, Android, web, CLI, AI connector, subtasks, boards, sharing</small></th><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr class="ph"><th colspan="5" scope="colgroup"><span class="pill pill-phase1">Phase 1</span><span class="ph-note">Docket Cloud</span></th></tr>
+<tr><th scope="row">Docket Cloud<small>Hosted, no setup, sign in with Google or Microsoft</small></th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Automatic cloud backup and version history</th><td><span class="note">Local only</span></td><td><span class="note">1 year</span></td><td><span class="note">1 year</span></td><td><span class="note">Unlimited</span></td></tr>
+<tr><th scope="row">Signed Windows app in the Microsoft Store<small>With automatic updates</small></th><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Attach from Google Drive, OneDrive and Dropbox</th><td><span class="note">Links</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Two-way calendar sync<small>Google and Outlook</small></th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Hosted AI planning credits<small>No API key needed</small></th><td><span class="note">Own key or local AI</span></td><td><span class="note">300 / month</span></td><td><span class="note">500 / month, shared</span></td><td><span class="note">1,000 / user / month</span></td></tr>
+<tr><th scope="row">Push notifications and real-time sync on phones</th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Priority support</th><td><span class="note">Community</span></td><td><span class="note">Email</span></td><td><span class="note">Email</span></td><td><span class="note">Email + onboarding call</span></td></tr>
+<tr class="ph"><th colspan="5" scope="colgroup"><span class="pill pill-phase2">Phase 2</span><span class="ph-note">More places, more capture</span></th></tr>
+<tr><th scope="row">iPhone, iPad and Mac apps</th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Offline mode with sync</th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Email to task<small>Forward an email, get a task</small></th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Home-screen widgets, Windows tray and quick capture</th><td><span class="note">Basic</span></td><td><span class="note">Full</span></td><td><span class="note">Full</span></td><td><span class="note">Full</span></td></tr>
+<tr><th scope="row">Location reminders and voice capture</th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Scan a document or photo into tasks<small>OCR and AI</small></th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Time tracking, focus timer and habit streaks</th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Reports and productivity insights</th><td><span class="note">Overview</span></td><td><span class="note">Full</span></td><td><span class="note">Full</span></td><td><span class="note">Team reports</span></td></tr>
+<tr><th scope="row">Shared family space and chores</th><td><span class="no" aria-label="Not included">—</span></td><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><span class="no" aria-label="Not included">—</span></td></tr>
+<tr class="ph"><th colspan="5" scope="colgroup"><span class="pill pill-phase3">Phase 3</span><span class="ph-note">Teams and integrations</span></th></tr>
+<tr><th scope="row">Guests and client view</th><td><span class="note">Public link</span></td><td><span class="note">Public link</span></td><td><span class="note">Public link</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Admin console, roles, audit log and SSO (SAML)</th><td><span class="no" aria-label="Not included">—</span></td><td><span class="no" aria-label="Not included">—</span></td><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">Automations, webhooks, Zapier, Make and n8n</th><td><span class="note">Webhooks</span></td><td><span class="note">Basic</span></td><td><span class="note">Basic</span></td><td><span class="note">Full</span></td></tr>
+<tr><th scope="row">Slack, Teams, Gmail and Outlook add-ins</th><td><span class="no" aria-label="Not included">—</span></td><td><span class="note">Gmail + Outlook</span></td><td><span class="note">Gmail + Outlook</span></td><td><span class="note">All</span></td></tr>
+<tr><th scope="row">Task dependencies and workload view</th><td><span class="note">Gantt</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+<tr><th scope="row">End-to-end encrypted lists</th><td><span class="no" aria-label="Not included">—</span></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td><td><svg class="ck" role="img" aria-label="Included"><use href="#i-check"/></svg></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="legend">✓ included · — not included · short notes show the limit for that plan.</p>
+  </section>
+
+  <section aria-labelledby="faq-h">
+    <div class="sec-head"><span class="eyebrow">FAQ</span><h2 id="faq-h">Questions</h2></div>
+    <div class="faq">
+      <details open><summary>Will the free version stay free?</summary><p>Yes. Docket is open source under the AGPL-3.0, and everything you can self-host today stays free: the Windows, Android and web apps, the CLI, the AI connector, and every feature in them. New app features keep landing in the open-source version too.</p></details>
+      <details><summary>When will Pro be available?</summary><p>The phases ship in order, starting with Docket Cloud in Phase 1. There are no dates yet; we'll announce them, and the prices, as each phase gets close. <a href="mailto:hello@quartifex.com?subject=Docket%20Pro%20waitlist">Join the waitlist</a> to hear first.</p></details>
+      <details><summary>Can I self-host Pro features?</summary><p>Features that need the hosted service, such as Docket Cloud itself, cloud backup, hosted AI planning credits, push notifications and calendar sync, only work with it. Features that are part of the apps land in the open-source apps, so you get them when you self-host too. The comparison above shows where a plan has a limit.</p></details>
+    </div>
+    <p class="fine"><b>This plan may change.</b> The roadmap shows what we intend to build and in what order, not a promise. Features, plans, limits and phases may move as we learn what people need. Nothing here is for sale yet, and pricing will be announced before anything is.</p>
+  </section>
+
+  <section class="final" aria-labelledby="final-h">
+    <h2 id="final-h">Want Docket without the setup?</h2>
+    <p>Join the waitlist and we'll email you when Docket Cloud opens.</p>
+    <div class="cta"><a class="btn brand lg" href="mailto:hello@quartifex.com?subject=Docket%20Pro%20waitlist"><svg><use href="#i-mail"/></svg>Join the waitlist</a><a class="btn ghost lg" href="docs/self-hosting.html">Or self-host it free</a></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container foot-row">
+    <a class="logo" href="index.html"><img src="assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="docs/index.html">Docs</a><a href="pro.html">Pro and roadmap</a><a href="docs/changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="docs/assets/docs.js" defer></script>
+</body>
+</html>
+

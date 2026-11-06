@@ -67,4 +67,4 @@ across a network, put it behind HTTPS (Tailscale, Caddy) or use the [Docker serv
 - Give the model a system prompt such as:
   > You manage the user's to-do list with the Docket tools. Task ids look like #123. Look tasks up before changing
   > them, never guess ids, and confirm what you changed in one short sentence.
-- Raise the context length to at least 8k tokens; Docket's 20 tool descriptions take about 4k.
+- Raise the context length to at least 8k tokens; Docket's 26 tool descriptions take about 5k.

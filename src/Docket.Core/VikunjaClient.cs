@@ -162,7 +162,7 @@ public sealed partial class VikunjaClient : IDisposable
     {
         using var res = await _http.DeleteAsync(path, ct);
         if (res.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
-            throw new VikunjaException(res.StatusCode, "This token can't delete. Re-run C:\\dev\\vikunja\\setup-tokens.ps1 to give the Docket app delete rights.");
+            throw new VikunjaException(res.StatusCode, "This token can't delete. Run setup-tokens.ps1 again (in the Docket install folder) to give the Docket app delete rights.");
         await EnsureOk(res, ct);
     }
 

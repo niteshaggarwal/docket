@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>People, teams and sharing · Docket docs</title>
+<meta name="description" content="Docket lists can be shared, and tasks can be assigned to people. Everyone is an account on your own Docket server, so nothing goes through anyone else's cloud.">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="windows.html">Windows app</a><a href="android.html">Android app</a><a href="web.html">Web app</a><a href="quick-add.html">Quick add and commands</a><a href="shortcuts.html">Keyboard shortcuts</a><a href="views-and-boards.html">Views, boards and list styles</a><a href="people-and-sharing.html" class="on" aria-current="page">People, teams and sharing</a><a href="ai-planning.html">AI planning in the app</a><a href="cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Use Docket</p>
+      <h1 id="people-teams-and-sharing">People, teams and sharing</h1>
+<p>Docket lists can be shared, and tasks can be assigned to people. Everyone is an account on your own Docket server,
+so nothing goes through anyone else's cloud.</p>
+<p class="shots"><img src="../screenshots/win-people.png" alt="The People and teams page" loading="lazy"><img src="../screenshots/win-share-list.png" alt="Sharing a list" loading="lazy"></p>
+<h2 id="add-people"><a class="anchor" href="#add-people" aria-label="Link to this section">#</a>Add people</h2>
+<p>Open <strong>People and teams</strong> in the sidebar.</p>
+<ul><li><strong>Someone who already has an account</strong> on your server: share a list with them (below) and they appear here.</li><li><strong>A new person</strong>: fill in <strong>Name</strong>, <strong>Email</strong> and <strong>Username</strong> under <strong>Add a person</strong> and choose <strong>Create account</strong>.
+Docket shows a password <strong>once</strong>; send it to them with the server address so they can sign in to Docket (or Docket
+web) and change it.</li></ul>
+<p>Creating accounts works when the server runs on the same PC as the app (the Windows install). For a Docker server,
+let people sign up while sign-ups are open, or create accounts with Vikunja's own tools.</p>
+<h2 id="teams"><a class="anchor" href="#teams" aria-label="Link to this section">#</a>Teams</h2>
+<p>A team groups people so you can share a list with all of them at once. On the People page choose <strong>New team</strong>, name
+it and add members by username.</p>
+<h2 id="share-a-list"><a class="anchor" href="#share-a-list" aria-label="Link to this section">#</a>Share a list</h2>
+<p>Open the list's <strong>List options &gt; Share list…</strong>. You can share with:</p>
+<div class="table-wrap"><table><thead><tr><th>Who</th><th>How</th></tr></thead><tbody><tr><td>A person</td><td>Type their username or email</td></tr><tr><td>A team</td><td>Choose the team</td></tr><tr><td>Anyone with a link</td><td><strong>Public link</strong>, optionally with a password; no account needed</td></tr></tbody></table></div>
+<p>Each person or team gets a permission:</p>
+<div class="table-wrap"><table><thead><tr><th>Permission</th><th>They can</th></tr></thead><tbody><tr><td>Can view</td><td>See the list and its tasks</td></tr><tr><td>Can edit</td><td>Add, change and complete tasks</td></tr><tr><td>Can edit and share</td><td>All of that, and share the list with others</td></tr></tbody></table></div>
+<p>Shared lists show a sharing icon. Change someone's permission or <strong>stop sharing</strong> from the same dialog.</p>
+<h2 id="assign-tasks"><a class="anchor" href="#assign-tasks" aria-label="Link to this section">#</a>Assign tasks</h2>
+<p>In a task's details, <strong>Assign to</strong> picks someone who can see the list. Assigning someone who can't see it yet shares
+the list with them first. Assigned tasks show their avatars on the row, and <strong>Overview</strong> lists what's assigned to you.</p>
+<p>From the command line:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket people                    # who you work with
+docket assign 12 pat             # assign task 12 to pat
+docket unassign 12 pat
+docket share work                # who can see the Work list
+docket share work pat edit       # share it with pat (view, edit or admin)</code></pre></div>
+<h2 id="what-ai-can-and-cant-do"><a class="anchor" href="#what-ai-can-and-cant-do" aria-label="Link to this section">#</a>What AI can and can't do</h2>
+<p>An AI connected through the Docket connector can list people (<code>people</code>) and assign a task to someone who can
+<strong>already</strong> see its list (<code>assign</code>). It can't share lists, manage teams or create accounts: its token has no
+sharing rights, on purpose. Share from the app first, then ask the AI to assign.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/using/people-and-sharing.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="views-and-boards.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Views, boards and list styles</b></a><a class="pn next" href="ai-planning.html"><span>Next</span><b>AI planning in the app<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#add-people" class="l2">Add people</a><a href="#teams" class="l2">Teams</a><a href="#share-a-list" class="l2">Share a list</a><a href="#assign-tasks" class="l2">Assign tasks</a><a href="#what-ai-can-and-cant-do" class="l2">What AI can and can't do</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

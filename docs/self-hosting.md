@@ -1,177 +1,56 @@
-# Self-hosting Docket
+# Choose a setup
 
 Docket keeps your tasks in [Vikunja](https://vikunja.io), an open-source task server, and adds the Docket apps and
-an AI connector on top. You can run it three ways:
+an AI connector on top. You can run it three ways. All three give you the same apps and the same features.
 
 | | Windows PC | Docker server | Your own Vikunja |
 |---|---|---|---|
-| For | Just you, on one PC (phone via Tailscale) | Always-on: a VPS, NAS or home server | You already run Vikunja |
-| Gives you | Vikunja on 127.0.0.1, the app, CLI and local AI connector | Vikunja + the remote AI connector + automatic HTTPS | The Docket apps and connector |
-| Remote AIs (claude.ai, ChatGPT) | Only through a tunnel | Yes | Run the connector yourself |
-| Guide | [Windows](#windows-pc) | [Docker](#docker-server) | [Existing Vikunja](#your-own-vikunja) |
+| Best for | Just you, on one PC (phone through Tailscale) | Always on: a VPS, NAS or home server | You already run Vikunja |
+| You get | Vikunja on 127.0.0.1, the app, CLI, Docket web and the local AI connector | Vikunja, Docket web, the remote AI connector and automatic HTTPS | The Docket apps and connector |
+| claude.ai and ChatGPT | Only through a [tunnel](setup/public-address.md) | Yes | Run the connector yourself |
+| Skill needed | Run one script | Basic Linux and Docker | Reverse proxy setup |
+| Guide | [Windows PC](setup/windows.md) | [Docker server](setup/docker.md) | [Existing Vikunja](setup/existing-vikunja.md) |
+
+Claude Desktop, Claude Code, local models and the Docket apps work with every setup.
 
 ## Windows PC
 
-1. Download `docket-<version>-windows-x64.zip` (or `arm64`) from
-   [Releases](https://github.com/niteshaggarwal/docket/releases) and unzip it.
-2. Right-click `install.ps1` > **Run with PowerShell** (or `powershell -ExecutionPolicy Bypass -File install.ps1`).
-3. When your browser opens Vikunja, create your account, return to the window and press Enter. Sign in once more
-   there; the installer makes the app's token and the AI connector's (no-delete) token, connects Claude Desktop and
-   Claude Code if you have them, and offers to close sign-ups.
-
-No admin rights are needed. What it sets up, all for your Windows account only:
-
-| What | Where |
-|---|---|
-| Docket app, `docket` CLI, `docket-mcp` | `%LOCALAPPDATA%\Programs\Docket` (CLI added to your PATH; Start menu shortcut) |
-| Vikunja and your data | `%LOCALAPPDATA%\Docket\server` (outside OneDrive: a live database and file sync don't mix) |
-| Backups | `Documents\Docket\backups`, nightly at 11 pm, newest 14 kept |
-| Scheduled tasks | Task Scheduler > `Docket`: "Vikunja server" and "Docket web" (at sign-in, then checked every 5 minutes), "Vikunja backup" (nightly) |
-| Settings and tokens | `%LOCALAPPDATA%\Docket\settings.json` (tokens encrypted with Windows DPAPI) |
-
-Options: `-Reminders` adds reminder notifications from sign-in; `-Port 3500` changes the port;
-`-TimeZone Europe/London` skips the time-zone question; `-NoScheduledTasks -NoPath -NoStartMenu` for a portable setup.
-Run it again to upgrade (your data stays). `uninstall.ps1` removes it (add `-RemoveData` to delete your tasks too).
-
-From source instead of a release: clone the repo, install the .NET 10 SDK, then run `deploy\windows\install.ps1`;
-it builds the app first.
+Download the Windows zip from [Releases](https://github.com/niteshaggarwal/docket/releases), right-click
+`install.ps1` and choose **Run with PowerShell**. It installs everything for your Windows account, without admin
+rights. Full guide, including what each question means: [Windows PC](setup/windows.md).
 
 ### If the server stops
 
-The task server keeps running by itself, with three layers of protection:
-
-1. **The apps restart it.** When the Docket app, the `docket` CLI or the AI connector finds the server on this PC
-   stopped, it starts it again (through its scheduled task, or the server program directly), waits for it, and then
-   carries on with what you asked. You see "Starting your task server…" for a few seconds instead of an error.
-2. **The scheduled tasks check every 5 minutes.** "Vikunja server", "Docket web" and "Docket reminders" run at sign-in
-   and again every 5 minutes. A running copy is left alone; a stopped one starts again.
-3. **The reminders watcher heals it too.** `docket notify --watch` runs all day; if the server stops, it restarts it
-   and keeps watching instead of quitting.
-
-If the server still can't start, the app says so and offers **Start server and retry**. If that fails too, restart the
-PC, or run `install.ps1` again (it keeps your data). The server's log is in `%LOCALAPPDATA%\Docket\server\logs`.
-A server on another machine (Docker, a VPS) can't be started from your PC: there the app tells you it can't reach it.
+The apps, the CLI and the AI connector restart a stopped server on your PC by themselves, and Windows checks it
+every 5 minutes as a failsafe. Details: [if the server stops](setup/windows.md#if-the-server-stops).
 
 ### Reach it from your phone
 
-Vikunja listens on 127.0.0.1 only. The simplest safe way to reach it from your phone is
-[Tailscale](https://tailscale.com) (free for personal use):
-
-1. Install Tailscale on the PC and the phone and sign in to the same account on both.
-2. On the PC: `tailscale serve --bg 3456`. That gives Vikunja an HTTPS address like `https://my-pc.tail1234.ts.net`,
-   reachable only from your own devices.
-3. In Docket for Android, sign in with that address.
-
-To let claude.ai or ChatGPT reach a Windows install, see [No public IP or domain](#no-public-ip-or-domain).
+The Windows install listens only on your PC. Use [Tailscale](setup/phone.md) to reach it privately from your phone:
+`tailscale serve --bg 3457` on the PC, then sign in to Docket for Android with the address it gives you.
 
 ## Docker server
 
-Runs Vikunja, the Docket AI connector, and [Caddy](https://caddyserver.com) for automatic HTTPS certificates.
-
-**You need** a Linux machine (any VPS with 1 GB RAM is plenty, or a NAS/home server) with Docker and the compose
-plugin, and a domain name pointing at it with ports 80 and 443 open. No domain? See
-[No public IP or domain](#no-public-ip-or-domain).
-
-```sh
-# From a release (uses the published connector image):
-curl -fsSL -o docket-server.tar.gz https://github.com/niteshaggarwal/docket/releases/latest/download/docket-server-<version>.tar.gz
-tar xzf docket-server.tar.gz && cd docket-server
-./setup.sh
-
-# Or from a clone (builds the connector image locally if it can't be pulled):
-git clone https://github.com/niteshaggarwal/docket && cd docket/deploy/docker
-./setup.sh
-```
-
-`setup.sh` asks for your domain and time zone, writes `.env` with fresh secrets, starts the stack, waits while you
-create your account at `https://your-domain`, then runs `docket-mcp setup` so the connector gets its own no-delete
-token, and offers to close sign-ups.
-
-Prefer doing it by hand? `cp .env.example .env`, fill in the four values, `docker compose up -d`, create your account,
-then `docker compose exec connector docket-mcp setup`, and set `VIKUNJA_REGISTRATION=false` followed by
-`docker compose up -d`.
-
-**Addresses**
-
-| Address | What |
-|---|---|
-| `https://your-domain/` | Vikunja's web app in the Docket look ([docket-web](#docket-web-skin)); sign in here from the Docket apps |
-| `https://your-domain/mcp` | MCP for AI assistants ([docs/ai](ai/README.md)) |
-| `https://your-domain/openapi.json` | REST description for GPT actions and automations |
-| `https://your-domain/connector/health` | Connector status |
-
-**Upgrades:** `docker compose pull && docker compose up -d`. Pin versions with `DOCKET_VERSION` and `VIKUNJA_VERSION`
-in `.env`; read the release notes before a Vikunja major-version jump.
-
-**Backups:** your data is in Docker volumes. A consistent Vikunja dump:
-
-```sh
-docker compose exec vikunja /app/vikunja/vikunja dump --path /app/vikunja/files/backups
-docker compose cp vikunja:/app/vikunja/files/backups ./backups
-```
-
-Restore with `vikunja restore <file>` (see [Vikunja's docs](https://vikunja.io/docs/backups/)). The connector's volume
-holds only its token and OAuth sign-ins, which can be recreated.
-
-**Security notes**
-- Everything is HTTPS; Vikunja and the connector aren't exposed except through Caddy.
-- Keep `.env` private (`chmod 600`, as `setup.sh` sets). It holds `VIKUNJA_SECRET` and `DOCKET_MCP_KEY`.
-- Close sign-ups after creating your account(s). Turn on two-factor sign-in in Vikunja's settings.
-- To revoke all AI access at once: change `DOCKET_MCP_KEY` in `.env`, then `docker compose up -d`. Every OAuth
-  sign-in made with the old key stops working.
-- OAuth sign-ins can only return to the Claude and ChatGPT sites (and localhost) unless you add hosts with
-  `DOCKET_OAUTH_REDIRECT_HOSTS`, so a fake "client" can't collect your key.
+One script on any Linux machine with Docker sets up Vikunja, Docket web, the AI connector and HTTPS certificates.
+Full guide: [Docker server](setup/docker.md).
 
 ### No public IP or domain
 
-claude.ai and ChatGPT connect from the internet, so the connector needs a public HTTPS address. Without opening ports:
-
-- **Tailscale Funnel** (good for the Windows install): run the connector over HTTP on the PC
-  ([how](ai/local-ai.md#run-the-connector-over-http-on-your-network)) with
-  `DOCKET_PUBLIC_URL=https://<machine>.<tailnet>.ts.net`, then `tailscale funnel --bg 8080`. Funnel provides the
-  HTTPS certificate and makes only the connector public; Vikunja stays private. The connector key is what keeps it safe.
-- **Cloudflare Tunnel** (good for the Docker server): run `cloudflared` with a hostname on your Cloudflare domain
-  pointing at the stack, and set `DOCKET_DOMAIN`/`DOCKET_PUBLIC_URL` to that hostname. Cloudflare handles HTTPS, so
-  point the tunnel at the services directly (`/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`,
-  `/openapi.json` to `connector:8080`, everything else to `web:8080`, the [Docket web skin](#docket-web-skin)) and leave
-  Caddy out.
-
-Local AIs and the Docket apps don't need any of this; plain Tailscale (private) is enough for them.
+claude.ai and ChatGPT need a public HTTPS address for the connector. Without opening ports, use Tailscale Funnel or
+a Cloudflare Tunnel: [public address for AI](setup/public-address.md).
 
 ## Your own Vikunja
 
-Docket works with any Vikunja 2.x server.
-- **Apps:** sign in with your server's address (Android), or run `deploy\windows\setup-tokens.ps1 -ServerUrl https://your-vikunja`
-  (Windows app and CLI).
-- **Connector:** run `docket-mcp setup` with `DOCKET_VIKUNJA_URL` set, then `docket-mcp` (local) or
-  `docket-mcp --http` (remote), or run the `ghcr.io/niteshaggarwal/docket-connector` image with `DOCKET_VIKUNJA_URL`,
-  `DOCKET_MCP_KEY` and `DOCKET_PUBLIC_URL`, and route `/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`
-  and `/openapi.json` to it from your reverse proxy (see `deploy/docker/Caddyfile`).
+Docket works with any Vikunja 2.x server: [existing Vikunja](setup/existing-vikunja.md).
 
 ## Docket web skin
 
-`docket-web` serves Vikunja's own web app with the Docket look (the Fluent design of the Windows app, light and dark)
-and Docket's name and icons instead of Vikunja's. Every Vikunja feature stays: list, Gantt, table and Kanban views,
-upcoming, teams, labels, sharing and settings. It is a small reverse proxy in front of Vikunja: requests, the
-WebSocket, uploads and downloads, and public `/share/...` links pass straight through; only the HTML page and the web
-manifest are rewritten to add the skin (`/docket-skin/skin.css` and `skin.js`, built into the program).
+`docket-web` serves Vikunja's web app with the Docket look. It's included in the Windows and Docker setups:
+[Docket web](setup/docket-web.md).
 
-| Variable | Default | What |
-|---|---|---|
-| `DOCKET_VIKUNJA_URL` | `http://127.0.0.1:3456` | The Vikunja server to forward to |
-| `DOCKET_WEB_URLS` | `http://127.0.0.1:3457` | Address(es) to listen on, separated by `;` |
-| `DOCKET_WEB_SKIN_DIR` | (none) | Serve the skin from this folder instead of the built-in copy (for working on the skin) |
+## Looking after it
 
-- **Docker:** included. The `web` service (the connector image, run as `/app/web/docket-web`) serves the site's root,
-  and Caddy sends everything except the connector's routes (`/mcp`, `/oauth/*`, `/.well-known/oauth-*`, `/api/tools/*`,
-  `/openapi.json`) to it. If `web` isn't running, Caddy falls back to Vikunja directly. It needs a connector image
-  that includes docket-web; if you pin `DOCKET_VERSION` to an older one, remove the `web` service or update the pin.
-- **Windows:** `install.ps1` installs it to `web\` and starts it at sign-in (scheduled task "Docket web"; the app's
-  **Open in browser** goes there). By hand: run `web\docket-web.exe` (it uses Vikunja on port 3456 and listens on
-  http://127.0.0.1:3457), then open that address instead of Vikunja's. For your phone over Tailscale, point
-  `tailscale serve` at 3457 instead of 3456; the Docket apps can sign in through either port.
-- **Your own Vikunja:** run `docket-web` with `DOCKET_VIKUNJA_URL` set and route your site's root to it (keep the
-  connector's routes as above).
-
-Signing in, the API and the Docket apps work the same through it, since it only changes how pages look. The page
-reaches the API at whatever address you opened it on, so Vikunja's `service.publicurl` can stay as it is.
+- [Updating](setup/updating.md) Docket and Vikunja
+- [Backups and restore](setup/backups.md)
+- [Uninstalling](setup/uninstalling.md)
+- [Security](setup/security.md)

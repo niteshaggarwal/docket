@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Uninstalling · Docket docs</title>
+<meta name="description" content="Run the uninstaller from PowerShell:">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="windows.html">Windows PC</a><a href="phone.html">Phone access (Tailscale)</a><a href="docker.html">Docker server</a><a href="public-address.html">Public address for AI</a><a href="existing-vikunja.html">Existing Vikunja</a><a href="docket-web.html">Docket web</a><a href="updating.html">Updating</a><a href="backups.html">Backups and restore</a><a href="uninstalling.html" class="on" aria-current="page">Uninstalling</a><a href="security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Set up</p>
+      <h1 id="uninstalling">Uninstalling</h1>
+<h2 id="windows"><a class="anchor" href="#windows" aria-label="Link to this section">#</a>Windows</h2>
+<p>Run the uninstaller from PowerShell:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">powershell -ExecutionPolicy Bypass -File &quot;$env:LOCALAPPDATA\Programs\Docket\uninstall.ps1&quot;</code></pre></div>
+<p>It removes the scheduled tasks, the programs, the PATH entry, the Start menu shortcut and the Claude Code connector.
+<strong>Your tasks are kept</strong> in <code>%LOCALAPPDATA%\Docket\server</code>, so installing again brings everything back.</p>
+<p>To delete your tasks too, add <code>-RemoveData</code>:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">powershell -ExecutionPolicy Bypass -File &quot;$env:LOCALAPPDATA\Programs\Docket\uninstall.ps1&quot; -RemoveData</code></pre></div>
+<p>That deletes the server data and Docket's settings. Backups in <code>Documents\Docket\backups</code> are always kept; delete
+that folder yourself if you want them gone.</p>
+<p>Afterwards:</p>
+<ul><li>If you added Docket to <strong>Claude Desktop</strong>, LM Studio or another AI app, remove the <code>docket</code> entry from its MCP
+settings (Claude Desktop: Settings &gt; Developer &gt; Edit Config).</li><li>If you used Tailscale for your phone, run <code>tailscale serve reset</code> on the PC.</li></ul>
+<h2 id="docker-server"><a class="anchor" href="#docker-server" aria-label="Link to this section">#</a>Docker server</h2>
+<p>In the folder with <code>compose.yaml</code>:</p>
+<div class="code"><div class="code-head"><span>Shell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">docker compose down          # stops the stack, keeps your data in Docker volumes
+docker compose down -v       # stops it and deletes all data (tasks, files, certificates)</code></pre></div>
+<p>Make a <a href="backups.html#docker-server">backup</a> first if you might want your tasks later.</p>
+<h2 id="android"><a class="anchor" href="#android" aria-label="Link to this section">#</a>Android</h2>
+<p>Uninstall the app as usual. Its token stays valid on the server until you delete it in Vikunja (Settings &gt;
+API Tokens), or uninstall the server.</p>
+<h2 id="ai-connections"><a class="anchor" href="#ai-connections" aria-label="Link to this section">#</a>AI connections</h2>
+<ul><li><strong>claude.ai / ChatGPT:</strong> remove the Docket connector in their settings.</li><li><strong>All AI at once (server):</strong> change <code>DOCKET_MCP_KEY</code> in <code>.env</code> and run <code>docker compose up -d</code>.</li><li><strong>The connector's token:</strong> delete &quot;Docket AI connector&quot; in Vikunja under Settings &gt; API Tokens.</li></ul>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/setup/uninstalling.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="backups.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Backups and restore</b></a><a class="pn next" href="security.html"><span>Next</span><b>Security<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#windows" class="l2">Windows</a><a href="#docker-server" class="l2">Docker server</a><a href="#android" class="l2">Android</a><a href="#ai-connections" class="l2">AI connections</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

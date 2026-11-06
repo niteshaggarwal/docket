@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI planning in the app · Docket docs</title>
+<meta name="description" content="Describe what you need in plain words, and Docket's AI turns it into tasks, with subtasks, dates and priorities. You see the whole plan first; nothing is added ">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="windows.html">Windows app</a><a href="android.html">Android app</a><a href="web.html">Web app</a><a href="quick-add.html">Quick add and commands</a><a href="shortcuts.html">Keyboard shortcuts</a><a href="views-and-boards.html">Views, boards and list styles</a><a href="people-and-sharing.html">People, teams and sharing</a><a href="ai-planning.html" class="on" aria-current="page">AI planning in the app</a><a href="cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Use Docket</p>
+      <h1 id="ai-planning-in-the-app">AI planning in the app</h1>
+<p>Describe what you need in plain words, and Docket's AI turns it into tasks, with subtasks, dates and priorities. You
+see the whole plan first; nothing is added until you confirm it.</p>
+<p class="shots"><img src="../screenshots/win-ai-thinking.png" alt="The AI working on a plan" loading="lazy"><img src="../screenshots/win-ai-plan.png" alt="A nested plan to confirm" loading="lazy"></p>
+<p>This is the AI <strong>inside</strong> the Docket apps. To let an assistant like Claude or ChatGPT work on your tasks from its own
+app, see <a href="../ai/index.html">AI assistants</a> instead.</p>
+<h2 id="use-it"><a class="anchor" href="#use-it" aria-label="Link to this section">#</a>Use it</h2>
+<ul><li>In the add bar, type <code>/ai</code> and what you need, for example
+<code>/ai plan the product launch next week: venue, invites, press kit</code>.</li><li>Or turn on the <strong>sparkle</strong> button in the add bar, and just type.</li><li>Or from the command line: <code>docket ai &quot;plan the launch next week&quot;</code> shows the plan; run it again with <code>--yes</code> to add it.</li></ul>
+<p>The AI keeps your own words and names, only sets dates you gave or clearly implied, breaks big jobs into subtasks,
+and can put things in My Day or mark them important. You can paste a messy list or meeting notes too.</p>
+<h2 id="choose-an-ai"><a class="anchor" href="#choose-an-ai" aria-label="Link to this section">#</a>Choose an AI</h2>
+<p>Open <strong>Settings &gt; AI</strong> and pick a provider:</p>
+<div class="table-wrap"><table><thead><tr><th>Provider</th><th>What you need</th><th>Where your text goes</th></tr></thead><tbody><tr><td><strong>Local</strong></td><td><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> on your PC and a downloaded model</td><td>Nowhere: it stays on your PC</td></tr><tr><td><strong>Claude</strong></td><td>An API key from <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a></td><td>Anthropic</td></tr><tr><td><strong>ChatGPT</strong></td><td>An API key from <a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a></td><td>OpenAI</td></tr><tr><td><strong>Gemini</strong></td><td>An API key from <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a></td><td>Google</td></tr><tr><td><strong>Off</strong></td><td>Nothing</td><td>The add bar adds tasks exactly as typed</td></tr></tbody></table></div>
+<p>Then choose <strong>Test: plan &quot;Buy milk tomorrow&quot;</strong> to check it works.</p>
+<p>API keys are stored encrypted for your Windows account (on Android, in the system's secure storage) and only ever
+sent to that provider. API use is billed by the provider, separately from any Claude or ChatGPT subscription; a
+planning request is small.</p>
+<h3 id="default-models"><a class="anchor" href="#default-models" aria-label="Link to this section">#</a>Default models</h3>
+<div class="table-wrap"><table><thead><tr><th>Provider</th><th>Default model</th><th>Change it</th></tr></thead><tbody><tr><td>Local (Ollama)</td><td><code>qwen2.5:7b</code>, or another chat model you have installed</td><td>Pick from the <strong>Model</strong> list</td></tr><tr><td>Claude</td><td><code>claude-haiku-5-5</code></td><td>Type another model name in <strong>Model</strong></td></tr><tr><td>ChatGPT</td><td><code>gpt-4.1-mini</code></td><td>Same</td></tr><tr><td>Gemini</td><td><code>gemini-2.5-flash</code></td><td>Same</td></tr></tbody></table></div>
+<h2 id="set-up-local-ai-with-ollama"><a class="anchor" href="#set-up-local-ai-with-ollama" aria-label="Link to this section">#</a>Set up local AI with Ollama</h2>
+<p>Local AI is free and private, but needs a reasonably capable PC: a 7–8B model wants about 8 GB of free memory, and
+runs much faster with a recent graphics card.</p>
+<ol><li>In <strong>Settings &gt; AI</strong>, choose <strong>Local</strong>. Docket checks for Ollama.</li><li>If it says <strong>Ollama isn't installed</strong>, choose <strong>Install Ollama</strong>. Docket installs it for your account with the
+Windows Package Manager (winget); a window shows the progress. You can also install it yourself from
+<a href="https://ollama.com/download" target="_blank" rel="noopener">ollama.com</a>.</li><li>If it says <strong>Ollama is installed but not running</strong>, choose <strong>Start Ollama</strong> (it then runs from the system tray).</li><li>When it says <strong>Local AI is running</strong> but no model is installed, type a model name (the box suggests
+<code>qwen2.5:7b</code>) and choose <strong>Download model</strong>. It's several GB and stays on your PC.</li><li>Choose the model in the <strong>Model</strong> list, then <strong>Test</strong>.</li></ol>
+<p>The first answer after starting can take up to a minute while the model loads. Good small models for planning:
+<code>qwen2.5:7b</code>, <code>qwen3:8b</code>, <code>llama3.1:8b</code>. Very small models (under about 4B) make messier plans.</p>
+<p>From a terminal, the same is <code>winget install Ollama.Ollama</code> and <code>ollama pull qwen2.5:7b</code>.</p>
+<h2 id="on-android"><a class="anchor" href="#on-android" aria-label="Link to this section">#</a>On Android</h2>
+<p>The phone uses the same choices. <strong>Local AI on your PC</strong> reaches Ollama over your network, by default at your
+Docket server's address on port 11434 (you can change it in Settings &gt; AI). For that to work:</p>
+<ol><li>Make Ollama listen on the network, not only on the PC: set the Windows environment variable
+<code>OLLAMA_HOST</code> to <code>0.0.0.0</code> (Settings &gt; System &gt; About &gt; Advanced system settings &gt; Environment Variables), then
+quit and restart Ollama from the tray.</li><li>If Windows Firewall asks, allow Ollama on <strong>private</strong> networks.</li><li>With Tailscale, the phone reaches the PC at its Tailscale name, so the default address works.</li></ol>
+<div class="callout callout-warning"><p class="callout-title">Warning</p><p><code>OLLAMA_HOST=0.0.0.0</code> lets other devices on your network use Ollama. That's fine at home or on Tailscale; don't
+do it on public Wi-Fi.</p></div>
+<h2 id="when-it-doesnt-answer"><a class="anchor" href="#when-it-doesnt-answer" aria-label="Link to this section">#</a>When it doesn't answer</h2>
+<p>See <a href="../troubleshooting.html#ai-planning-doesnt-respond">troubleshooting: AI planning doesn't respond</a>.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/using/ai-planning.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="people-and-sharing.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>People, teams and sharing</b></a><a class="pn next" href="cli.html"><span>Next</span><b>Command line (CLI)<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#use-it" class="l2">Use it</a><a href="#choose-an-ai" class="l2">Choose an AI</a><a href="#default-models" class="l3">Default models</a><a href="#set-up-local-ai-with-ollama" class="l2">Set up local AI with Ollama</a><a href="#on-android" class="l2">On Android</a><a href="#when-it-doesnt-answer" class="l2">When it doesn't answer</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

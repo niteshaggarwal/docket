@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The command line · Docket docs</title>
+<meta name="description" content="The docket command shows and changes your tasks from a terminal on Windows. It's installed by the Windows installer and added to your PATH; open a new terminal ">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="windows.html">Windows app</a><a href="android.html">Android app</a><a href="web.html">Web app</a><a href="quick-add.html">Quick add and commands</a><a href="shortcuts.html">Keyboard shortcuts</a><a href="views-and-boards.html">Views, boards and list styles</a><a href="people-and-sharing.html">People, teams and sharing</a><a href="ai-planning.html">AI planning in the app</a><a href="cli.html" class="on" aria-current="page">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Use Docket</p>
+      <h1 id="the-command-line">The command line</h1>
+<p>The <code>docket</code> command shows and changes your tasks from a terminal on Windows. It's installed by the
+<a href="../setup/windows.html">Windows installer</a> and added to your PATH; open a <strong>new</strong> terminal after installing.</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket                              # today and overdue
+docket add &quot;Send invoice friday !3&quot; -p Work
+docket done 12</code></pre></div>
+<p>Task ids are the numbers shown as <code>#12</code>. Lists can be given by name or id.</p>
+<h2 id="everyday-commands"><a class="anchor" href="#everyday-commands" aria-label="Link to this section">#</a>Everyday commands</h2>
+<h3 id="see-tasks"><a class="anchor" href="#see-tasks" aria-label="Link to this section">#</a>See tasks</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket                      # due today and overdue (same as: docket today)
+docket myday                # My Day
+docket suggest              # suggestions for My Day
+docket important            # starred
+docket planned              # with a due date, grouped Earlier, Today, Tomorrow, This week, Later
+docket all                  # every open task
+docket completed            # finished tasks
+docket upcoming             # next 7 days
+docket overdue
+docket open                 # everything unfinished
+docket done                 # recently finished
+docket search invoice       # search titles and notes (--all includes finished tasks)
+docket show 12              # one task in full</code></pre></div>
+<p>Options for listings: <code>-p &lt;list&gt;</code> narrows to one list, <code>-n &lt;number&gt;</code> limits how many, <code>--json</code> prints JSON.</p>
+<h3 id="add-and-change-tasks"><a class="anchor" href="#add-and-change-tasks" aria-label="Link to this section">#</a>Add and change tasks</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket add &quot;Send invoice friday !3&quot; -p work -l admin   # quick-add words, list, category
+docket add &quot;Plan Q1&quot; -d 2026-12-01 -P 2 --desc &quot;Draft first&quot;
+docket done 12 14                                       # complete (repeating tasks move to their next date)
+docket undo 14                                          # reopen
+docket edit 12 -t &quot;New title&quot; -d none -P 2              # title, due (none clears), priority 0-5
+docket notes 12 &quot;Use the new template&quot;                  # replace notes (steps are kept)
+docket comment 12 &quot;Called, waiting for PO&quot;
+docket move 12 doing                                    # board column
+docket delete 12 --yes                                  # without --yes it asks first</code></pre></div>
+<h3 id="my-day-stars-steps-repeats-and-reminders"><a class="anchor" href="#my-day-stars-steps-repeats-and-reminders" aria-label="Link to this section">#</a>My Day, stars, steps, repeats and reminders</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket myday add 12 15      docket myday rm 12
+docket star 12              docket unstar 12
+docket step 12 add &quot;Price it&quot;     docket step 12 done 1     docket step 12 undo 1     docket step 12 rm 1
+docket repeat 12 weekdays   # daily, weekdays, weekly, monthly, yearly, &quot;every 3 weeks&quot;, none
+docket remind 12 &quot;tomorrow 9:00&quot;   # &quot;in 2 hours&quot;, &quot;fri 5pm&quot;, 2026-11-20T09:00, none
+docket cat 12 Client Urgent        # set categories (none clears)
+docket label 12 Admin              # add one category</code></pre></div>
+<h3 id="subtasks"><a class="anchor" href="#subtasks" aria-label="Link to this section">#</a>Subtasks</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket sub 12 &quot;Book the venue friday&quot;   # add a subtask under #12
+docket parent 15 12                     # also put #15 under #12 (a task can have several parents)
+docket parent 15 rm 12                  # take it out again
+docket tree work                        # a list with subtasks nested
+docket convert 12                       # turn old checklist steps into subtasks</code></pre></div>
+<h3 id="people-and-sharing"><a class="anchor" href="#people-and-sharing" aria-label="Link to this section">#</a>People and sharing</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket people
+docket assign 12 pat        docket unassign 12 pat
+docket share work                     # who can see it
+docket share work pat edit            # share with a username or email: view, edit or admin</code></pre></div>
+<h3 id="overview-and-ai"><a class="anchor" href="#overview-and-ai" aria-label="Link to this section">#</a>Overview and AI</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket overview                                # dashboard numbers
+docket ai &quot;plan the launch next week&quot;          # show a plan from the AI chosen in Settings &gt; AI
+docket ai &quot;plan the launch next week&quot; --yes    # show it and add it</code></pre></div>
+<h3 id="lists-and-boards"><a class="anchor" href="#lists-and-boards" aria-label="Link to this section">#</a>Lists and boards</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket projects                              # all lists with counts
+docket board work                            # a list's board
+docket list add Clients --group Studio
+docket list rename Studio &quot;Studio work&quot;
+docket list color Studio &quot;#4F8BFF&quot;</code></pre></div>
+<h3 id="reminders-and-setup"><a class="anchor" href="#reminders-and-setup" aria-label="Link to this section">#</a>Reminders and setup</h3>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket notify --watch       # show reminder notifications all day (Ctrl+C stops)
+docket notify --once        # show what's due now, then exit
+docket status               # which server, its Vikunja version and how many lists
+docket login --server http://localhost:3456   # connect with an API token</code></pre></div>
+<p><code>docket notify --watch</code> shows a Windows notification when a reminder falls due, with <strong>Complete</strong> and <strong>Snooze
+10 min</strong> buttons; clicking it opens the app. The installer's <code>-Reminders</code> option starts it at sign-in. If the task
+server on your PC stops, it starts it again and keeps watching.</p>
+<h2 id="quick-add-words"><a class="anchor" href="#quick-add-words" aria-label="Link to this section">#</a>Quick-add words</h2>
+<p><code>today</code>, <code>tomorrow</code>, weekdays (<code>fri</code>), <code>in 3 days</code>, <code>20/11</code> (day/month) set the due date, and <code>!1</code> to <code>!5</code> the
+priority. See <a href="quick-add.html">quick add</a>.</p>
+<h2 id="json-for-scripts"><a class="anchor" href="#json-for-scripts" aria-label="Link to this section">#</a>JSON for scripts</h2>
+<p>Add <code>--json</code> to any listing:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">docket today --json | ConvertFrom-Json | Where-Object priority -ge 3
+docket planned --json        # [{ group: &quot;Today&quot;, task: {...} }, ...]
+docket show 42 --json</code></pre></div>
+<p>The task format is in the <a href="../api.html#cli">developer API</a>. Exit codes: 0 success, 1 error, 2 wrong usage.</p>
+<h2 id="full-help"><a class="anchor" href="#full-help" aria-label="Link to this section">#</a>Full help</h2>
+<p>This is the output of <code>docket --help</code>, kept in sync with the program:</p>
+<p>&lt;!-- sync:cli --&gt;</p>
+<div class="code"><div class="code-head"><span>Text</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-text">docket: your Vikunja tasks from the terminal
+
+Lists
+  docket [today]                 due today and overdue
+  docket myday                   My Day (resets each day)
+  docket suggest                 suggestions for My Day
+  docket important | planned | all | completed
+  docket upcoming | overdue | open | done
+  docket search &lt;words&gt; [--all]  search titles and notes (--all includes done)
+    options: -p &lt;project&gt;  -n &lt;limit&gt;  --json
+
+Tasks
+  docket add &lt;text&gt; [-p list] [-d due] [-P 0-5] [--desc text] [-l label]...
+         quick-add words work in &lt;text&gt;: &quot;Call Pat friday !3&quot;
+  docket show &lt;id&gt;
+  docket done &lt;id&gt; [&lt;id&gt;...]     docket undo &lt;id&gt;        (repeating tasks move to their next date)
+  docket myday add|rm &lt;id&gt;...    docket star|unstar &lt;id&gt;...
+  docket step &lt;id&gt; add &lt;text&gt;    docket step &lt;id&gt; done|undo|rm &lt;n&gt;
+  docket repeat &lt;id&gt; daily|weekdays|weekly|monthly|yearly|&quot;every 3 weeks&quot;|none
+  docket remind &lt;id&gt; &lt;when&gt;|none    when: &quot;tomorrow 9:00&quot;, &quot;in 2 hours&quot;, &quot;fri 5pm&quot;, 2026-11-20T09:00
+  docket cat &lt;id&gt; &lt;category&gt;...  set categories (none clears)
+  docket notes &lt;id&gt; &lt;text&gt;       replace notes (steps are kept)
+  docket edit &lt;id&gt; [-t title] [-d due|none] [-P 0-5] [--desc text] [-p list]
+  docket move &lt;id&gt; &lt;column&gt;      e.g. docket move 12 doing
+  docket comment &lt;id&gt; &lt;text&gt;     docket label &lt;id&gt; &lt;label&gt;
+  docket delete &lt;id&gt; [--yes]
+
+Subtasks (real tasks, any depth, a task can have several parents)
+  docket sub &lt;parent id&gt; &lt;text&gt;  add a subtask        docket tree [list]   show a list nested
+  docket parent &lt;id&gt; &lt;parent id&gt; also put it under another task
+  docket parent &lt;id&gt; rm &lt;parent id&gt;                   docket convert &lt;id&gt;  old steps -&gt; subtasks
+
+People and sharing
+  docket people                  docket assign|unassign &lt;id&gt; &lt;username&gt;
+  docket share &lt;list&gt;            who can see it
+  docket share &lt;list&gt; &lt;username|email&gt; [view|edit|admin]
+
+Overview and AI
+  docket overview                dashboard numbers
+  docket ai &lt;what you need&gt; [--yes]   plan tasks with the AI set in the Docket app's Settings
+
+Lists and boards
+  docket projects                docket board &lt;list&gt;
+  docket list add &lt;name&gt; [--group &lt;list&gt;]
+  docket list rename &lt;list&gt; &lt;new name&gt;
+  docket list color &lt;list&gt; &lt;#hex&gt;
+
+Reminders
+  docket notify --once           show reminders that are due now
+  docket notify --watch          keep showing them (Ctrl+C to stop)
+
+Setup
+  docket login [--server http://localhost:3456]   asks for an API token
+  docket status</code></pre></div>
+<p>&lt;!-- /sync:cli --&gt;</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/using/cli.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="ai-planning.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>AI planning in the app</b></a><a class="pn next" href="../ai/index.html"><span>Next</span><b>How AI works with Docket<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#everyday-commands" class="l2">Everyday commands</a><a href="#see-tasks" class="l3">See tasks</a><a href="#add-and-change-tasks" class="l3">Add and change tasks</a><a href="#my-day-stars-steps-repeats-and-reminders" class="l3">My Day, stars, steps, repeats and reminders</a><a href="#subtasks" class="l3">Subtasks</a><a href="#people-and-sharing" class="l3">People and sharing</a><a href="#overview-and-ai" class="l3">Overview and AI</a><a href="#lists-and-boards" class="l3">Lists and boards</a><a href="#reminders-and-setup" class="l3">Reminders and setup</a><a href="#quick-add-words" class="l2">Quick-add words</a><a href="#json-for-scripts" class="l2">JSON for scripts</a><a href="#full-help" class="l2">Full help</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

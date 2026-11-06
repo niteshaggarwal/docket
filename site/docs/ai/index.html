@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Docket with AI assistants · Docket docs</title>
+<meta name="description" content="Docket ships one connector, docket-mcp, that lets AI assistants read and change your tasks. It speaks the Model Context Protocol (MCP), so any MCP-capable assis">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="index.html" class="on" aria-current="page">How AI works with Docket</a><a href="claude.html">Claude</a><a href="claude-skill.html">Claude skill</a><a href="chatgpt.html">ChatGPT</a><a href="local-ai.html">Local models</a><a href="other-clients.html">Other MCP clients</a><a href="tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">AI assistants</p>
+      <h1 id="docket-with-ai-assistants">Docket with AI assistants</h1>
+<p>Docket ships one connector, <code>docket-mcp</code>, that lets AI assistants read and change your tasks. It speaks the
+<a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> (MCP), so any MCP-capable assistant can use it, and it also
+offers the same tools as a plain REST API with an OpenAPI description for assistants that use &quot;actions&quot; instead.</p>
+<p><strong>Nothing the connector does can delete.</strong> None of its 26 tools delete, and the Vikunja token the setup scripts give it
+has no delete, sharing or team rights either. Deleting and sharing stay in the Docket apps, where you can undo them.</p>
+<h2 id="pick-your-setup"><a class="anchor" href="#pick-your-setup" aria-label="Link to this section">#</a>Pick your setup</h2>
+<div class="table-wrap"><table><thead><tr><th>You use</th><th>How it connects</th><th>Guide</th></tr></thead><tbody><tr><td>Claude Desktop, Claude Code</td><td>Local (stdio), on the same computer as your Docket settings</td><td><a href="claude.html#claude-desktop">Claude</a></td></tr><tr><td>claude.ai on the web or phone</td><td>Remote MCP over HTTPS, OAuth sign-in</td><td><a href="claude.html#claudeai-web-desktop-and-phone">Claude</a></td></tr><tr><td>ChatGPT</td><td>Remote MCP connector (developer mode) or a custom GPT with actions</td><td><a href="chatgpt.html">ChatGPT</a></td></tr><tr><td>Gemini CLI, Copilot, Cursor, VS Code, other MCP clients</td><td>Local (stdio) or remote MCP</td><td><a href="other-clients.html">Other MCP clients</a></td></tr><tr><td>LM Studio, Ollama, Jan, Open WebUI (local models)</td><td>Local (stdio), fully offline</td><td><a href="local-ai.html">Local models</a></td></tr><tr><td>Your own scripts or agents</td><td>REST, OpenAPI, MCP or the <code>docket</code> CLI</td><td><a href="../api.html">Developer API</a></td></tr></tbody></table></div>
+<p>Using Claude? Add the <a href="claude-skill.html">Docket skill</a> too: it teaches Claude how to use these tools well.</p>
+<div class="callout callout-note"><p class="callout-title">Note</p><p>This page is about assistants working on your tasks from <strong>their</strong> apps. To plan tasks with AI from <strong>inside</strong> the
+Docket apps (the <code>/ai</code> command), see <a href="../using/ai-planning.html">AI planning in the app</a>.</p></div>
+<h2 id="the-two-ways-to-run-the-connector"><a class="anchor" href="#the-two-ways-to-run-the-connector" aria-label="Link to this section">#</a>The two ways to run the connector</h2>
+<p><strong>Local (stdio).</strong> The assistant starts <code>docket-mcp</code> itself and talks to it over standard input/output. Nothing listens
+on the network. Use this for desktop apps on the computer where Docket is set up.</p>
+<ul><li>Windows: the installer (or <code>deploy\windows\setup-tokens.ps1</code>) puts it at
+<code>%LOCALAPPDATA%\Programs\Docket\mcp\docket-mcp.exe</code> and connects it for you. It reads your Docket settings.</li><li>macOS and Linux: download <code>docket-mcp</code> for your platform from the
+<a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">releases</a>, then give it your Vikunja address and a token with
+environment variables (below).</li></ul>
+<p><strong>Remote (HTTPS).</strong> <code>docket-mcp --http</code> serves MCP at <code>/mcp</code>, REST at <code>/api/tools/{name}</code>, an OpenAPI description at
+<code>/openapi.json</code>, and an OAuth sign-in at <code>/oauth/*</code>. Web and phone assistants (claude.ai, ChatGPT) need this, because
+they connect from the internet. The <a href="../self-hosting.html">Docker server</a> runs it behind HTTPS for you.</p>
+<p>Remote clients prove who they are in one of two ways, both tied to your <strong>connector key</strong> (<code>DOCKET_MCP_KEY</code>):</p>
+<ul><li><strong>Bearer key:</strong> send <code>Authorization: Bearer &lt;connector key&gt;</code>. For clients that let you set headers.</li><li><strong>OAuth:</strong> for clients that only do OAuth (claude.ai, ChatGPT). They register themselves, open Docket's sign-in page,
+you type the connector key once, and they get tokens that refresh on their own. The sign-in page shows which
+address access will go to; only approve a connection you started yourself. Changing the key revokes every OAuth sign-in.</li></ul>
+<h2 id="settings-environment-variables"><a class="anchor" href="#settings-environment-variables" aria-label="Link to this section">#</a>Settings (environment variables)</h2>
+<div class="table-wrap"><table><thead><tr><th>Variable</th><th>Used by</th><th>Meaning</th></tr></thead><tbody><tr><td><code>DOCKET_VIKUNJA_URL</code></td><td>both</td><td>Your Vikunja address, e.g. <code>http://localhost:3456</code> or <code>https://tasks.example.com</code></td></tr><tr><td><code>DOCKET_VIKUNJA_TOKEN</code></td><td>both</td><td>A Vikunja API token. Prefer one without delete rights (<code>docket-mcp setup</code> makes one)</td></tr><tr><td><code>DOCKET_VIKUNJA_TOKEN_FILE</code></td><td>both</td><td>Read the token from this file instead (default: <code>DOCKET_DATA_DIR/vikunja-token</code>)</td></tr><tr><td><code>DOCKET_DEFAULT_LIST</code></td><td>both</td><td>List id new tasks go to when none is named</td></tr><tr><td><code>DOCKET_DATA_DIR</code></td><td>both</td><td>Where the connector keeps <code>state.json</code>, <code>oauth.json</code> and the token file (default <code>./data</code>)</td></tr><tr><td><code>DOCKET_MCP_KEY</code></td><td>remote</td><td>The connector key, 24+ characters (<code>openssl rand -hex 32</code>)</td></tr><tr><td><code>DOCKET_PUBLIC_URL</code></td><td>remote</td><td>The public HTTPS address, e.g. <code>https://tasks.example.com</code>, used in OAuth metadata</td></tr><tr><td><code>DOCKET_MCP_URLS</code></td><td>remote</td><td>Listen address (default <code>http://127.0.0.1:8080</code>; the Docker image uses <code>0.0.0.0:8080</code>)</td></tr><tr><td><code>DOCKET_OAUTH_REDIRECT_HOSTS</code></td><td>remote</td><td>Hosts OAuth may send you back to. Default: claude.ai, claude.com, chatgpt.com, chat.openai.com, platform.openai.com (localhost is always allowed). Comma-separated; <code>*</code> allows any https host</td></tr><tr><td><code>TZ</code></td><td>both</td><td>Time zone for &quot;today&quot;, due dates and reminders</td></tr></tbody></table></div>
+<p>On Windows, when the Vikunja variables aren't set, the connector uses the Docket settings file instead
+(<code>%LOCALAPPDATA%\Docket\settings.json</code>, protected with Windows DPAPI).</p>
+<p>To make a token without the Docket app: <code>docket-mcp setup</code> asks for your Vikunja username and password once, creates a
+token called &quot;Docket AI connector&quot; with no delete rights, and saves it to the token file. Revoke it any time in Vikunja
+under <strong>Settings &gt; API Tokens</strong>.</p>
+<h2 id="tools"><a class="anchor" href="#tools" aria-label="Link to this section">#</a>Tools</h2>
+<div class="table-wrap"><table><thead><tr><th>Tool</th><th>What it does</th></tr></thead><tbody><tr><td><code>list_tasks</code></td><td>Tasks by view: today, upcoming, overdue, open, done, my_day, important, planned, all, completed; optional list and search</td></tr><tr><td><code>get_task</code></td><td>One task in full: steps, notes, reminders, repeat, categories, files, board column, comments</td></tr><tr><td><code>add_task</code></td><td>Add a task; the title can carry quick-add words (<code>tomorrow</code>, <code>fri</code>, <code>in 3 days</code>, <code>20/11</code>, <code>!1</code>–<code>!5</code>)</td></tr><tr><td><code>update_task</code></td><td>Change title, due date, priority or list</td></tr><tr><td><code>complete_task</code></td><td>Complete or reopen tasks; repeating tasks move to their next date</td></tr><tr><td><code>move_task</code></td><td>Move to a Kanban column (Done completes it)</td></tr><tr><td><code>add_comment</code></td><td>Comment on a task</td></tr><tr><td><code>add_label</code> / <code>set_categories</code></td><td>Add one category, or replace them all</td></tr><tr><td><code>list_projects</code> / <code>get_board</code></td><td>Lists with counts and columns; one list's board</td></tr><tr><td><code>create_project</code> / <code>create_list</code></td><td>New list, optionally inside a group</td></tr><tr><td><code>my_day</code> / <code>set_my_day</code></td><td>My Day (with suggestions); add or remove tasks</td></tr><tr><td><code>set_important</code></td><td>Star or unstar</td></tr><tr><td><code>steps</code></td><td>Add, complete, uncomplete or remove checklist steps</td></tr><tr><td><code>set_repeat</code></td><td>daily, weekdays, weekly, monthly, yearly, &quot;every N days/weeks/months/years&quot;, none</td></tr><tr><td><code>set_reminder</code></td><td>Replace reminders (<code>tomorrow 9:00</code>, <code>in 2 hours</code>, <code>fri 5pm</code>, ISO times)</td></tr><tr><td><code>set_notes</code></td><td>Replace the notes, keeping steps</td></tr><tr><td><code>add_subtask</code> / <code>link_subtask</code></td><td>Add a subtask, or put an existing task under another (several parents allowed)</td></tr><tr><td><code>task_tree</code></td><td>A list nested, with subtasks under their parents</td></tr><tr><td><code>assign</code> / <code>people</code></td><td>Assign a task to someone who can see its list; list the people you work with</td></tr><tr><td><code>overview</code></td><td>Dashboard numbers: open, due today, overdue, next 7 days, done this week, by priority and list</td></tr></tbody></table></div>
+<p>Every result is readable text with task ids written as <code>#123</code>, which keeps small local models on track too. Every
+argument of every tool is in the <a href="tools.html">tool reference</a>; the full schema is also in <code>/openapi.json</code> on a running
+connector, or <code>tools/list</code> over MCP.</p>
+<h2 id="prompts-that-work-well"><a class="anchor" href="#prompts-that-work-well" aria-label="Link to this section">#</a>Prompts that work well</h2>
+<ul><li>&quot;What's on my plate today? Put the three most urgent in My Day.&quot;</li><li>&quot;Add 'Send the Q3 invoice' to Work, due Friday, high priority, remind me Thursday at 4pm.&quot;</li><li>&quot;Break #42 into steps and estimate each.&quot;</li><li>&quot;Everything overdue in Home: move it to next week.&quot;</li><li>&quot;Make 'Water the plants' repeat every 3 days.&quot;</li></ul>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/ai/README.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="../using/cli.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Command line (CLI)</b></a><a class="pn next" href="claude.html"><span>Next</span><b>Claude<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#pick-your-setup" class="l2">Pick your setup</a><a href="#the-two-ways-to-run-the-connector" class="l2">The two ways to run the connector</a><a href="#settings-environment-variables" class="l2">Settings (environment variables)</a><a href="#tools" class="l2">Tools</a><a href="#prompts-that-work-well" class="l2">Prompts that work well</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

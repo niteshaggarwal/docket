@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Windows app · Docket docs</title>
+<meta name="description" content="Docket for Windows works like Microsoft To Do, with subtasks, boards, people and AI added. Open it from the Start menu (Docket). If you haven't installed it yet">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="windows.html" class="on" aria-current="page">Windows app</a><a href="android.html">Android app</a><a href="web.html">Web app</a><a href="quick-add.html">Quick add and commands</a><a href="shortcuts.html">Keyboard shortcuts</a><a href="views-and-boards.html">Views, boards and list styles</a><a href="people-and-sharing.html">People, teams and sharing</a><a href="ai-planning.html">AI planning in the app</a><a href="cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Use Docket</p>
+      <h1 id="the-windows-app">The Windows app</h1>
+<p>Docket for Windows works like Microsoft To Do, with subtasks, boards, people and AI added. Open it from the Start
+menu (<strong>Docket</strong>). If you haven't installed it yet, see <a href="../setup/windows.html">install on a Windows PC</a>.</p>
+<p class="shots"><img src="../screenshots/win-my-day.png" alt="My Day in Docket for Windows" loading="lazy"><img src="../screenshots/win-subtasks-and-details.png" alt="A list with nested subtasks and the details pane open" loading="lazy"></p>
+<h2 id="the-sidebar"><a class="anchor" href="#the-sidebar" aria-label="Link to this section">#</a>The sidebar</h2>
+<p>The left side has your <strong>smart lists</strong> at the top and <strong>your lists</strong> underneath.</p>
+<div class="table-wrap"><table><thead><tr><th>Smart list</th><th>What's in it</th></tr></thead><tbody><tr><td><strong>My Day</strong></td><td>Tasks you picked for today. It starts empty each morning. <strong>Suggestions</strong> offers overdue, due and recently added tasks</td></tr><tr><td><strong>Important</strong></td><td>Starred tasks</td></tr><tr><td><strong>Planned</strong></td><td>Tasks with a due date, grouped Earlier, Today, Tomorrow, This week and Later</td></tr><tr><td><strong>All</strong></td><td>Every open task</td></tr><tr><td><strong>Completed</strong></td><td>Finished tasks</td></tr><tr><td><strong>Tasks</strong></td><td>Your default list (Inbox)</td></tr><tr><td><strong>Overview</strong></td><td>A dashboard: counts, the last 14 days, priorities, today, overdue, upcoming, assigned to you and progress per list</td></tr><tr><td><strong>Upcoming</strong></td><td>What's due soon, day by day</td></tr><tr><td><strong>Open tasks</strong></td><td>Everything unfinished, across all lists</td></tr></tbody></table></div>
+<p>Hide the ones you don't use in <strong>Settings &gt; Smart lists</strong> (there's also &quot;Hide empty smart lists automatically&quot;).</p>
+<p class="shots"><img src="../screenshots/win-overview-light.png" alt="The Overview dashboard in light theme" loading="lazy"><img src="../screenshots/win-upcoming.png" alt="The Upcoming page" loading="lazy"></p>
+<h2 id="lists-and-groups"><a class="anchor" href="#lists-and-groups" aria-label="Link to this section">#</a>Lists and groups</h2>
+<ul><li><strong>New list:</strong> <strong>New list</strong> at the bottom of the sidebar, or <kbd>Ctrl</kbd>+<kbd>L</kbd>. <strong>New group</strong> makes a group.</li><li><strong>Groups</strong> hold several lists (in Vikunja they're parent projects).</li><li><strong>List options</strong> (the <strong>…</strong> button at the top of a list) has <strong>Rename list</strong>, <strong>Colour</strong>, <strong>Move to group</strong>,
+<strong>Icon…</strong>, <strong>Background…</strong>, <strong>Share list…</strong>, <strong>Show completed tasks</strong>, <strong>Copy list</strong> and <strong>Delete list</strong>.</li><li><strong>Drag a task onto a list</strong> in the sidebar to move it there. Drag tasks up and down to reorder them when the list is
+sorted by &quot;My order&quot;.</li></ul>
+<p>Lists can look the way you like, with an icon and a background: see <a href="views-and-boards.html#list-icons-and-backgrounds">views, boards and list styles</a>.</p>
+<h2 id="adding-tasks"><a class="anchor" href="#adding-tasks" aria-label="Link to this section">#</a>Adding tasks</h2>
+<p>The <strong>add bar</strong> sits at the bottom of every list. Type and press <kbd>Enter</kbd>. Quick-add words set the due date
+and priority as you type:</p>
+<div class="code"><div class="code-head"><span>Text</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-text">Send invoice friday !3
+Call the bank tomorrow
+Renew passport in 3 days !5</code></pre></div>
+<p>Type <code>/</code> for commands: <code>/s</code> search, <code>/x</code> mark matches done, <code>/m</code> add them to My Day, <code>/i</code> star them, <code>/ai</code> plan with
+AI. Everything about the add bar: <a href="quick-add.html">quick add and commands</a>.</p>
+<h2 id="task-details"><a class="anchor" href="#task-details" aria-label="Link to this section">#</a>Task details</h2>
+<p>Click a task (or press <kbd>Enter</kbd>) to open the details pane on the right. There you can set:</p>
+<ul><li><strong>Subtasks</strong> (<strong>Add subtask</strong>) and <strong>Parents</strong> (<strong>Add parent…</strong>); see below</li><li><strong>Checklist</strong>: the older steps, with <strong>Turn into subtasks</strong></li><li><strong>Add to My Day</strong> and <strong>Important</strong> (the star)</li><li><strong>Set priority</strong>: none, low, medium, high, urgent or do now</li><li><strong>Add start date</strong>, <strong>Add end date</strong>, <strong>Add due date</strong> and <strong>Remind me</strong></li><li><strong>Repeat</strong>: daily, weekdays, weekly, monthly, yearly or custom (every N days, weeks, months or years)</li><li><strong>Assign to</strong>: people who can see the list (<a href="people-and-sharing.html">people and sharing</a>)</li><li><strong>Categories</strong>: coloured labels (type a new one and press <kbd>Enter</kbd>)</li><li><strong>Add file</strong>: attach and open files</li><li><strong>List</strong>: move the task to another list</li><li><strong>Add note</strong></li><li><strong>Activity</strong>: who created it and when, when it last changed and when it was completed</li></ul>
+<p><strong>Delete task</strong> is at the bottom of the pane, with <strong>Undo</strong> for a few seconds afterwards. (Settings &gt; General &gt;
+&quot;Confirm before deleting&quot; asks first.) <kbd>Esc</kbd> hides the pane.</p>
+<p>Small icons on each task row show what it has: notes, files, reminders, repeats, subtask progress, priority and
+assignees.</p>
+<h2 id="subtasks-and-steps"><a class="anchor" href="#subtasks-and-steps" aria-label="Link to this section">#</a>Subtasks and steps</h2>
+<p><strong>Subtasks</strong> are full tasks of their own: each has its own star, dates, reminders and subtasks, and they nest as
+deep as you need. A task can even sit under <strong>several parents</strong> (for example &quot;Book venue&quot; under both &quot;Launch party&quot;
+and &quot;Q4 budget&quot;).</p>
+<ul><li>Add one in the details pane under <strong>Subtasks</strong> (<strong>Add subtask</strong>; quick-add words work), or with the CLI:
+<code>docket sub 12 &quot;Book the venue friday&quot;</code>.</li><li>Put an existing task under another with <strong>Parents &gt; Add parent…</strong>, or <code>docket parent 15 12</code>.</li><li>Expand or collapse subtasks with the arrow next to a task, or <kbd>→</kbd> and <kbd>←</kbd>.</li></ul>
+<p><strong>Steps</strong> (the <strong>Checklist</strong>) are the simple list inside a task, like Microsoft To Do's. Turn them into subtasks
+with <strong>Turn into subtasks</strong> in the details pane, or <code>docket convert &lt;id&gt;</code>.</p>
+<h2 id="views-and-boards"><a class="anchor" href="#views-and-boards" aria-label="Link to this section">#</a>Views and boards</h2>
+<p>Each list can be shown as a <strong>List</strong>, <strong>Table</strong>, <strong>Gantt</strong> chart or <strong>Board</strong>, with the view buttons at the top of
+the list. Boards have columns you can name, colour and give an icon. See
+<a href="views-and-boards.html">views, boards and list styles</a>.</p>
+<p>At the top of a list you can also <strong>sort</strong> (my order, importance, due date, A–Z or creation date), <strong>show or hide
+completed tasks</strong>, <strong>search</strong>, and <strong>copy the list as text</strong>.</p>
+<h2 id="people-teams-and-sharing"><a class="anchor" href="#people-teams-and-sharing" aria-label="Link to this section">#</a>People, teams and sharing</h2>
+<p>The <strong>People and teams</strong> page (in the sidebar) lists everyone you work with. Add people, make teams, share lists and assign
+tasks: see <a href="people-and-sharing.html">people, teams and sharing</a>.</p>
+<h2 id="ai-planning"><a class="anchor" href="#ai-planning" aria-label="Link to this section">#</a>AI planning</h2>
+<p>Describe what you need (&quot;plan the launch next week&quot;) and the AI drafts a nested plan for you to check before
+anything is added. Turn it on in <strong>Settings &gt; AI</strong>: local with Ollama, or Claude, ChatGPT or Gemini with your own
+key. See <a href="ai-planning.html">AI planning in the app</a>.</p>
+<h2 id="reminders"><a class="anchor" href="#reminders" aria-label="Link to this section">#</a>Reminders</h2>
+<p>Reminder pop-ups come from the Docket notifier, which runs in the background so they arrive even when the app is
+closed. They have <strong>Complete</strong> and <strong>Snooze 10 min</strong> buttons; clicking one opens the app.</p>
+<ul><li>Installed with <code>-Reminders</code>? It starts at sign-in already.</li><li>Otherwise start it with <code>docket notify --watch</code>, or run the installer again with <code>-Reminders</code>.</li><li><strong>Settings &gt; Reminders</strong> can play a sound.</li></ul>
+<p>Not seeing them? See <a href="../troubleshooting.html#reminders-dont-pop-up">troubleshooting</a>.</p>
+<h2 id="settings"><a class="anchor" href="#settings" aria-label="Link to this section">#</a>Settings</h2>
+<div class="table-wrap"><table><thead><tr><th>Section</th><th>What's there</th></tr></thead><tbody><tr><td>General</td><td>Confirm before deleting, where new tasks from smart lists go, theme (light, dark or system)</td></tr><tr><td>AI</td><td>Provider (Local, Claude, ChatGPT, Gemini or Off), model, API key, a test button</td></tr><tr><td>Smart lists</td><td>Show or hide Important, Planned, All, Completed; hide empty ones</td></tr><tr><td>Reminders</td><td>Sound on or off</td></tr><tr><td>Connection</td><td>Server address and API token, <strong>Test and save</strong></td></tr><tr><td>Keyboard shortcuts</td><td>The full list (<a href="shortcuts.html">shortcuts</a>)</td></tr></tbody></table></div>
+<h2 id="open-in-browser"><a class="anchor" href="#open-in-browser" aria-label="Link to this section">#</a>Open in browser</h2>
+<p><strong>Open in browser</strong> opens <a href="web.html">Docket web</a> (<code>http://localhost:3457</code>) when it's running, or the server otherwise.</p>
+<h2 id="if-the-server-isnt-running"><a class="anchor" href="#if-the-server-isnt-running" aria-label="Link to this section">#</a>If the server isn't running</h2>
+<p>When the task server on your PC has stopped, the app starts it again and carries on; you'll see
+&quot;Starting your task server…&quot; for a few seconds. If it can't, it offers <strong>Start server and retry</strong>. See
+<a href="../setup/windows.html#if-the-server-stops">if the server stops</a>.</p>
+<h2 id="repeats-that-only-docket-understands"><a class="anchor" href="#repeats-that-only-docket-understands" aria-label="Link to this section">#</a>Repeats that only Docket understands</h2>
+<p>Weekdays, yearly, and every-N-months or every-N-years repeats are handled by Docket itself (shown with a &quot;↻&quot;
+category). They move to the next date when you complete them in Docket, the CLI, Android or through the AI
+connector, but not in Vikunja's own web app. Daily, weekly, monthly and every-N-days or weeks repeats work everywhere.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/using/windows.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="../apps.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Overview</b></a><a class="pn next" href="android.html"><span>Next</span><b>Android app<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#the-sidebar" class="l2">The sidebar</a><a href="#lists-and-groups" class="l2">Lists and groups</a><a href="#adding-tasks" class="l2">Adding tasks</a><a href="#task-details" class="l2">Task details</a><a href="#subtasks-and-steps" class="l2">Subtasks and steps</a><a href="#views-and-boards" class="l2">Views and boards</a><a href="#people-teams-and-sharing" class="l2">People, teams and sharing</a><a href="#ai-planning" class="l2">AI planning</a><a href="#reminders" class="l2">Reminders</a><a href="#settings" class="l2">Settings</a><a href="#open-in-browser" class="l2">Open in browser</a><a href="#if-the-server-isnt-running" class="l2">If the server isn't running</a><a href="#repeats-that-only-docket-understands" class="l2">Repeats that only Docket understands</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

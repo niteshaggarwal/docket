@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Views, boards and list styles · Docket docs</title>
+<meta name="description" content="Every list can be shown four ways, and each list can have its own icon and background.">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="windows.html">Windows app</a><a href="android.html">Android app</a><a href="web.html">Web app</a><a href="quick-add.html">Quick add and commands</a><a href="shortcuts.html">Keyboard shortcuts</a><a href="views-and-boards.html" class="on" aria-current="page">Views, boards and list styles</a><a href="people-and-sharing.html">People, teams and sharing</a><a href="ai-planning.html">AI planning in the app</a><a href="cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Use Docket</p>
+      <h1 id="views-boards-and-list-styles">Views, boards and list styles</h1>
+<p>Every list can be shown four ways, and each list can have its own icon and background.</p>
+<h2 id="four-views-of-every-list"><a class="anchor" href="#four-views-of-every-list" aria-label="Link to this section">#</a>Four views of every list</h2>
+<p>Switch with the view buttons at the top of a list. Each list remembers its view.</p>
+<div class="table-wrap"><table><thead><tr><th>View</th><th>Good for</th></tr></thead><tbody><tr><td><strong>List</strong></td><td>The everyday To Do view, with subtasks nested under their parents</td></tr><tr><td><strong>Table</strong></td><td>Many tasks at once, with columns for dates, priority and more</td></tr><tr><td><strong>Gantt</strong></td><td>Seeing work over time, using start and end dates (called <strong>Timeline</strong> on Android)</td></tr><tr><td><strong>Board</strong></td><td>Moving work through stages, Kanban style</td></tr></tbody></table></div>
+<p class="shots"><img src="../screenshots/win-table.png" alt="Table view" loading="lazy"><img src="../screenshots/win-gantt.png" alt="Gantt view" loading="lazy"></p>
+<h2 id="boards"><a class="anchor" href="#boards" aria-label="Link to this section">#</a>Boards</h2>
+<p>Every list has a board with <strong>To-Do</strong>, <strong>Doing</strong> and <strong>Done</strong> columns to start with.</p>
+<ul><li><strong>Add column</strong> at the end of the board makes a new one; add as many as you like.</li><li>Each column's menu lets you <strong>rename</strong> it, pick a <strong>colour</strong> and an <strong>icon</strong> (a Fluent glyph or an emoji), or
+delete it.</li><li><strong>To-Do</strong> and <strong>Done</strong> always stay (you can rename them). Moving a card into <strong>Done</strong> completes the task.</li><li><strong>Add a card</strong> at the bottom of a column adds a task straight into it. Drag cards between columns.</li></ul>
+<p class="shots"><img src="../screenshots/win-board.png" alt="A board with coloured columns" loading="lazy"><img src="../screenshots/win-board-light.png" alt="A board in light theme" loading="lazy"></p>
+<p>From the command line: <code>docket board work</code> shows a board and <code>docket move 12 doing</code> moves a task. An AI can use
+<code>get_board</code> and <code>move_task</code>.</p>
+<h2 id="list-icons-and-backgrounds"><a class="anchor" href="#list-icons-and-backgrounds" aria-label="Link to this section">#</a>List icons and backgrounds</h2>
+<p>Open <strong>List options</strong> (the <strong>…</strong> at the top of a list):</p>
+<ul><li><strong>Icon…</strong> sets the list's icon: a Fluent glyph or any emoji. It shows in the sidebar and the list's title.</li><li><strong>Background…</strong> gives the list a backdrop: a <strong>colour</strong>, a <strong>gradient</strong> (with an angle), the <strong>accent</strong> colour, or
+an <strong>image</strong> from your PC.</li><li><strong>Colour</strong> sets the list's colour in the sidebar.</li></ul>
+<p class="shots"><img src="../screenshots/win-list-icon.png" alt="Choosing a list icon" loading="lazy"><img src="../screenshots/win-image-background-light.png" alt="A list with an image background" loading="lazy"></p>
+<h2 id="sorting-and-filtering"><a class="anchor" href="#sorting-and-filtering" aria-label="Link to this section">#</a>Sorting and filtering</h2>
+<p>At the top of a list: <strong>Sort</strong> by my order, importance, due date, priority, alphabetically or creation date; show or
+hide completed tasks; search within the list; and <strong>Copy list</strong> to paste it as text anywhere.</p>
+<h2 id="overview-and-upcoming"><a class="anchor" href="#overview-and-upcoming" aria-label="Link to this section">#</a>Overview and Upcoming</h2>
+<ul><li><strong>Overview</strong> is a dashboard of all your lists: how many tasks are open, due today and overdue, the last 14 days,
+tasks by priority, what's assigned to you and progress per list. <code>docket overview</code> and the AI tool <code>overview</code>
+give the same numbers.</li><li><strong>Upcoming</strong> shows what's due in the coming days, day by day.</li><li><strong>Open tasks</strong> shows everything unfinished across all lists.</li></ul>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/using/views-and-boards.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="shortcuts.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Keyboard shortcuts</b></a><a class="pn next" href="people-and-sharing.html"><span>Next</span><b>People, teams and sharing<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#four-views-of-every-list" class="l2">Four views of every list</a><a href="#boards" class="l2">Boards</a><a href="#list-icons-and-backgrounds" class="l2">List icons and backgrounds</a><a href="#sorting-and-filtering" class="l2">Sorting and filtering</a><a href="#overview-and-upcoming" class="l2">Overview and Upcoming</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

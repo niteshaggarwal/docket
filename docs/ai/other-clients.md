@@ -83,7 +83,7 @@ for your connector key once. Return addresses must be `http(s)://localhost` (des
 ```sh
 # Is the connector up, and can it reach Vikunja?
 curl https://tasks.example.com/connector/health
-# Does the key work? (should list 20 tools)
+# Does the key work? (should list 26 tools)
 curl -s https://tasks.example.com/mcp -H "Authorization: Bearer YOUR_CONNECTOR_KEY" \
   -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'

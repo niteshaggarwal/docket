@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-base="./">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Getting started · Docket docs</title>
+<meta name="description" content="Docket is a free, open-source to-do app in the style of Microsoft To Do. Your tasks live on your own server, on your PC or on a machine you control, and you rea">
+<link rel="icon" href="./../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="./assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="./../index.html"><img src="./../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="./../index.html#features">Features</a><a href="./../index.html#ai">AI</a><a href="./../index.html#mobile">Mobile</a><a href="./../index.html#self-host">Self-host</a>
+      <a href="./index.html" class="on">Docs</a><a href="./../pro.html">Pro</a><a href="./changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="./../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="index.html" class="on" aria-current="page">Getting started</a><a href="faq.html">FAQ</a><a href="./../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="self-hosting.html">Choose a setup</a><a href="setup/windows.html">Windows PC</a><a href="setup/phone.html">Phone access (Tailscale)</a><a href="setup/docker.html">Docker server</a><a href="setup/public-address.html">Public address for AI</a><a href="setup/existing-vikunja.html">Existing Vikunja</a><a href="setup/docket-web.html">Docket web</a><a href="setup/updating.html">Updating</a><a href="setup/backups.html">Backups and restore</a><a href="setup/uninstalling.html">Uninstalling</a><a href="setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="apps.html">Overview</a><a href="using/windows.html">Windows app</a><a href="using/android.html">Android app</a><a href="using/web.html">Web app</a><a href="using/quick-add.html">Quick add and commands</a><a href="using/shortcuts.html">Keyboard shortcuts</a><a href="using/views-and-boards.html">Views, boards and list styles</a><a href="using/people-and-sharing.html">People, teams and sharing</a><a href="using/ai-planning.html">AI planning in the app</a><a href="using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="ai/index.html">How AI works with Docket</a><a href="ai/claude.html">Claude</a><a href="ai/claude-skill.html">Claude skill</a><a href="ai/chatgpt.html">ChatGPT</a><a href="ai/local-ai.html">Local models</a><a href="ai/other-clients.html">Other MCP clients</a><a href="ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="troubleshooting.html">Troubleshooting</a><a href="changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Start here</p>
+      <h1 id="getting-started">Getting started</h1>
+<p>Docket is a free, open-source to-do app in the style of Microsoft To Do. Your tasks live on your own server, on your
+PC or on a machine you control, and you reach them from Windows, Android, a browser, the command line and AI
+assistants such as Claude and ChatGPT.</p>
+<p class="shots"><img src="screenshots/win-my-day.png" alt="Docket for Windows: My Day with a few tasks" loading="lazy"><img src="screenshots/win-overview.png" alt="Docket for Windows: the Overview dashboard" loading="lazy"></p>
+<h2 id="what-docket-is"><a class="anchor" href="#what-docket-is" aria-label="Link to this section">#</a>What Docket is</h2>
+<p>Docket is a set of apps on top of <a href="https://vikunja.io" target="_blank" rel="noopener">Vikunja</a>, an open-source task server. Vikunja stores your tasks;
+Docket gives you the familiar Microsoft To Do way of working with them: <strong>My Day</strong>, <strong>Important</strong>, <strong>Planned</strong>,
+lists and groups, subtasks, reminders, repeats and boards.</p>
+<p>Nobody else holds your data. Docket talks only to the server you sign in to and sends nothing to its developers.</p>
+<h2 id="the-pieces"><a class="anchor" href="#the-pieces" aria-label="Link to this section">#</a>The pieces</h2>
+<div class="table-wrap"><table><thead><tr><th>Piece</th><th>What it is</th><th>Runs on</th></tr></thead><tbody><tr><td><strong>Docket for Windows</strong></td><td>The main app (WinUI 3, Fluent design)</td><td>Windows 10 and 11</td></tr><tr><td><strong>Docket for Android</strong></td><td>The same features on your phone (.NET MAUI)</td><td>Android</td></tr><tr><td><strong>Docket web</strong></td><td>Vikunja's own web app, reskinned to look like Docket</td><td>Any browser, at <code>http://localhost:3457</code> on Windows</td></tr><tr><td><strong><code>docket</code> CLI</strong></td><td>Your tasks from a terminal, with JSON output for scripts</td><td>Windows</td></tr><tr><td><strong><code>docket-mcp</code> connector</strong></td><td>Lets AI assistants read and change your tasks (it can't delete)</td><td>Windows, macOS, Linux, Docker</td></tr><tr><td><strong>Vikunja</strong></td><td>The task server that stores everything</td><td>Your PC, a home server or a VPS</td></tr></tbody></table></div>
+<p>Every Docket app shares one core library, so My Day, repeats, quick-add words and subtasks behave the same everywhere.</p>
+<h2 id="pick-your-path"><a class="anchor" href="#pick-your-path" aria-label="Link to this section">#</a>Pick your path</h2>
+<div class="cards"></div>
+<ul><li><strong><a href="setup/windows.html">Just me, on my Windows PC</a></strong> One installer sets up the server, the app, the CLI and the AI
+connector. No admin rights needed. Add your phone later with <a href="setup/phone.html">Tailscale</a>.</li><li><strong><a href="setup/docker.html">An always-on server</a></strong> One script on any Linux machine with Docker. You get HTTPS, the web app,
+and a connector that claude.ai and ChatGPT can reach.</li><li><strong><a href="setup/existing-vikunja.html">I already run Vikunja</a></strong> Point the Docket apps and connector at your server.</li></ul>
+<p>Not sure? Start with the Windows PC. You can move to a server later by <a href="setup/backups.html">backing up and restoring</a>.
+The <a href="self-hosting.html">setup overview</a> compares the options in more detail.</p>
+<h2 id="five-minute-quick-start-windows"><a class="anchor" href="#five-minute-quick-start-windows" aria-label="Link to this section">#</a>Five-minute quick start (Windows)</h2>
+<ol><li>Download <code>docket-&lt;version&gt;-windows-x64.zip</code> from the
+<a href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener">latest release</a> and unzip it anywhere.</li><li>Right-click <code>install.ps1</code> and choose <strong>Run with PowerShell</strong>.</li><li>Type your time zone when asked (for example <code>Europe/London</code> or <code>Asia/Kolkata</code>).</li><li>Your browser opens. Create your account there, go back to the PowerShell window and press <kbd>Enter</kbd>.</li><li>Sign in once more in the window with the same username and password. Docket makes its own keys (tokens) from
+that sign-in; your password isn't stored.</li><li>Answer <strong>Y</strong> to close sign-ups, so nobody else can make an account.</li><li>Open <strong>Docket</strong> from the Start menu and add your first task, for example <code>Send invoice friday !3</code>.</li></ol>
+<p>That's it. The <a href="setup/windows.html">Windows guide</a> explains every step and prompt, and what was installed where.</p>
+<div class="callout callout-tip"><p class="callout-title">Tip</p><p>Type <code>/</code> in the add bar at the bottom of a list to see the commands: <code>/s</code> search, <code>/x</code> mark done, <code>/m</code> add to
+My Day, <code>/i</code> star, <code>/ai</code> plan with AI. See <a href="using/quick-add.html">quick add and commands</a>.</p></div>
+<h2 id="next-steps"><a class="anchor" href="#next-steps" aria-label="Link to this section">#</a>Next steps</h2>
+<ul><li>Learn the <a href="using/windows.html">Windows app</a>, the <a href="using/android.html">Android app</a> or the <a href="using/cli.html">CLI</a>.</li><li>Connect an AI: <a href="ai/claude.html">Claude</a>, <a href="ai/chatgpt.html">ChatGPT</a> or a <a href="ai/local-ai.html">local model</a>. Then add the
+<a href="ai/claude-skill.html">Docket skill for Claude</a> so Claude knows how to work with your tasks.</li><li>Share lists and assign tasks: <a href="using/people-and-sharing.html">people, teams and sharing</a>.</li><li>Something not working? See <a href="troubleshooting.html">troubleshooting</a> and the <a href="faq.html">FAQ</a>.</li></ul>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/index.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><span></span><a class="pn next" href="faq.html"><span>Next</span><b>FAQ<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#what-docket-is" class="l2">What Docket is</a><a href="#the-pieces" class="l2">The pieces</a><a href="#pick-your-path" class="l2">Pick your path</a><a href="#five-minute-quick-start-windows" class="l2">Five-minute quick start (Windows)</a><a href="#next-steps" class="l2">Next steps</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="./../index.html"><img src="./../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="./index.html">Docs</a><a href="./../pro.html">Pro and roadmap</a><a href="./changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="./search-index.js" defer></script>
+<script src="./assets/docs.js" defer></script>
+</body>
+</html>

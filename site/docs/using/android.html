@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Android app · Docket docs</title>
+<meta name="description" content="Docket for Android has the same features as the Windows app, in the same Fluent design, and works with the same tasks.">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="windows.html">Windows app</a><a href="android.html" class="on" aria-current="page">Android app</a><a href="web.html">Web app</a><a href="quick-add.html">Quick add and commands</a><a href="shortcuts.html">Keyboard shortcuts</a><a href="views-and-boards.html">Views, boards and list styles</a><a href="people-and-sharing.html">People, teams and sharing</a><a href="ai-planning.html">AI planning in the app</a><a href="cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Use Docket</p>
+      <h1 id="the-android-app">The Android app</h1>
+<p>Docket for Android has the same features as the Windows app, in the same Fluent design, and works with the same
+tasks.</p>
+<p class="shots phone"><img src="../screenshots/android-list-dark.png" alt="A list in Docket for Android, dark theme" loading="lazy"><img src="../screenshots/android-board.png" alt="A board in Docket for Android" loading="lazy"></p>
+<h2 id="install-and-sign-in"><a class="anchor" href="#install-and-sign-in" aria-label="Link to this section">#</a>Install and sign in</h2>
+<ol><li>Install the APK from <a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a> (allow installing from your
+browser or file manager when Android asks), or from the Play Store once Docket is listed there.</li><li>Open Docket and enter your <strong>server address</strong>:
+<ul><li>Windows install: the Tailscale address of your PC, like <code>https://my-pc.tail1234.ts.net</code>
+(<a href="../setup/phone.html">set it up</a>);</li><li>Docker server: <code>https://your-domain</code>;</li><li>your own Vikunja: its address.</li></ul></li><li>Enter your Vikunja username and password. Docket makes a token for the phone; your password isn't stored.</li></ol>
+<h2 id="everyday-use"><a class="anchor" href="#everyday-use" aria-label="Link to this section">#</a>Everyday use</h2>
+<ul><li><strong>Home</strong> shows search, the smart lists with counts, and your lists and groups.</li><li><strong>Add a task</strong> with the add bar; <a href="quick-add.html">quick-add words and commands</a> work, including <code>/ai</code>.</li><li><strong>Swipe right</strong> on a task to add it to My Day; <strong>swipe left</strong> to delete it.</li><li><strong>Tap a task</strong> to open it: subtasks, checklist, My Day, reminder, due date, repeat (including custom),
+priority, categories, assignees, list, files (open and add), notes, delete.</li><li><strong>My Day suggestions</strong>, <strong>Planned</strong> grouped by date, sorting and a completed section work as on Windows.</li><li><strong>Views:</strong> List, Table, Timeline (the phone's Gantt) and Board for every list.</li><li><strong>Lists:</strong> rename, delete, icon, background, share.</li><li><strong>Theme:</strong> light, dark or system.</li></ul>
+<h2 id="people-and-sharing"><a class="anchor" href="#people-and-sharing" aria-label="Link to this section">#</a>People and sharing</h2>
+<p>Share lists with people and teams and assign tasks, as on Windows
+(<a href="people-and-sharing.html">people, teams and sharing</a>). Creating brand-new <strong>local accounts</strong> for people is done from
+the Docket app on the PC that runs your server.</p>
+<h2 id="reminders"><a class="anchor" href="#reminders" aria-label="Link to this section">#</a>Reminders</h2>
+<p>Reminders become Android notifications. They're scheduled each time you open Docket, so open the app now and then
+after adding reminders elsewhere (on the PC or through an AI). Allow notifications when Android asks; on some phones
+you also need to allow <strong>alarms and reminders</strong> and turn off battery optimisation for Docket.</p>
+<h2 id="ai-planning"><a class="anchor" href="#ai-planning" aria-label="Link to this section">#</a>AI planning</h2>
+<p>Settings &gt; AI offers the same choices as Windows: <strong>Local AI on your PC</strong> (Ollama, over your network), <strong>Claude</strong>,
+<strong>ChatGPT</strong>, <strong>Gemini</strong> (with your API key, stored in Android's secure storage) or <strong>Off</strong>. See
+<a href="ai-planning.html#on-android">AI planning</a>.</p>
+<h2 id="building-it-yourself"><a class="anchor" href="#building-it-yourself" aria-label="Link to this section">#</a>Building it yourself</h2>
+<p>The app is .NET MAUI in <code>src/Docket.Mobile</code>. Build notes and the Play Store checklist: <a href="https://github.com/niteshaggarwal/docket/blob/main/ANDROID.md" target="_blank" rel="noopener">ANDROID.md</a>.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/using/android.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="windows.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Windows app</b></a><a class="pn next" href="web.html"><span>Next</span><b>Web app<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#install-and-sign-in" class="l2">Install and sign in</a><a href="#everyday-use" class="l2">Everyday use</a><a href="#people-and-sharing" class="l2">People and sharing</a><a href="#reminders" class="l2">Reminders</a><a href="#ai-planning" class="l2">AI planning</a><a href="#building-it-yourself" class="l2">Building it yourself</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

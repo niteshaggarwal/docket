@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" data-base="./">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Choose a setup · Docket docs</title>
+<meta name="description" content="Docket keeps your tasks in Vikunja, an open-source task server, and adds the Docket apps and an AI connector on top. You can run it three ways. All three give y">
+<link rel="icon" href="./../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="./assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="./../index.html"><img src="./../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="./../index.html#features">Features</a><a href="./../index.html#ai">AI</a><a href="./../index.html#mobile">Mobile</a><a href="./../index.html#self-host">Self-host</a>
+      <a href="./index.html" class="on">Docs</a><a href="./../pro.html">Pro</a><a href="./changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="./../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="index.html">Getting started</a><a href="faq.html">FAQ</a><a href="./../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="self-hosting.html" class="on" aria-current="page">Choose a setup</a><a href="setup/windows.html">Windows PC</a><a href="setup/phone.html">Phone access (Tailscale)</a><a href="setup/docker.html">Docker server</a><a href="setup/public-address.html">Public address for AI</a><a href="setup/existing-vikunja.html">Existing Vikunja</a><a href="setup/docket-web.html">Docket web</a><a href="setup/updating.html">Updating</a><a href="setup/backups.html">Backups and restore</a><a href="setup/uninstalling.html">Uninstalling</a><a href="setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="apps.html">Overview</a><a href="using/windows.html">Windows app</a><a href="using/android.html">Android app</a><a href="using/web.html">Web app</a><a href="using/quick-add.html">Quick add and commands</a><a href="using/shortcuts.html">Keyboard shortcuts</a><a href="using/views-and-boards.html">Views, boards and list styles</a><a href="using/people-and-sharing.html">People, teams and sharing</a><a href="using/ai-planning.html">AI planning in the app</a><a href="using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="ai/index.html">How AI works with Docket</a><a href="ai/claude.html">Claude</a><a href="ai/claude-skill.html">Claude skill</a><a href="ai/chatgpt.html">ChatGPT</a><a href="ai/local-ai.html">Local models</a><a href="ai/other-clients.html">Other MCP clients</a><a href="ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="troubleshooting.html">Troubleshooting</a><a href="changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Set up</p>
+      <h1 id="choose-a-setup">Choose a setup</h1>
+<p>Docket keeps your tasks in <a href="https://vikunja.io" target="_blank" rel="noopener">Vikunja</a>, an open-source task server, and adds the Docket apps and
+an AI connector on top. You can run it three ways. All three give you the same apps and the same features.</p>
+<div class="table-wrap"><table><thead><tr><th></th><th>Windows PC</th><th>Docker server</th><th>Your own Vikunja</th></tr></thead><tbody><tr><td>Best for</td><td>Just you, on one PC (phone through Tailscale)</td><td>Always on: a VPS, NAS or home server</td><td>You already run Vikunja</td></tr><tr><td>You get</td><td>Vikunja on 127.0.0.1, the app, CLI, Docket web and the local AI connector</td><td>Vikunja, Docket web, the remote AI connector and automatic HTTPS</td><td>The Docket apps and connector</td></tr><tr><td>claude.ai and ChatGPT</td><td>Only through a <a href="setup/public-address.html">tunnel</a></td><td>Yes</td><td>Run the connector yourself</td></tr><tr><td>Skill needed</td><td>Run one script</td><td>Basic Linux and Docker</td><td>Reverse proxy setup</td></tr><tr><td>Guide</td><td><a href="setup/windows.html">Windows PC</a></td><td><a href="setup/docker.html">Docker server</a></td><td><a href="setup/existing-vikunja.html">Existing Vikunja</a></td></tr></tbody></table></div>
+<p>Claude Desktop, Claude Code, local models and the Docket apps work with every setup.</p>
+<h2 id="windows-pc"><a class="anchor" href="#windows-pc" aria-label="Link to this section">#</a>Windows PC</h2>
+<p>Download the Windows zip from <a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a>, right-click
+<code>install.ps1</code> and choose <strong>Run with PowerShell</strong>. It installs everything for your Windows account, without admin
+rights. Full guide, including what each question means: <a href="setup/windows.html">Windows PC</a>.</p>
+<h3 id="if-the-server-stops"><a class="anchor" href="#if-the-server-stops" aria-label="Link to this section">#</a>If the server stops</h3>
+<p>The apps, the CLI and the AI connector restart a stopped server on your PC by themselves, and Windows checks it
+every 5 minutes as a failsafe. Details: <a href="setup/windows.html#if-the-server-stops">if the server stops</a>.</p>
+<h3 id="reach-it-from-your-phone"><a class="anchor" href="#reach-it-from-your-phone" aria-label="Link to this section">#</a>Reach it from your phone</h3>
+<p>The Windows install listens only on your PC. Use <a href="setup/phone.html">Tailscale</a> to reach it privately from your phone:
+<code>tailscale serve --bg 3457</code> on the PC, then sign in to Docket for Android with the address it gives you.</p>
+<h2 id="docker-server"><a class="anchor" href="#docker-server" aria-label="Link to this section">#</a>Docker server</h2>
+<p>One script on any Linux machine with Docker sets up Vikunja, Docket web, the AI connector and HTTPS certificates.
+Full guide: <a href="setup/docker.html">Docker server</a>.</p>
+<h3 id="no-public-ip-or-domain"><a class="anchor" href="#no-public-ip-or-domain" aria-label="Link to this section">#</a>No public IP or domain</h3>
+<p>claude.ai and ChatGPT need a public HTTPS address for the connector. Without opening ports, use Tailscale Funnel or
+a Cloudflare Tunnel: <a href="setup/public-address.html">public address for AI</a>.</p>
+<h2 id="your-own-vikunja"><a class="anchor" href="#your-own-vikunja" aria-label="Link to this section">#</a>Your own Vikunja</h2>
+<p>Docket works with any Vikunja 2.x server: <a href="setup/existing-vikunja.html">existing Vikunja</a>.</p>
+<h2 id="docket-web-skin"><a class="anchor" href="#docket-web-skin" aria-label="Link to this section">#</a>Docket web skin</h2>
+<p><code>docket-web</code> serves Vikunja's web app with the Docket look. It's included in the Windows and Docker setups:
+<a href="setup/docket-web.html">Docket web</a>.</p>
+<h2 id="looking-after-it"><a class="anchor" href="#looking-after-it" aria-label="Link to this section">#</a>Looking after it</h2>
+<ul><li><a href="setup/updating.html">Updating</a> Docket and Vikunja</li><li><a href="setup/backups.html">Backups and restore</a></li><li><a href="setup/uninstalling.html">Uninstalling</a></li><li><a href="setup/security.html">Security</a></li></ul>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/self-hosting.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="faq.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>FAQ</b></a><a class="pn next" href="setup/windows.html"><span>Next</span><b>Windows PC<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#windows-pc" class="l2">Windows PC</a><a href="#if-the-server-stops" class="l3">If the server stops</a><a href="#reach-it-from-your-phone" class="l3">Reach it from your phone</a><a href="#docker-server" class="l2">Docker server</a><a href="#no-public-ip-or-domain" class="l3">No public IP or domain</a><a href="#your-own-vikunja" class="l2">Your own Vikunja</a><a href="#docket-web-skin" class="l2">Docket web skin</a><a href="#looking-after-it" class="l2">Looking after it</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="./../index.html"><img src="./../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="./index.html">Docs</a><a href="./../pro.html">Pro and roadmap</a><a href="./changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="./search-index.js" defer></script>
+<script src="./assets/docs.js" defer></script>
+</body>
+</html>

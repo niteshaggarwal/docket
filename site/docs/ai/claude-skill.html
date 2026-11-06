@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Docket skill for Claude · Docket docs</title>
+<meta name="description" content="The Docket skill teaches Claude how to work well with your tasks: which Docket tool to use for &quot;what's on today&quot; or &quot;plan my day&quot;, how to break work into nested">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="index.html">How AI works with Docket</a><a href="claude.html">Claude</a><a href="claude-skill.html" class="on" aria-current="page">Claude skill</a><a href="chatgpt.html">ChatGPT</a><a href="local-ai.html">Local models</a><a href="other-clients.html">Other MCP clients</a><a href="tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">AI assistants</p>
+      <h1 id="the-docket-skill-for-claude">The Docket skill for Claude</h1>
+<p>The Docket skill teaches Claude how to work well with your tasks: which Docket tool to use for &quot;what's on today&quot; or
+&quot;plan my day&quot;, how to break work into nested subtasks, when to ask before changing many tasks, and what to tell you
+when you ask for something the connector can't do (like deleting). It's free and open source, like Docket.</p>
+<p><a class="download" href="../../downloads/docket-skill.zip" download>Download docket-skill.zip</a></p>
+<p>The skill is instructions, not a connection. It <strong>pairs with the Docket connector</strong>: connect Docket first
+(<a href="claude.html">Claude</a>), then add the skill. Without a connector, Claude can still use the skill with the <code>docket</code>
+command line in Claude Code on Windows.</p>
+<h2 id="whats-in-it"><a class="anchor" href="#whats-in-it" aria-label="Link to this section">#</a>What's in it</h2>
+<div class="table-wrap"><table><thead><tr><th>File</th><th>What</th></tr></thead><tbody><tr><td><code>docket/SKILL.md</code></td><td>When to use the skill, the ground rules, common requests mapped to tools, planning steps, CLI fallback, example prompts</td></tr><tr><td><code>docket/reference/tools.md</code></td><td>All 26 connector tools and their arguments, generated from Docket's source</td></tr></tbody></table></div>
+<p>Read it on GitHub: <a href="https://github.com/niteshaggarwal/docket/blob/main/skills/docket/SKILL.md" target="_blank" rel="noopener">skills/docket/SKILL.md</a>.</p>
+<p>The skill's description, which tells Claude when to use it:</p>
+<blockquote><p>Manage the user's tasks and to-dos in Docket, a self-hosted Microsoft To Do style app on Vikunja, through the
+Docket connector's tools (list_tasks, my_day, add_task...) or the <code>docket</code> CLI. Use when the user asks what's on
+today, wants to plan their day, week or a project, or to add, find, change, complete or organise tasks, subtasks,
+My Day, important items, due dates, reminders, repeats, lists, boards, assignments or the overview, or mentions
+Docket or their to-do list.</p></blockquote>
+<h2 id="install-in-claudeai-and-the-claude-apps"><a class="anchor" href="#install-in-claudeai-and-the-claude-apps" aria-label="Link to this section">#</a>Install in claude.ai and the Claude apps</h2>
+<p>Skills you upload on claude.ai also work in the Claude desktop and mobile apps.</p>
+<ol><li>Make sure <strong>code execution</strong> is on: Settings &gt; Capabilities &gt; <strong>Code execution and file creation</strong> (on Team and
+Enterprise plans an owner turns on skills for the organization).</li><li>Download <a href="../../downloads/docket-skill.zip">docket-skill.zip</a>. Don't unzip it.</li><li>In Claude, open the <strong>Skills</strong> settings and choose to <strong>upload a skill</strong>, then pick the zip.</li><li>Turn the Docket skill on.</li></ol>
+<p>Claude's menus change from time to time; Anthropic's help article
+<a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude" target="_blank" rel="noopener">Use skills in Claude</a> has the current steps
+and plan requirements.</p>
+<h2 id="install-in-claude-code"><a class="anchor" href="#install-in-claude-code" aria-label="Link to this section">#</a>Install in Claude Code</h2>
+<p>Claude Code reads skills from folders. Unzip <code>docket-skill.zip</code> and copy the <code>docket</code> folder to either:</p>
+<div class="table-wrap"><table><thead><tr><th>For</th><th>Folder</th></tr></thead><tbody><tr><td>Every project</td><td><code>~/.claude/skills/docket/</code> (Windows: `%USERPROFILE%.claude\skills\docket`)</td></tr><tr><td>One project (shared with the repo)</td><td><code>.claude/skills/docket/</code> in that project</td></tr></tbody></table></div>
+<p>So that you end up with <code>~/.claude/skills/docket/SKILL.md</code>. From a clone of the Docket repository you can copy it
+directly:</p>
+<div class="code"><div class="code-head"><span>Shell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">mkdir -p ~/.claude/skills &amp;&amp; cp -r skills/docket ~/.claude/skills/</code></pre></div>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">New-Item -ItemType Directory -Force &quot;$env:USERPROFILE\.claude\skills&quot; | Out-Null
+Copy-Item -Recurse skills\docket &quot;$env:USERPROFILE\.claude\skills\&quot;</code></pre></div>
+<p>Start a new Claude Code session; the skill is used automatically when you talk about your tasks. Connect Docket too,
+locally or remotely: <a href="claude.html#claude-code">Claude Code setup</a>.</p>
+<h2 id="try-it"><a class="anchor" href="#try-it" aria-label="Link to this section">#</a>Try it</h2>
+<ul><li>&quot;What's on my plate today? Put the three most urgent in My Day.&quot;</li><li>&quot;Plan the product launch next week as a project with subtasks, then show me the tree.&quot;</li><li>&quot;Break #42 into subtasks: research, draft, review, send.&quot;</li><li>&quot;Add 'Send the Q3 invoice' to Work, due Friday, high priority, and remind me Thursday at 4pm.&quot;</li><li>&quot;How did this week go?&quot;</li></ul>
+<h2 id="using-it-with-other-assistants"><a class="anchor" href="#using-it-with-other-assistants" aria-label="Link to this section">#</a>Using it with other assistants</h2>
+<p><code>SKILL.md</code> is plain Markdown. For ChatGPT, a custom GPT or a local model, paste its sections 2 to 5 into the
+instructions or system prompt; they work the same with any assistant that has the Docket tools.</p>
+<h2 id="updating"><a class="anchor" href="#updating" aria-label="Link to this section">#</a>Updating</h2>
+<p>When a new Docket release adds tools, download the new zip and upload it again (or copy the folder again). The tool
+reference inside is regenerated with every release.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/ai/claude-skill.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="claude.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Claude</b></a><a class="pn next" href="chatgpt.html"><span>Next</span><b>ChatGPT<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#whats-in-it" class="l2">What's in it</a><a href="#install-in-claudeai-and-the-claude-apps" class="l2">Install in claude.ai and the Claude apps</a><a href="#install-in-claude-code" class="l2">Install in Claude Code</a><a href="#try-it" class="l2">Try it</a><a href="#using-it-with-other-assistants" class="l2">Using it with other assistants</a><a href="#updating" class="l2">Updating</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Docket with Claude · Docket docs</title>
+<meta name="description" content="Three ways in, depending on where you use Claude. You can use more than one; they all work on the same tasks. Once connected, add the Docket skill so Claude kno">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="../setup/windows.html">Windows PC</a><a href="../setup/phone.html">Phone access (Tailscale)</a><a href="../setup/docker.html">Docker server</a><a href="../setup/public-address.html">Public address for AI</a><a href="../setup/existing-vikunja.html">Existing Vikunja</a><a href="../setup/docket-web.html">Docket web</a><a href="../setup/updating.html">Updating</a><a href="../setup/backups.html">Backups and restore</a><a href="../setup/uninstalling.html">Uninstalling</a><a href="../setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="index.html">How AI works with Docket</a><a href="claude.html" class="on" aria-current="page">Claude</a><a href="claude-skill.html">Claude skill</a><a href="chatgpt.html">ChatGPT</a><a href="local-ai.html">Local models</a><a href="other-clients.html">Other MCP clients</a><a href="tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">AI assistants</p>
+      <h1 id="docket-with-claude">Docket with Claude</h1>
+<p>Three ways in, depending on where you use Claude. You can use more than one; they all work on the same tasks.
+Once connected, add the <a href="claude-skill.html">Docket skill</a> so Claude knows how to work with your tasks.</p>
+<div class="table-wrap"><table><thead><tr><th>Where</th><th>Setup</th><th>Needs</th></tr></thead><tbody><tr><td><a href="#claude-desktop">Claude Desktop</a></td><td>Local connector</td><td>Docket set up on that computer</td></tr><tr><td><a href="#claude-code">Claude Code</a></td><td>Local or remote connector</td><td>Docket on that computer, or a Docket server</td></tr><tr><td><a href="#claudeai-web-desktop-and-phone">claude.ai (web, desktop, phone)</a></td><td>Remote connector</td><td>A <a href="../self-hosting.html">Docket server</a> reachable from the internet</td></tr></tbody></table></div>
+<h2 id="claude-desktop"><a class="anchor" href="#claude-desktop" aria-label="Link to this section">#</a>Claude Desktop</h2>
+<p><strong>Windows, with the installer:</strong> nothing to do. <code>install.ps1</code> (through <code>setup-tokens.ps1</code>) adds a <code>docket</code> entry to
+Claude Desktop's config. Quit Claude Desktop fully (tray icon &gt; Quit) and reopen it; you'll see Docket's tools under
+the tools icon in the message box.</p>
+<p><strong>By hand</strong> (any OS), edit <code>claude_desktop_config.json</code>
+(Claude Desktop &gt; <strong>Settings &gt; Developer &gt; Edit Config</strong>):</p>
+<div class="code"><div class="code-head"><span>JSON</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;docket&quot;: {
+      &quot;command&quot;: &quot;C:\\Users\\you\\AppData\\Local\\Programs\\Docket\\mcp\\docket-mcp.exe&quot;
+    }
+  }
+}</code></pre></div>
+<p>On macOS or Linux, point <code>command</code> at the downloaded <code>docket-mcp</code> and pass your server and token:</p>
+<div class="code"><div class="code-head"><span>JSON</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;docket&quot;: {
+      &quot;command&quot;: &quot;/usr/local/bin/docket-mcp&quot;,
+      &quot;env&quot;: {
+        &quot;DOCKET_VIKUNJA_URL&quot;: &quot;https://tasks.example.com&quot;,
+        &quot;DOCKET_VIKUNJA_TOKEN_FILE&quot;: &quot;/Users/you/.config/docket/vikunja-token&quot;
+      }
+    }
+  }
+}</code></pre></div>
+<p>Make the token file once with <code>DOCKET_VIKUNJA_URL=https://tasks.example.com DOCKET_DATA_DIR=~/.config/docket docket-mcp setup</code>.
+Save the config without a byte-order mark (plain UTF-8); Claude Desktop rejects files that start with one.</p>
+<p>If you run a Docket server, Claude Desktop can also use the <a href="#claudeai-web-desktop-and-phone">remote connector</a>:
+connectors you add on claude.ai show up in the desktop app too.</p>
+<h2 id="claude-code"><a class="anchor" href="#claude-code" aria-label="Link to this section">#</a>Claude Code</h2>
+<p><strong>Local</strong> (same computer as Docket):</p>
+<div class="code"><div class="code-head"><span>Shell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">claude mcp add --scope user docket -- &quot;C:\Users\you\AppData\Local\Programs\Docket\mcp\docket-mcp.exe&quot;</code></pre></div>
+<p><code>--scope user</code> makes it available in every project. On macOS/Linux add <code>-e DOCKET_VIKUNJA_URL=... -e DOCKET_VIKUNJA_TOKEN_FILE=...</code>
+before <code>--</code>.</p>
+<p><strong>Remote</strong> (a Docket server), with the connector key as a header:</p>
+<div class="code"><div class="code-head"><span>Shell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-sh">claude mcp add --scope user --transport http docket https://tasks.example.com/mcp \
+  --header &quot;Authorization: Bearer YOUR_CONNECTOR_KEY&quot;</code></pre></div>
+<p>Or leave the header off and run <code>/mcp</code> in Claude Code to sign in with OAuth instead.</p>
+<p>Check it with <code>claude mcp get docket</code>, or <code>/mcp</code> inside a session.</p>
+<h2 id="claudeai-web-desktop-and-phone"><a class="anchor" href="#claudeai-web-desktop-and-phone" aria-label="Link to this section">#</a>claude.ai (web, desktop and phone)</h2>
+<p>This uses a <strong>custom connector</strong>, which works on every claude.ai plan (Free allows one custom connector). Claude
+connects to your server from Anthropic's cloud, so the server needs a public HTTPS address. The
+<a href="../self-hosting.html">Docker server</a> gives you one; <a href="../self-hosting.html#no-public-ip-or-domain">Tailscale Funnel or a Cloudflare Tunnel</a>
+work if you don't want to open ports.</p>
+<ol><li>In Claude, go to <strong>Customize &gt; Connectors</strong> and choose <strong>Add custom connector</strong>.
+(On Team and Enterprise plans an Owner adds it under <strong>Organization settings &gt; Connectors</strong>, then each member connects.)</li><li>Name: <code>Docket</code>. URL: <code>https://tasks.example.com/mcp</code>.</li><li>Authentication: <strong>Sign in now</strong> (or <strong>Sign in when needed</strong>). OAuth client: <strong>Register automatically</strong>.
+Leave client ID and secret empty.</li><li>Click <strong>Add</strong>, then <strong>Connect</strong>. Docket's sign-in page opens: type your connector key (<code>DOCKET_MCP_KEY</code> from the
+server's <code>.env</code>) and choose <strong>Allow access</strong>.</li><li>In a chat, open <strong>+ &gt; Connectors</strong> and make sure Docket is on.</li></ol>
+<p>The connection then works in the Claude apps on your phone and desktop as well. Claude asks before using a tool that
+changes something; you can allow Docket's tools permanently, or block single tools, under <strong>Customize &gt; Connectors &gt; Docket</strong>.</p>
+<p>If your organization has request-header authentication, you can choose <strong>No sign-in</strong> and add a request header
+<code>authorization</code> with the value <code>Bearer YOUR_CONNECTOR_KEY</code> instead of OAuth.</p>
+<p><strong>To disconnect:</strong> remove the connector in Claude. To cut off every OAuth client at once, change <code>DOCKET_MCP_KEY</code>
+and restart the connector; every sign-in made with the old key stops working.</p>
+<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a>Troubleshooting</h2>
+<div class="table-wrap"><table><thead><tr><th>Symptom</th><th>Fix</th></tr></thead><tbody><tr><td>Tools don't appear in Claude Desktop</td><td>Quit it from the tray icon, not just the window. Check the path in the config, and that the file has no BOM.</td></tr><tr><td>&quot;Docket isn't set up yet&quot;</td><td>The connector can't find a token: sign in with the Docket app or installer (Windows), or set <code>DOCKET_VIKUNJA_URL</code> and a token.</td></tr><tr><td>claude.ai: &quot;couldn't connect&quot;</td><td>Open <code>https://your-domain/connector/health</code> in a browser; it should say <code>&quot;status&quot;:&quot;ok&quot;</code>. The server must be reachable from the internet, not just your network.</td></tr><tr><td>Sign-in page says the link isn't valid</td><td>Remove the connector in Claude and add it again (its registration was lost, e.g. <code>oauth.json</code> was deleted).</td></tr><tr><td>&quot;Too many wrong keys&quot;</td><td>Ten wrong keys from one address in 15 minutes locks sign-in for 15 minutes.</td></tr><tr><td>&quot;isn't an allowed return address&quot;</td><td>The client sends you back somewhere Docket doesn't know; add its host to <code>DOCKET_OAUTH_REDIRECT_HOSTS</code>.</td></tr><tr><td>Times are off by hours</td><td>Set <code>TZ</code> on the server (the Docker <code>.env</code> has it).</td></tr></tbody></table></div>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/ai/claude.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="index.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>How AI works with Docket</b></a><a class="pn next" href="claude-skill.html"><span>Next</span><b>Claude skill<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#claude-desktop" class="l2">Claude Desktop</a><a href="#claude-code" class="l2">Claude Code</a><a href="#claudeai-web-desktop-and-phone" class="l2">claude.ai (web, desktop and phone)</a><a href="#troubleshooting" class="l2">Troubleshooting</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>

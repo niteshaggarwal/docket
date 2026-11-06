@@ -34,7 +34,7 @@ ChatGPT can't send custom headers to MCP servers, so the bearer-key method doesn
    > You manage my to-do list through the Docket actions. Task ids appear as #123; use them in follow-up calls.
    > Use list_tasks with view=today to see what's due, my_day for My Day. Never invent ids; look tasks up first.
 3. Under **Actions**, choose **Create new action**, then **Import from URL** and enter
-   `https://tasks.example.com/openapi.json`. ChatGPT reads all 20 operations.
+   `https://tasks.example.com/openapi.json`. ChatGPT reads all 26 operations ([the tools](tools.md)).
 4. **Authentication**: **API Key**, Auth Type **Bearer**, and paste your connector key.
 5. **Privacy policy**: required only if you publish the GPT. Keep it **Only me** so nobody else can use your key.
 6. Save, then test in the preview pane: "What's due today?"

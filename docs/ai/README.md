@@ -4,19 +4,25 @@ Docket ships one connector, `docket-mcp`, that lets AI assistants read and chang
 [Model Context Protocol](https://modelcontextprotocol.io) (MCP), so any MCP-capable assistant can use it, and it also
 offers the same tools as a plain REST API with an OpenAPI description for assistants that use "actions" instead.
 
-**Nothing the connector does can delete.** None of its 20 tools delete, and the Vikunja token the setup scripts give it
-has no delete, sharing or team rights either. Deleting stays in the Docket apps, where you can undo it.
+**Nothing the connector does can delete.** None of its 26 tools delete, and the Vikunja token the setup scripts give it
+has no delete, sharing or team rights either. Deleting and sharing stay in the Docket apps, where you can undo them.
 
 ## Pick your setup
 
 | You use | How it connects | Guide |
 |---|---|---|
-| Claude Desktop, Claude Code | Local (stdio), on the same computer as your Docket settings | [claude.md](claude.md#claude-desktop) |
-| claude.ai on the web or phone | Remote MCP over HTTPS, OAuth sign-in | [claude.md](claude.md#claudeai-web-desktop-and-phone) |
-| ChatGPT | Remote MCP connector (developer mode) or a custom GPT with actions | [chatgpt.md](chatgpt.md) |
-| Gemini CLI, Copilot, Cursor, VS Code, other MCP clients | Local (stdio) or remote MCP | [other-clients.md](other-clients.md) |
-| LM Studio, Ollama, Jan, Open WebUI (local models) | Local (stdio), fully offline | [local-ai.md](local-ai.md) |
-| Your own scripts or agents | REST, OpenAPI, MCP or the `docket` CLI | [../api.md](../api.md) |
+| Claude Desktop, Claude Code | Local (stdio), on the same computer as your Docket settings | [Claude](claude.md#claude-desktop) |
+| claude.ai on the web or phone | Remote MCP over HTTPS, OAuth sign-in | [Claude](claude.md#claudeai-web-desktop-and-phone) |
+| ChatGPT | Remote MCP connector (developer mode) or a custom GPT with actions | [ChatGPT](chatgpt.md) |
+| Gemini CLI, Copilot, Cursor, VS Code, other MCP clients | Local (stdio) or remote MCP | [Other MCP clients](other-clients.md) |
+| LM Studio, Ollama, Jan, Open WebUI (local models) | Local (stdio), fully offline | [Local models](local-ai.md) |
+| Your own scripts or agents | REST, OpenAPI, MCP or the `docket` CLI | [Developer API](../api.md) |
+
+Using Claude? Add the [Docket skill](claude-skill.md) too: it teaches Claude how to use these tools well.
+
+> [!NOTE]
+> This page is about assistants working on your tasks from **their** apps. To plan tasks with AI from **inside** the
+> Docket apps (the `/ai` command), see [AI planning in the app](../using/ai-planning.md).
 
 ## The two ways to run the connector
 
@@ -86,8 +92,9 @@ under **Settings > API Tokens**.
 | `assign` / `people` | Assign a task to someone who can see its list; list the people you work with |
 | `overview` | Dashboard numbers: open, due today, overdue, next 7 days, done this week, by priority and list |
 
-Every result is readable text with task ids written as `#123`, which keeps small local models on track too. The full
-schema is in `/openapi.json` on a running connector, or `tools/list` over MCP.
+Every result is readable text with task ids written as `#123`, which keeps small local models on track too. Every
+argument of every tool is in the [tool reference](tools.md); the full schema is also in `/openapi.json` on a running
+connector, or `tools/list` over MCP.
 
 ## Prompts that work well
 

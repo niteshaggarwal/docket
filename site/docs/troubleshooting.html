@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-base="./">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Troubleshooting · Docket docs</title>
+<meta name="description" content="Find your problem below. Most fixes take a minute. If yours isn't here, ask in Discussions or report a bug.">
+<link rel="icon" href="./../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="./assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="./../index.html"><img src="./../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="./../index.html#features">Features</a><a href="./../index.html#ai">AI</a><a href="./../index.html#mobile">Mobile</a><a href="./../index.html#self-host">Self-host</a>
+      <a href="./index.html" class="on">Docs</a><a href="./../pro.html">Pro</a><a href="./changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="./../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="index.html">Getting started</a><a href="faq.html">FAQ</a><a href="./../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="self-hosting.html">Choose a setup</a><a href="setup/windows.html">Windows PC</a><a href="setup/phone.html">Phone access (Tailscale)</a><a href="setup/docker.html">Docker server</a><a href="setup/public-address.html">Public address for AI</a><a href="setup/existing-vikunja.html">Existing Vikunja</a><a href="setup/docket-web.html">Docket web</a><a href="setup/updating.html">Updating</a><a href="setup/backups.html">Backups and restore</a><a href="setup/uninstalling.html">Uninstalling</a><a href="setup/security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="apps.html">Overview</a><a href="using/windows.html">Windows app</a><a href="using/android.html">Android app</a><a href="using/web.html">Web app</a><a href="using/quick-add.html">Quick add and commands</a><a href="using/shortcuts.html">Keyboard shortcuts</a><a href="using/views-and-boards.html">Views, boards and list styles</a><a href="using/people-and-sharing.html">People, teams and sharing</a><a href="using/ai-planning.html">AI planning in the app</a><a href="using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="ai/index.html">How AI works with Docket</a><a href="ai/claude.html">Claude</a><a href="ai/claude-skill.html">Claude skill</a><a href="ai/chatgpt.html">ChatGPT</a><a href="ai/local-ai.html">Local models</a><a href="ai/other-clients.html">Other MCP clients</a><a href="ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="troubleshooting.html" class="on" aria-current="page">Troubleshooting</a><a href="changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Help</p>
+      <h1 id="troubleshooting">Troubleshooting</h1>
+<p>Find your problem below. Most fixes take a minute. If yours isn't here, ask in
+<a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a> or <a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">report a bug</a>.</p>
+<h2 id="the-server-stopped-or-starting-your-task-server"><a class="anchor" href="#the-server-stopped-or-starting-your-task-server" aria-label="Link to this section">#</a>The server stopped, or &quot;Starting your task server…&quot;</h2>
+<p>On a Windows install, the task server runs on your PC. If it stops, Docket fixes it for you:</p>
+<ul><li>The <strong>app, CLI and AI connector</strong> start it again and carry on. &quot;Starting your task server…&quot; for a few seconds is
+normal.</li><li><strong>Task Scheduler checks every 5 minutes</strong> and restarts it if needed.</li></ul>
+<p>If the app says it couldn't start the server:</p>
+<ol><li>Choose <strong>Start server and retry</strong>.</li><li>Still stuck? Open Task Scheduler &gt; Task Scheduler Library &gt; <strong>Docket</strong>, right-click <strong>Vikunja server</strong> &gt; <strong>Run</strong>,
+and check it isn't <strong>Disabled</strong>.</li><li>Look at the log in <code>%LOCALAPPDATA%\Docket\server\logs</code> for the reason (for example &quot;address already in use&quot; if
+another program took port 3456).</li><li>Restart the PC, or run <code>install.ps1</code> again. It repairs the install and keeps your tasks.</li></ol>
+<p>On a Docker server or someone else's Vikunja, Docket can't start it from your PC; the app says it can't reach the
+server. Check the server is up: <code>docker compose ps</code>, and <code>docker compose logs vikunja</code>.</p>
+<h2 id="this-token-cant-delete-or-cant-share"><a class="anchor" href="#this-token-cant-delete-or-cant-share" aria-label="Link to this section">#</a>&quot;This token can't delete&quot; (or can't share)</h2>
+<p>The app is using a token without delete or sharing rights, usually the AI connector's no-delete token, or a token
+made by an older installer. Make fresh tokens:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">&amp; &quot;$env:LOCALAPPDATA\Programs\Docket\setup-tokens.ps1&quot;</code></pre></div>
+<p>Sign in when asked. It gives the Docket app a full token and the AI connector a fresh no-delete one. For a server
+elsewhere, add <code>-ServerUrl https://your-server</code>. (From a clone of the repository the script is
+<code>deploy\windows\setup-tokens.ps1</code>.)</p>
+<p>If an <strong>AI assistant</strong> says it can't delete or share: that's on purpose. Do it in the Docket app.</p>
+<h2 id="signed-out-or-401-unauthorized-after-a-year"><a class="anchor" href="#signed-out-or-401-unauthorized-after-a-year" aria-label="Link to this section">#</a>Signed out, or &quot;401 unauthorized&quot; after a year</h2>
+<p>Tokens made by the installer last a year. When they expire the apps can't sign in. Run <code>setup-tokens.ps1</code> as above
+(Windows), or sign in again on Android.</p>
+<h2 id="the-phone-cant-connect"><a class="anchor" href="#the-phone-cant-connect" aria-label="Link to this section">#</a>The phone can't connect</h2>
+<ul><li><strong>Is Tailscale on</strong> on both the phone and the PC, signed in to the same account? Both should show as connected
+in the Tailscale app.</li><li><strong>Is the address right?</strong> Run <code>tailscale serve status</code> on the PC and use exactly the <code>https://….ts.net</code> address
+it shows. Don't add a port.</li><li><strong>Is the PC awake and signed in?</strong> The server runs while you're signed in to Windows.</li><li><strong>Open the address in the phone's browser.</strong> If Docket web or Vikunja loads there, the network is fine and it's a
+sign-in problem: check the username and password.</li><li><strong>Docker server:</strong> use <code>https://your-domain</code> and check the certificate works in a browser.</li></ul>
+<p>More: <a href="setup/phone.html">phone access</a>.</p>
+<h2 id="reminders-dont-pop-up"><a class="anchor" href="#reminders-dont-pop-up" aria-label="Link to this section">#</a>Reminders don't pop up</h2>
+<p><strong>On Windows</strong>, pop-ups come from the notifier <code>docket notify --watch</code>, not from the app window.</p>
+<ol><li>Check it runs: Task Scheduler &gt; <strong>Docket</strong> &gt; <strong>Docket reminders</strong>. No such task? Run the installer again with
+<code>-Reminders</code>, or start it yourself with <code>docket notify --watch</code>.</li><li>Check Windows lets it notify: Settings &gt; System &gt; Notifications, find <strong>Docket</strong>, and turn it on. Turn off
+<strong>Do not disturb</strong> / Focus.</li><li>Run <code>docket notify --once</code> to show anything due now straight away.</li></ol>
+<p><strong>On Android</strong>, allow notifications for Docket, allow <strong>alarms and reminders</strong> if asked, and turn off battery
+optimisation for Docket. Open the app after adding reminders on another device, so the phone schedules them.</p>
+<h2 id="ai-planning-doesnt-respond"><a class="anchor" href="#ai-planning-doesnt-respond" aria-label="Link to this section">#</a>AI planning doesn't respond</h2>
+<p>For the <code>/ai</code> command and the sparkle button:</p>
+<ul><li><strong>&quot;Turn on an AI in Settings first&quot;</strong>: choose a provider in <strong>Settings &gt; AI</strong>.</li><li><strong>Local (Ollama):</strong>
+<ul><li>Settings &gt; AI should say <strong>Local AI is running</strong>. If not, choose <strong>Start Ollama</strong> (or <strong>Install Ollama</strong>).</li><li>You need a chat model: download one there (e.g. <code>qwen2.5:7b</code>) and pick it in <strong>Model</strong>.</li><li>The first answer after starting can take up to a minute while the model loads. Later ones are faster.</li><li>Very slow? The model may be too big for your PC. Try a smaller one, close other heavy apps.</li><li>Check from PowerShell: <code>ollama list</code> shows installed models; <code>ollama run qwen2.5:7b &quot;hi&quot;</code> should answer.</li></ul></li><li><strong>On Android with local AI:</strong> Ollama must listen on the network (<code>OLLAMA_HOST=0.0.0.0</code>) and the phone must reach the
+PC. See <a href="using/ai-planning.html#on-android">AI planning on Android</a>.</li><li><strong>Claude, ChatGPT or Gemini:</strong> check the API key (paste it again and <strong>Save key</strong>), that the account has API credit,
+and the model name. <strong>Test</strong> in Settings shows the provider's error message.</li></ul>
+<h2 id="an-ai-assistant-doesnt-see-docket"><a class="anchor" href="#an-ai-assistant-doesnt-see-docket" aria-label="Link to this section">#</a>An AI assistant doesn't see Docket</h2>
+<div class="table-wrap"><table><thead><tr><th>Where</th><th>Check</th></tr></thead><tbody><tr><td>Claude Desktop</td><td>Quit it from the tray icon (not just the window) and reopen. Check the path in its config, and that the file has no byte-order mark</td></tr><tr><td>Claude Code</td><td><code>claude mcp get docket</code>, or <code>/mcp</code> in a session</td></tr><tr><td>claude.ai</td><td>Open <code>https://your-domain/connector/health</code> from a phone on mobile data. It must say <code>&quot;status&quot;:&quot;ok&quot;</code> and be reachable from the internet</td></tr><tr><td>ChatGPT</td><td>After a Docket upgrade, delete and re-add the connector so it sees new tools</td></tr><tr><td>Any</td><td>&quot;Docket isn't set up yet&quot;: the connector has no token. Sign in with the installer, or run <code>docket-mcp setup</code></td></tr></tbody></table></div>
+<p>More in <a href="ai/claude.html#troubleshooting">Claude</a>, <a href="ai/chatgpt.html#troubleshooting">ChatGPT</a> and
+<a href="ai/other-clients.html#checking-a-connection">other clients</a>.</p>
+<h2 id="times-are-off-by-a-few-hours"><a class="anchor" href="#times-are-off-by-a-few-hours" aria-label="Link to this section">#</a>Times are off by a few hours</h2>
+<p>The server's time zone is wrong. Windows install: run <code>install.ps1</code> again with <code>-TimeZone Your/Zone</code>. Docker: set
+<code>TZ</code> in <code>.env</code> and run <code>docker compose up -d</code>.</p>
+<h2 id="a-repeating-task-didnt-move-to-its-next-date"><a class="anchor" href="#a-repeating-task-didnt-move-to-its-next-date" aria-label="Link to this section">#</a>A repeating task didn't move to its next date</h2>
+<p>Weekdays, yearly and every-N-months or -years repeats (with a &quot;↻&quot; category) only move forward when completed in a
+Docket app, the CLI or through the AI connector, not in Vikunja's web app or Docket web. Reopen it and complete it in
+Docket.</p>
+<h2 id="where-are-the-logs"><a class="anchor" href="#where-are-the-logs" aria-label="Link to this section">#</a>Where are the logs?</h2>
+<div class="table-wrap"><table><thead><tr><th>What</th><th>Where</th></tr></thead><tbody><tr><td>Task server (Windows)</td><td><code>%LOCALAPPDATA%\Docket\server\logs</code></td></tr><tr><td>Docker services</td><td><code>docker compose logs -f vikunja</code> (or <code>connector</code>, <code>web</code>, <code>caddy</code>)</td></tr><tr><td>Scheduled tasks</td><td>Task Scheduler &gt; Docket &gt; the task &gt; <strong>History</strong> tab</td></tr></tbody></table></div>
+<h2 id="start-fresh"><a class="anchor" href="#start-fresh" aria-label="Link to this section">#</a>Start fresh</h2>
+<p>Uninstall with <code>-RemoveData</code> and install again; see <a href="setup/uninstalling.html">uninstalling</a>. Make a
+<a href="setup/backups.html">backup</a> first if there's anything you want to keep.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/troubleshooting.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="api.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Developer API</b></a><a class="pn next" href="changelog.html"><span>Next</span><b>Changelog<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#the-server-stopped-or-starting-your-task-server" class="l2">The server stopped, or &quot;Starting your task server…&quot;</a><a href="#this-token-cant-delete-or-cant-share" class="l2">&quot;This token can't delete&quot; (or can't share)</a><a href="#signed-out-or-401-unauthorized-after-a-year" class="l2">Signed out, or &quot;401 unauthorized&quot; after a year</a><a href="#the-phone-cant-connect" class="l2">The phone can't connect</a><a href="#reminders-dont-pop-up" class="l2">Reminders don't pop up</a><a href="#ai-planning-doesnt-respond" class="l2">AI planning doesn't respond</a><a href="#an-ai-assistant-doesnt-see-docket" class="l2">An AI assistant doesn't see Docket</a><a href="#times-are-off-by-a-few-hours" class="l2">Times are off by a few hours</a><a href="#a-repeating-task-didnt-move-to-its-next-date" class="l2">A repeating task didn't move to its next date</a><a href="#where-are-the-logs" class="l2">Where are the logs?</a><a href="#start-fresh" class="l2">Start fresh</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="./../index.html"><img src="./../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="./index.html">Docs</a><a href="./../pro.html">Pro and roadmap</a><a href="./changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="./search-index.js" defer></script>
+<script src="./assets/docs.js" defer></script>
+</body>
+</html>

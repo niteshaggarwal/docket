@@ -25,13 +25,15 @@ Nobody else holds your data, and every Docket app behaves the same way because t
 
 ## Get started
 
+New here? Read [Getting started](docs/index.md). The full documentation is also on the website, under **Docs**.
+
 | I want to… | Do this |
 |---|---|
-| Use it on my Windows PC | Download the Windows zip from [Releases](https://github.com/niteshaggarwal/docket/releases), run `install.ps1`. [Details](docs/self-hosting.md#windows-pc) |
-| Run an always-on server | `deploy/docker/setup.sh` on any Linux box with Docker. [Details](docs/self-hosting.md#docker-server) |
-| Use my phone | Install the Android APK from Releases; sign in with your server's address. [Phone access](docs/self-hosting.md#reach-it-from-your-phone) |
-| Use it with an AI | [Claude](docs/ai/claude.md), [ChatGPT](docs/ai/chatgpt.md), [local models](docs/ai/local-ai.md), [other MCP clients](docs/ai/other-clients.md) |
-| Learn the apps and CLI | [Windows app, Android app, `docket` commands](docs/apps.md) |
+| Use it on my Windows PC | Download the Windows zip from [Releases](https://github.com/niteshaggarwal/docket/releases), run `install.ps1`. [Details](docs/setup/windows.md) |
+| Run an always-on server | `deploy/docker/setup.sh` on any Linux box with Docker. [Details](docs/setup/docker.md) |
+| Use my phone | Install the Android APK from Releases; sign in with your server's address. [Phone access](docs/setup/phone.md) |
+| Use it with an AI | [Claude](docs/ai/claude.md), [ChatGPT](docs/ai/chatgpt.md), [local models](docs/ai/local-ai.md), [other MCP clients](docs/ai/other-clients.md), and the [Claude skill](docs/ai/claude-skill.md) |
+| Learn the apps and CLI | [Windows app, Android app, `docket` commands](docs/apps.md), [troubleshooting](docs/troubleshooting.md) |
 | Script it | [REST, MCP, CLI and Vikunja API](docs/api.md) |
 
 ## AI support at a glance

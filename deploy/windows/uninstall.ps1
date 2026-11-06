@@ -13,7 +13,7 @@ foreach ($t in Get-ScheduledTask -TaskPath '\Docket\' -ErrorAction SilentlyConti
     Unregister-ScheduledTask -TaskPath '\Docket\' -TaskName $t.TaskName -Confirm:$false
     Write-Host "Removed scheduled task $($t.TaskName)"
 }
-Get-Process vikunja, Docket, docket, docket-mcp -ErrorAction SilentlyContinue |
+Get-Process vikunja, Docket, docket, docket-mcp, docket-web -ErrorAction SilentlyContinue |
     Where-Object { $_.Path -like "$InstallDir*" -or $_.Path -like "$ServerDir*" } | Stop-Process -Force
 
 $cliDir = Join-Path $InstallDir 'cli'
@@ -25,7 +25,7 @@ if (Get-Command claude -ErrorAction SilentlyContinue) { cmd /c "claude mcp remov
 Write-Host 'If you added Docket to the Claude desktop app or another AI app, remove "docket" from its MCP settings.'
 
 # Leave this script's own folder until last (it may be running from there).
-foreach ($p in 'app', 'cli', 'mcp') { Remove-Item (Join-Path $InstallDir $p) -Recurse -Force -ErrorAction SilentlyContinue }
+foreach ($p in 'app', 'cli', 'mcp', 'web') { Remove-Item (Join-Path $InstallDir $p) -Recurse -Force -ErrorAction SilentlyContinue }
 if ($RemoveData) {
     Remove-Item $ServerDir -Recurse -Force -ErrorAction SilentlyContinue
     Remove-Item (Join-Path $env:LOCALAPPDATA 'Docket\settings.json') -ErrorAction SilentlyContinue

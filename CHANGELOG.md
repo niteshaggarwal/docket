@@ -44,7 +44,7 @@ First public release.
   Completed, lists and groups, steps, reminders, repeats, categories, files, notes, boards, undo.
 - Android app (.NET MAUI) with the same features and Fluent design.
 - `docket` CLI with `--json` output and Windows reminder notifications.
-- AI connector `docket-mcp`: 20 tools over MCP (stdio and Streamable HTTP), REST with generated OpenAPI 3.1,
+- AI connector `docket-mcp`: 26 tools over MCP (stdio and Streamable HTTP), REST with generated OpenAPI 3.1,
   built-in OAuth 2.1 (dynamic client registration, PKCE) for claude.ai and ChatGPT, `docket-mcp setup` for a
   no-delete token. Runs on Windows, Linux and macOS.
 - Self-hosting: Windows one-click installer (no admin), Docker Compose stack with Caddy HTTPS.

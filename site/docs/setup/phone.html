@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phone access with Tailscale · Docket docs</title>
+<meta name="description" content="The Windows install keeps your task server private: it listens only on your PC (127.0.0.1). To reach it from your phone without opening anything to the internet">
+<link rel="icon" href="../../assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m14 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></symbol>
+</svg>
+<a class="skip" href="#content">Skip to content</a>
+<div class="nav-wrap"><div class="container wide">
+  <nav class="nav" aria-label="Main">
+    <button class="icon-btn menu-btn" type="button" aria-label="Open the docs menu" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket <span class="logo-sub">Docs</span></a>
+    <div class="nav-links">
+      <a href="../../index.html#features">Features</a><a href="../../index.html#ai">AI</a><a href="../../index.html#mobile">Mobile</a><a href="../../index.html#self-host">Self-host</a>
+      <a href="../index.html" class="on">Docs</a><a href="../../pro.html">Pro</a><a href="../changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="https://github.com/niteshaggarwal/docket/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<div class="container wide docs">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation">
+    <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="search" placeholder="Search the docs" autocomplete="off" aria-label="Search the docs"><kbd>/</kbd></label>
+    <div class="search-results" id="results" hidden></div>
+    <div class="side-site"><a href="../../index.html">Docket home</a><a href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="side-group"><p class="side-title">Start here</p><a href="../index.html">Getting started</a><a href="../faq.html">FAQ</a><a href="../../pro.html">Roadmap and Pro</a></div><div class="side-group"><p class="side-title">Set up</p><a href="../self-hosting.html">Choose a setup</a><a href="windows.html">Windows PC</a><a href="phone.html" class="on" aria-current="page">Phone access (Tailscale)</a><a href="docker.html">Docker server</a><a href="public-address.html">Public address for AI</a><a href="existing-vikunja.html">Existing Vikunja</a><a href="docket-web.html">Docket web</a><a href="updating.html">Updating</a><a href="backups.html">Backups and restore</a><a href="uninstalling.html">Uninstalling</a><a href="security.html">Security</a></div><div class="side-group"><p class="side-title">Use Docket</p><a href="../apps.html">Overview</a><a href="../using/windows.html">Windows app</a><a href="../using/android.html">Android app</a><a href="../using/web.html">Web app</a><a href="../using/quick-add.html">Quick add and commands</a><a href="../using/shortcuts.html">Keyboard shortcuts</a><a href="../using/views-and-boards.html">Views, boards and list styles</a><a href="../using/people-and-sharing.html">People, teams and sharing</a><a href="../using/ai-planning.html">AI planning in the app</a><a href="../using/cli.html">Command line (CLI)</a></div><div class="side-group"><p class="side-title">AI assistants</p><a href="../ai/index.html">How AI works with Docket</a><a href="../ai/claude.html">Claude</a><a href="../ai/claude-skill.html">Claude skill</a><a href="../ai/chatgpt.html">ChatGPT</a><a href="../ai/local-ai.html">Local models</a><a href="../ai/other-clients.html">Other MCP clients</a><a href="../ai/tools.html">Tool reference</a></div><div class="side-group"><p class="side-title">Developers</p><a href="../api.html">Developer API</a></div><div class="side-group"><p class="side-title">Help</p><a href="../troubleshooting.html">Troubleshooting</a><a href="../changelog.html">Changelog</a></div>
+  </aside>
+  <div class="scrim" hidden></div>
+  <main class="content" id="content">
+    <article class="prose">
+      <p class="crumb">Set up</p>
+      <h1 id="phone-access-with-tailscale">Phone access with Tailscale</h1>
+<p>The Windows install keeps your task server private: it listens only on your PC (<code>127.0.0.1</code>). To reach it from
+your phone without opening anything to the internet, use <a href="https://tailscale.com" target="_blank" rel="noopener">Tailscale</a>. It's free for personal
+use and makes a private network of your own devices.</p>
+<div class="callout callout-note"><p class="callout-title">Note</p><p>Using a <a href="docker.html">Docker server</a> with a domain? You don't need this page: sign in on the phone with
+<code>https://your-domain</code>.</p></div>
+<h2 id="set-it-up"><a class="anchor" href="#set-it-up" aria-label="Link to this section">#</a>Set it up</h2>
+<ol><li><p><strong>Install Tailscale on the PC</strong> from <a href="https://tailscale.com/download" target="_blank" rel="noopener">tailscale.com/download</a> and sign in
+(tray icon &gt; <strong>Log in</strong>).</p></li><li><p><strong>Install Tailscale on the phone</strong> (Google Play) and sign in to the <strong>same account</strong>.</p></li><li><p><strong>Share Docket from the PC.</strong> Open PowerShell and run:</p>
+<div class="code"><div class="code-head"><span>PowerShell</span><button type="button" class="copy" aria-label="Copy code">Copy</button></div><pre><code class="language-powershell">tailscale serve --bg 3457</code></pre></div>
+<p>This gives your PC an HTTPS address like <code>https://my-pc.tail1234.ts.net</code> that only your own devices can open.
+Port 3457 is <a href="docket-web.html">Docket web</a>, so the same address also works in your phone's browser. (Use 3456 to
+share plain Vikunja instead; the Docket apps work with either.)</p></li><li><p><strong>Install Docket for Android</strong> (the APK from <a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a>, or the
+Play Store when it's listed) and open it.</p></li><li><p><strong>Sign in</strong> with the address from step 3 and your Vikunja username and password. Docket creates a token for the
+phone; your password isn't stored.</p></li></ol>
+<p>Run <code>tailscale serve status</code> on the PC to see the address again. The PC has to be on (and signed in) for the phone
+to reach it; the phone keeps working offline only for what's already on screen.</p>
+<h2 id="checking-it-works"><a class="anchor" href="#checking-it-works" aria-label="Link to this section">#</a>Checking it works</h2>
+<ul><li>On the phone, with Tailscale connected, open the address in the browser. You should see Docket web (or Vikunja).</li><li>If it doesn't load, check that both devices show as connected in the Tailscale app, and that the PC's server is
+running (open Docket on the PC).</li></ul>
+<h2 id="local-ai-on-the-phone"><a class="anchor" href="#local-ai-on-the-phone" aria-label="Link to this section">#</a>Local AI on the phone</h2>
+<p>Docket for Android can plan tasks with Ollama running on your PC. Ollama has to accept connections from other
+devices for that: see <a href="../using/ai-planning.html#on-android">AI planning</a>.</p>
+<h2 id="letting-claudeai-or-chatgpt-in"><a class="anchor" href="#letting-claudeai-or-chatgpt-in" aria-label="Link to this section">#</a>Letting claude.ai or ChatGPT in</h2>
+<p>Tailscale <code>serve</code> is private to your devices, which is what you want for the apps. Web assistants connect from the
+internet, so they need a public address for the AI connector only: see <a href="public-address.html">public address for AI</a>.</p>
+    </article>
+    <div class="page-foot">
+      <a class="edit" href="https://github.com/niteshaggarwal/docket/blob/main/docs/setup/phone.md" target="_blank" rel="noopener"><svg><use href="#i-edit"/></svg>Edit this page on GitHub</a>
+      <div class="pns"><a class="pn prev" href="windows.html"><span>Previous</span><b><svg><use href="#i-left"/></svg>Windows PC</b></a><a class="pn next" href="docker.html"><span>Next</span><b>Docker server<svg><use href="#i-right"/></svg></b></a></div>
+    </div>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><a href="#set-it-up" class="l2">Set it up</a><a href="#checking-it-works" class="l2">Checking it works</a><a href="#local-ai-on-the-phone" class="l2">Local AI on the phone</a><a href="#letting-claudeai-or-chatgpt-in" class="l2">Letting claude.ai or ChatGPT in</a></nav>
+</div>
+
+<footer class="foot">
+  <div class="container wide foot-row">
+    <a class="logo" href="../../index.html"><img src="../../assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="../index.html">Docs</a><a href="../../pro.html">Pro and roadmap</a><a href="../changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/issues" target="_blank" rel="noopener">Report a bug</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="../search-index.js" defer></script>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>
