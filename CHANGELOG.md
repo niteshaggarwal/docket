@@ -32,6 +32,12 @@ First public release.
 - `docket-web`: Vikunja's own web app with the Docket look in light and dark and no Vikunja branding, nothing removed.
   Runs at http://localhost:3457 on Windows and as the `web` service in Docker.
 
+### Reliability
+- If the task server on your PC has stopped, the Windows app, the CLI and the AI connector start it again and retry
+  before showing an error. If it still won't start, the app offers "Start server and retry".
+- The server, Docket web and reminder tasks re-run every 5 minutes as a failsafe (a running copy is left alone), and
+  the reminders watcher keeps going through outages and restarts the server.
+
 ### Also in this release
 
 - Windows app (WinUI 3) with the Microsoft To Do feature set: My Day with suggestions, Important, Planned, All,

@@ -26,7 +26,7 @@ No admin rights are needed. What it sets up, all for your Windows account only:
 | Docket app, `docket` CLI, `docket-mcp` | `%LOCALAPPDATA%\Programs\Docket` (CLI added to your PATH; Start menu shortcut) |
 | Vikunja and your data | `%LOCALAPPDATA%\Docket\server` (outside OneDrive: a live database and file sync don't mix) |
 | Backups | `Documents\Docket\backups`, nightly at 11 pm, newest 14 kept |
-| Scheduled tasks | Task Scheduler > `Docket`: "Vikunja server" (at sign-in), "Vikunja backup" (nightly) |
+| Scheduled tasks | Task Scheduler > `Docket`: "Vikunja server" and "Docket web" (at sign-in, then checked every 5 minutes), "Vikunja backup" (nightly) |
 | Settings and tokens | `%LOCALAPPDATA%\Docket\settings.json` (tokens encrypted with Windows DPAPI) |
 
 Options: `-Reminders` adds reminder notifications from sign-in; `-Port 3500` changes the port;
@@ -35,6 +35,22 @@ Run it again to upgrade (your data stays). `uninstall.ps1` removes it (add `-Rem
 
 From source instead of a release: clone the repo, install the .NET 10 SDK, then run `deploy\windows\install.ps1`;
 it builds the app first.
+
+### If the server stops
+
+The task server keeps running by itself, with three layers of protection:
+
+1. **The apps restart it.** When the Docket app, the `docket` CLI or the AI connector finds the server on this PC
+   stopped, it starts it again (through its scheduled task, or the server program directly), waits for it, and then
+   carries on with what you asked. You see "Starting your task server…" for a few seconds instead of an error.
+2. **The scheduled tasks check every 5 minutes.** "Vikunja server", "Docket web" and "Docket reminders" run at sign-in
+   and again every 5 minutes. A running copy is left alone; a stopped one starts again.
+3. **The reminders watcher heals it too.** `docket notify --watch` runs all day; if the server stops, it restarts it
+   and keeps watching instead of quitting.
+
+If the server still can't start, the app says so and offers **Start server and retry**. If that fails too, restart the
+PC, or run `install.ps1` again (it keeps your data). The server's log is in `%LOCALAPPDATA%\Docket\server\logs`.
+A server on another machine (Docker, a VPS) can't be started from your PC: there the app tells you it can't reach it.
 
 ### Reach it from your phone
 

@@ -148,9 +148,20 @@ public static class TaskTools
     });
 
     /// <summary>Turns known failures into readable tool errors.</summary>
+    /// <summary>The server address, set at start-up, so a stopped local server can be restarted.</summary>
+    internal static string ServerUrl { get; set; } = "";
+
     internal static async Task<string> Run(Func<Task<string>> body)
     {
         try { return await body(); }
+        catch (HttpRequestException ex) when (OperatingSystem.IsWindows() && LocalServer.IsConnectionRefused(ex) && LocalServer.IsLocal(ServerUrl))
+        {
+            // The server on this PC has stopped: start it and try once more before reporting a problem.
+            if (!await LocalServer.EnsureRunningAsync(ServerUrl)) throw new McpException(LocalServer.StillDownMessage(ServerUrl));
+            try { return await body(); }
+            catch (DocketException again) { throw new McpException(again.Message); }
+            catch (VikunjaException again) { throw new McpException(again.Message); }
+        }
         catch (DocketException ex) { throw new McpException(ex.Message); }
         catch (VikunjaException ex) { throw new McpException(ex.Message); }
         catch (HttpRequestException ex) { throw new McpException($"Can't reach Vikunja at the configured address ({ex.Message}). Is it running?"); }

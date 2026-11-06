@@ -67,6 +67,7 @@ catch (InvalidOperationException ex) when (args.Contains("--http"))
 }
 catch (InvalidOperationException ex) { Console.Error.WriteLine(ex.Message); return 2; }
 
+Docket.Mcp.TaskTools.ServerUrl = opts.VikunjaUrl.ToString();
 DocketService MakeService(IServiceProvider _) => new(new VikunjaClient(opts.VikunjaUrl, opts.VikunjaToken)) { State = opts.State };
 var info = new ModelContextProtocol.Protocol.Implementation
 {

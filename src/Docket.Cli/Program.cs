@@ -18,12 +18,19 @@ if (ToastNotificationManagerCompat.WasCurrentProcessToastActivated())
 
 try
 {
-    return await Cli.RunAsync(args);
+    try { return await Cli.RunAsync(args); }
+    catch (HttpRequestException ex) when (LocalServer.IsConnectionRefused(ex) && AppSettings.Load() is { } s && LocalServer.IsLocal(s.ServerUrl))
+    {
+        // The server on this PC has stopped: start it, then run the command again (it never reached the server).
+        Console.Error.WriteLine("Starting your task server…");
+        if (!await LocalServer.EnsureRunningAsync(s.ServerUrl, s.VikunjaExe)) throw new DocketException(LocalServer.StillDownMessage(s.ServerUrl));
+        return await Cli.RunAsync(args);
+    }
 }
 catch (UsageException ex) { Console.Error.WriteLine(ex.Message); Console.Error.WriteLine("Run \"docket help\" for the commands."); return 2; }
 catch (DocketException ex) { Console.Error.WriteLine(ex.Message); return 1; }
 catch (VikunjaException ex) { Console.Error.WriteLine(ex.Message); return 1; }
-catch (HttpRequestException ex) { Console.Error.WriteLine($"Can't reach Vikunja: {ex.Message}"); return 3; }
+catch (HttpRequestException ex) { Console.Error.WriteLine($"Can't reach your Docket server: {ex.Message}"); return 3; }
 catch (TaskCanceledException) { Console.Error.WriteLine("Vikunja didn't answer in time."); return 3; }
 
 static class Cli

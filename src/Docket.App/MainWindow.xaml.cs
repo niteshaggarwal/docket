@@ -124,11 +124,24 @@ public sealed partial class MainWindow : Window
             SetStatus("");
             _ = UpdateSharedAsync(svc);
         }
+        catch (HttpRequestException ex) when (LocalServer.IsConnectionRefused(ex) && LocalServer.IsLocal(App.Settings.ServerUrl) && !_retryingLists)
+        {
+            // The server on this PC isn't running: start it and load again, before showing anything.
+            _retryingLists = true;
+            try
+            {
+                if (await RestartServerAsync()) await LoadListsAsync();
+                else ShowServerDown("Can't reach your Docket server");
+            }
+            finally { _retryingLists = false; }
+        }
         catch (Exception ex) when (ex is HttpRequestException or VikunjaException or DocketException or TaskCanceledException)
         {
             ShowError("Can't reach your Docket server", ex.Message);
         }
     }
+
+    private bool _retryingLists;
 
     private NavigationViewItem MakeListItem(VProject p, bool isGroup)
     {
@@ -345,6 +358,7 @@ public sealed partial class MainWindow : Window
     // ---------- messages ----------
     public void ShowError(string title, string message)
     {
+        ErrorBar.ActionButton = null;
         ErrorBar.Title = title;
         ErrorBar.Message = message.Replace("Vikunja: ", "", StringComparison.Ordinal).Replace("Vikunja", "the server", StringComparison.Ordinal);
         ErrorBar.IsOpen = true;
@@ -373,8 +387,54 @@ public sealed partial class MainWindow : Window
     public async Task RunAsync(string failTitle, Func<Task> action)
     {
         try { await action(); }
+        catch (HttpRequestException ex) when (LocalServer.IsConnectionRefused(ex) && LocalServer.IsLocal(App.Settings.ServerUrl))
+        {
+            // The server on this PC has stopped: start it again and retry once, before bothering the person.
+            if (await RestartServerAsync())
+            {
+                try { await action(); return; }
+                catch (Exception again) when (again is HttpRequestException or VikunjaException or DocketException or TaskCanceledException)
+                { ShowError(failTitle, again.Message); return; }
+            }
+            ShowServerDown(failTitle);
+        }
         catch (Exception ex) when (ex is HttpRequestException or VikunjaException or DocketException or TaskCanceledException)
         { ShowError(failTitle, ex.Message); }
+    }
+
+    private Task<bool>? _restarting;
+
+    /// <summary>Starts the local task server (once, however many screens ask) and reports while it does.</summary>
+    public async Task<bool> RestartServerAsync()
+    {
+        var first = _restarting is null;
+        if (first)
+        {
+            SetStatus("Starting your task server…");
+            _restarting = LocalServer.EnsureRunningAsync(App.Settings.ServerUrl, App.Settings.VikunjaExe);
+        }
+        var ok = await _restarting!;
+        if (first)
+        {
+            _restarting = null;
+            SetStatus(ok ? "Task server restarted" : "");
+            if (ok) ErrorBar.IsOpen = false;
+        }
+        return ok;
+    }
+
+    /// <summary>The failsafe: the server couldn't be started, so offer a manual retry instead of a dead end.</summary>
+    private void ShowServerDown(string failTitle)
+    {
+        ShowError(failTitle, LocalServer.StillDownMessage(App.Settings.ServerUrl));
+        var retry = new Button { Content = "Start server and retry" };
+        retry.Click += async (_, _) =>
+        {
+            retry.IsEnabled = false;
+            if (await RestartServerAsync()) { ErrorBar.IsOpen = false; await RefreshAllAsync(); }
+            else retry.IsEnabled = true;
+        };
+        ErrorBar.ActionButton = retry;
     }
 
     public async Task OnConnectedAsync()

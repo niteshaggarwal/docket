@@ -26,6 +26,8 @@ Start menu > **Docket** (installed by `install.ps1`).
 - **Open in browser** opens the Docket web app (`docket-web`, http://localhost:3457) when it runs, else the server.
 - **Shortcuts:** Ctrl+N add · Ctrl+D complete · Ctrl+T My Day · Ctrl+I important · Delete · Enter details ·
   Esc close · Ctrl+F search · Ctrl+L new list · Ctrl+R or F5 refresh.
+- **Server stopped?** If your task server on this PC isn't running, the app starts it and carries on (you'll see
+  "Starting your task server…"). See [if the server stops](self-hosting.md#if-the-server-stops).
 - **Reminders** pop up through `docket notify --watch` (the installer's `-Reminders` option starts it at sign-in).
 - Weekdays, yearly and every-N-months/years repeats are handled by Docket (a "↻" label), so they advance when
   completed in Docket, the CLI, Android or an AI, but not in Vikunja's own web app.

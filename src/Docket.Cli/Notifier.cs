@@ -41,7 +41,19 @@ internal static class Notifier
         }
         while (true)
         {
-            var shown = await CheckOnceAsync(ct);
+            int shown;
+            try { shown = await CheckOnceAsync(ct); }
+            catch (Exception ex) when (watch && ex is HttpRequestException or VikunjaException or TaskCanceledException && !ct.IsCancellationRequested)
+            {
+                // Keep watching through server hiccups. If the server on this PC has stopped, start it again:
+                // the watcher runs all day, so it doubles as the server's failsafe.
+                if (ex is HttpRequestException h && LocalServer.IsConnectionRefused(h))
+                {
+                    var s = AppSettings.Load();
+                    Console.Error.WriteLine(await LocalServer.EnsureRunningAsync(s.ServerUrl, s.VikunjaExe, ct: ct) ? "Restarted the task server." : "The task server is down; trying again shortly.");
+                }
+                shown = 0;
+            }
             if (!watch) { Console.WriteLine(shown == 0 ? "No reminders due." : $"Showed {shown} reminder(s)."); return 0; }
             try { await Task.Delay(Interval, ct); } catch (TaskCanceledException) { return 0; }
         }

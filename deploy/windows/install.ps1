@@ -162,21 +162,24 @@ Step 'Scheduled tasks'
 $me = "$env:USERDOMAIN\$env:USERNAME"
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit ([TimeSpan]::Zero) -StartWhenAvailable
 $principal = New-ScheduledTaskPrincipal -UserId $me -LogonType Interactive -RunLevel Limited
+# Failsafe: besides starting at sign-in, the always-on tasks re-run every 5 minutes. A running copy is left alone
+# (MultipleInstances IgnoreNew), a stopped one starts again, so the server never stays down for long.
+$watch = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5)
 function Register($name, $action, $trigger, $what) {
     Register-ScheduledTask -TaskPath $taskPath -TaskName $name -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Force | Out-Null
     Write-Host "$name - $what"
 }
 Register 'Vikunja server' (New-ScheduledTaskAction -Execute 'conhost.exe' -Argument "--headless `"$exe`" --config `"$config`"" -WorkingDirectory $ServerDir) `
-    (New-ScheduledTaskTrigger -AtLogOn -User $me) 'starts the task server when you sign in'
+    @((New-ScheduledTaskTrigger -AtLogOn -User $me), $watch) 'starts the task server when you sign in, and restarts it if it stops'
 Register 'Vikunja backup' (New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$backup`"") `
     (New-ScheduledTaskTrigger -Daily -At 11pm) "nightly backup to $BackupDir"
 if (Test-Path "$InstallDir\web\docket-web.exe") {
     Register 'Docket web' (New-ScheduledTaskAction -Execute 'conhost.exe' -Argument "--headless `"$InstallDir\web\docket-web.exe`"" -WorkingDirectory "$InstallDir\web") `
-        (New-ScheduledTaskTrigger -AtLogOn -User $me) 'Docket in the browser at http://localhost:3457'
+        @((New-ScheduledTaskTrigger -AtLogOn -User $me), $watch) 'Docket in the browser at http://localhost:3457'
 }
 if ($Reminders) {
     Register 'Docket reminders' (New-ScheduledTaskAction -Execute 'conhost.exe' -Argument "--headless `"$cliDir\docket.exe`" notify --watch") `
-        (New-ScheduledTaskTrigger -AtLogOn -User $me) 'reminder notifications from sign-in'
+        @((New-ScheduledTaskTrigger -AtLogOn -User $me), $watch) 'reminder notifications from sign-in'
 }
 
 Start-ScheduledTask -TaskPath $taskPath -TaskName 'Vikunja server'
