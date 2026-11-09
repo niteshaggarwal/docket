@@ -24,7 +24,11 @@ public sealed partial class DetailPane : UserControl
     private bool _loading;
     private readonly HashSet<long> _collapsed = [];
 
-    public DetailPane() => InitializeComponent();
+    public DetailPane()
+    {
+        InitializeComponent();
+        AttachColumnMenu();
+    }
 
     public long? TaskId => _task?.Id;
     public event EventHandler? Closed;
@@ -201,8 +205,25 @@ public sealed partial class DetailPane : UserControl
         Busy.Visibility = Visibility.Collapsed;
     }
 
-    private async void Done_Click(object sender, RoutedEventArgs e) =>
+    private async void Done_Click(object sender, RoutedEventArgs e)
+    {
+        if (ColumnMenu.Swallow(sender)) return;
         await SaveAsync("status", (s, id) => s.SetDoneAsync(id, DoneBox.IsChecked == true));
+    }
+
+    private bool _columnMenuAttached;
+
+    /// <summary>Hold the tick to move the open task to any board column.</summary>
+    private void AttachColumnMenu()
+    {
+        if (_columnMenuAttached) return;
+        _columnMenuAttached = true;
+        ColumnMenu.Attach(DoneBox, () => _task, async () =>
+        {
+            if (_task is { } t) await LoadAsync(t.Id);
+            Changed?.Invoke(this, TaskChange.Updated);
+        });
+    }
 
     private async void Star_Click(object sender, RoutedEventArgs e) =>
         await SaveAsync("importance", (s, id) => s.SetImportantAsync(id, !(_task?.IsFavorite ?? false)));

@@ -59,7 +59,10 @@
 <h2 id="boards"><a class="anchor" href="#boards" aria-label="Link to this section">#</a>Boards</h2>
 <p>Every list has a board with <strong>To-Do</strong>, <strong>Doing</strong> and <strong>Done</strong> columns to start with.</p>
 <ul><li><strong>Add column</strong> at the end of the board makes a new one; add as many as you like.</li><li>Each column's menu lets you <strong>rename</strong> it, pick a <strong>colour</strong> and an <strong>icon</strong> (a Fluent glyph or an emoji), or
-delete it.</li><li><strong>To-Do</strong> and <strong>Done</strong> always stay (you can rename them). Moving a card into <strong>Done</strong> completes the task.</li><li><strong>Add a card</strong> at the bottom of a column adds a task straight into it. Drag cards between columns.</li></ul>
+delete it.</li><li><strong>To-Do</strong> and <strong>Done</strong> always stay (you can rename them). Moving a card into <strong>Done</strong> completes the task.</li><li><strong>Add a card</strong> at the bottom of a column adds a task straight into it. Drag cards between columns: drop anywhere in a
+column, including an empty one. Dropping on Done completes the task.</li><li><strong>Hold the tick</strong> (press and hold for about half a second, or right-click it) on any task, in any view, to pick a
+column for it: To-Do, any column in between, or Done. A quick click still just completes the task. The same works in
+the list, table, overview and the task's details. Moving a task out of Done makes it open again.</li></ul>
 <p class="shots"><img src="../screenshots/win-board.png" alt="A board with coloured columns" loading="lazy"><img src="../screenshots/win-board-light.png" alt="A board in light theme" loading="lazy"></p>
 <p>From the command line: <code>docket board work</code> shows a board and <code>docket move 12 doing</code> moves a task. An AI can use
 <code>get_board</code> and <code>move_task</code>.</p>

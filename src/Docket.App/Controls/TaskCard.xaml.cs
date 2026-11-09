@@ -21,7 +21,11 @@ public sealed partial class TaskCard : UserControl
 
     public TaskItem? Item { get => (TaskItem?)GetValue(ItemProperty); set => SetValue(ItemProperty, value); }
 
-    public TaskCard() => InitializeComponent();
+    public TaskCard()
+    {
+        InitializeComponent();
+        ColumnMenu.Attach(DoneBox, () => Item?.Task);
+    }
 
     private ITaskHost? Host
     {
@@ -39,6 +43,7 @@ public sealed partial class TaskCard : UserControl
 
     private async void Done_Click(object sender, RoutedEventArgs e)
     {
+        if (ColumnMenu.Swallow(sender)) return;
         if (Item is { } t && Host is { } h) await h.ToggleDoneAsync(t, DoneBox.IsChecked == true);
     }
 

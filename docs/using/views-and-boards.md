@@ -23,7 +23,11 @@ Every list has a board with **To-Do**, **Doing** and **Done** columns to start w
 - Each column's menu lets you **rename** it, pick a **colour** and an **icon** (a Fluent glyph or an emoji), or
   delete it.
 - **To-Do** and **Done** always stay (you can rename them). Moving a card into **Done** completes the task.
-- **Add a card** at the bottom of a column adds a task straight into it. Drag cards between columns.
+- **Add a card** at the bottom of a column adds a task straight into it. Drag cards between columns: drop anywhere in a
+  column, including an empty one. Dropping on Done completes the task.
+- **Hold the tick** (press and hold for about half a second, or right-click it) on any task, in any view, to pick a
+  column for it: To-Do, any column in between, or Done. A quick click still just completes the task. The same works in
+  the list, table, overview and the task's details. Moving a task out of Done makes it open again.
 
 <p class="shots"><img src="../screenshots/win-board.png" alt="A board with coloured columns" loading="lazy"><img src="../screenshots/win-board-light.png" alt="A board in light theme" loading="lazy"></p>
 

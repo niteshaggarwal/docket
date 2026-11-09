@@ -182,8 +182,10 @@ public sealed partial class TableView : UserControl, IListView
             {
                 var box = new CheckBox { IsChecked = t.Done, MinWidth = 0, Padding = new Thickness(0) };
                 AutomationProperties.SetName(box, $"{t.Title} done");
-                box.Click += async (_, _) =>
+                ColumnMenu.Attach(box, () => info.Task, async () => { if (App.Window is { } w) await w.RefreshAllAsync(); Changed?.Invoke(this, EventArgs.Empty); });
+                box.Click += async (s, _) =>
                 {
+                    if (ColumnMenu.Swallow(s)) return;
                     if (Svc is not { } svc || App.Window is not { } win) return;
                     await win.RunAsync("Couldn't update the task", async () => { var r = await svc.SetDoneAsync(t.Id, box.IsChecked == true); info.Task.Done = r.Task.Done; Changed?.Invoke(this, EventArgs.Empty); });
                 };

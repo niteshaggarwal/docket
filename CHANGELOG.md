@@ -1,5 +1,12 @@
 # Changelog
 
+## Next
+
+- **Board drag and drop works on Windows.** Cards now start a drag reliably, and a card can be dropped anywhere in a
+  column, including an empty one.
+- **Hold the tick to pick a column.** Press and hold (or right-click) the tick on any task, in any view, to move it to
+  To-Do, any column in between, or Done. A quick click still completes the task.
+
 ## 0.3.0 (unreleased)
 
 First public release.

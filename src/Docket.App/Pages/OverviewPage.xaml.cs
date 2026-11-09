@@ -259,8 +259,10 @@ public sealed partial class OverviewPage : Page, IRefreshable
         g.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         var box = new CheckBox { MinWidth = 0, Padding = new Thickness(0), VerticalAlignment = VerticalAlignment.Center };
         AutomationProperties.SetName(box, $"Complete {info.Task.Title}");
-        box.Click += async (_, _) =>
+        ColumnMenu.Attach(box, () => info.Task, RefreshAsync);
+        box.Click += async (s, _) =>
         {
+            if (ColumnMenu.Swallow(s)) return;
             if (Svc is not { } svc || Win is null) return;
             await Win.RunAsync("Couldn't complete the task", async () =>
             {

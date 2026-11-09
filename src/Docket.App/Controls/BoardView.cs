@@ -125,8 +125,10 @@ public sealed partial class BoardView : UserControl, IListView
         // cards
         var list = new ListView
         {
-            SelectionMode = ListViewSelectionMode.None, IsItemClickEnabled = true, CanDragItems = true, AllowDrop = true, CanReorderItems = false,
-            Padding = new Thickness(8, 0, 8, 0), MinHeight = 80, Tag = col,
+            // Each card drags itself (ListView's item dragging never starts for items that are ready-made ListViewItems), and the
+            // whole column (header, cards, empty space, add box) takes the drop, so a card can land anywhere, even in an empty column.
+            SelectionMode = ListViewSelectionMode.None, IsItemClickEnabled = true, CanDragItems = false, AllowDrop = false, CanReorderItems = false,
+            Padding = new Thickness(8, 0, 8, 0), MinHeight = 80, Tag = col, Background = new SolidColorBrush(Microsoft.UI.Colors.Transparent),
         };
         AutomationProperties.SetName(list, $"{col.Bucket.Title} cards");
         list.ItemContainerStyle = CardContainer();
@@ -135,21 +137,10 @@ public sealed partial class BoardView : UserControl, IListView
         {
             if ((e.ClickedItem as FrameworkElement)?.Tag is TaskInfo t) OpenTask?.Invoke(this, t.Id);
         };
-        list.DragItemsStarting += (_, e) =>
-        {
-            if (e.Items.FirstOrDefault() is ListViewItem { Tag: TaskInfo t })
-            {
-                _drag = (t, col);
-                e.Data.SetText($"docket-task:{t.Id}");
-                e.Data.RequestedOperation = DataPackageOperation.Move;
-            }
-            else e.Cancel = true;
-        };
-        list.DragOver += (_, e) =>
-        {
-            if (_drag is { } d && d.From.Bucket.Id != col.Bucket.Id) { e.AcceptedOperation = DataPackageOperation.Move; e.DragUIOverride.Caption = $"Move to {col.Bucket.Title}"; }
-        };
-        list.Drop += async (_, _) => await DropAsync(col);
+        grid.AllowDrop = true;
+        grid.AddHandler(DragEnterEvent, new DragEventHandler((_, e) => Column_DragOver(col, e)), true);
+        grid.AddHandler(DragOverEvent, new DragEventHandler((_, e) => Column_DragOver(col, e)), true);
+        grid.AddHandler(DropEvent, new DragEventHandler(async (_, e) => { e.Handled = true; await DropAsync(col); }), true);
         Grid.SetRow(list, 2);
         grid.Children.Add(list);
 
@@ -195,7 +186,8 @@ public sealed partial class BoardView : UserControl, IListView
         {
             var box = new CheckBox { IsChecked = t.Done, MinWidth = 0, Padding = new Thickness(0), VerticalAlignment = VerticalAlignment.Top };
             AutomationProperties.SetName(box, t.Done ? $"Mark {t.Title} not completed" : $"Mark {t.Title} completed");
-            box.Click += async (_, _) => await SetDoneAsync(info, box.IsChecked == true);
+            box.Click += async (s, _) => { if (!ColumnMenu.Swallow(s)) await SetDoneAsync(info, box.IsChecked == true); };
+            ColumnMenu.Attach(box, () => info.Task, AfterColumnMove);
             lead = box;
         }
         else
@@ -208,7 +200,8 @@ public sealed partial class BoardView : UserControl, IListView
             };
             ToolTipService.SetToolTip(b, "Mark as completed");
             AutomationProperties.SetName(b, $"Mark {t.Title} completed");
-            b.Click += async (_, _) => await SetDoneAsync(info, true);
+            b.Click += async (s, _) => { if (!ColumnMenu.Swallow(s)) await SetDoneAsync(info, true); };
+            ColumnMenu.Attach(b, () => info.Task, AfterColumnMove);
             lead = b;
         }
         card.Children.Add(lead);
@@ -256,8 +249,32 @@ public sealed partial class BoardView : UserControl, IListView
         }
         ctx.Items.Add(moveTo);
         card.ContextFlyout = ctx;
+        card.CanDrag = true;
+        card.DragStarting += (_, e) =>
+        {
+            _drag = (info, col);
+            e.Data.SetText($"docket-task:{info.Id}");
+            e.Data.RequestedOperation = DataPackageOperation.Move;
+            e.AllowedOperations = DataPackageOperation.Move;
+        };
+        card.DropCompleted += (_, _) => DispatcherQueue.TryEnqueue(() => _drag = null);
+        // A draggable card takes the press, so the ListView no longer sees a click: open on tap here (the tick handles its own).
+        card.Tapped += (_, e) =>
+        {
+            if (e.Handled || FromButton(e.OriginalSource as DependencyObject, card)) return;
+            e.Handled = true;
+            OpenTask?.Invoke(this, info.Id);
+        };
         AutomationProperties.SetName(card, t.Title);
         return card;
+    }
+
+    /// <summary>True when a tap started on a button (the tick) inside the card, which handles it itself.</summary>
+    private static bool FromButton(DependencyObject? d, UIElement card)
+    {
+        for (; d is not null && d != card; d = VisualTreeHelper.GetParent(d))
+            if (d is Microsoft.UI.Xaml.Controls.Primitives.ButtonBase) return true;
+        return false;
     }
 
     private static void SetFg(UIElement e, Brush b)
@@ -297,9 +314,27 @@ public sealed partial class BoardView : UserControl, IListView
         await Win.RunAsync(fail, async () => { await action(); if (reload) await ReloadAsync(); Changed?.Invoke(this, EventArgs.Empty); });
     }
 
+    private async Task AfterColumnMove()
+    {
+        await ReloadAsync();
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Column_DragOver(BoardColumn col, DragEventArgs e)
+    {
+        if (_drag is { } d && d.From.Bucket.Id != col.Bucket.Id)
+        {
+            e.AcceptedOperation = DataPackageOperation.Move;
+            e.DragUIOverride.Caption = col.IsDone ? $"Move to {col.Bucket.Title} (completes it)" : $"Move to {col.Bucket.Title}";
+            e.DragUIOverride.IsGlyphVisible = false;
+        }
+        else e.AcceptedOperation = DataPackageOperation.None;
+        e.Handled = true;
+    }
+
     private async Task DropAsync(BoardColumn to)
     {
-        if (_drag is not { } d || _project is null || Svc is not { } svc) return;
+        if (_drag is not { } d || _project is null) return;
         _drag = null;
         if (d.From.Bucket.Id == to.Bucket.Id) return;
         await MoveAsync(d.Task, d.From, to);
