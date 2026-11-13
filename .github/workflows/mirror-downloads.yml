@@ -1,0 +1,67 @@
+# Copies a release's files to Cloudflare R2 (bucket docket-downloads), served at https://downloads.obtinum.com,
+# so the download page can link straight to them. Runs after every published release, or by hand for an older tag.
+# Needs three repository secrets: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY (an R2 API token with
+# Object Read & Write on docket-downloads only).
+name: Mirror downloads
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to copy, e.g. v0.3.0
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mirror-downloads
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      BUCKET: docket-downloads
+    steps:
+      - name: Download the release files
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir files
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir files
+          ls -l files
+
+      - name: Copy to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+        run: |
+          endpoint="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+          for f in files/*; do
+            name=$(basename "$f")
+            case "$name" in
+              *.apk) type=application/vnd.android.package-archive ;;
+              *.zip) type=application/zip ;;
+              *.tar.gz) type=application/gzip ;;
+              *.txt) type=text/plain ;;
+              *) type=application/octet-stream ;;
+            esac
+            # Files never change once released, so browsers and the CDN may keep them for a year.
+            aws s3 cp "$f" "s3://$BUCKET/$TAG/$name" --endpoint-url "$endpoint" \
+              --content-type "$type" --cache-control "public, max-age=31536000, immutable" \
+              --content-disposition "attachment; filename=\"$name\"" --only-show-errors
+            echo "copied $TAG/$name"
+          done
+
+      - name: Check one file is reachable
+        run: |
+          f=$(ls files | head -n 1)
+          code=$(curl -s -o /dev/null -w '%{http_code}' -I "https://downloads.obtinum.com/$TAG/$f" || true)
+          echo "https://downloads.obtinum.com/$TAG/$f -> $code"
+          if [ "$code" != "200" ]; then echo "::warning::Not reachable yet (is downloads.obtinum.com connected to the bucket?)"; fi
