@@ -15,7 +15,7 @@ Claude Desktop, Claude Code, local models and the Docket apps work with every se
 
 ## Windows PC
 
-Download the Windows zip from [Releases](https://github.com/niteshaggarwal/docket/releases), right-click
+Download the Windows zip from the [download page](https://docket.obtinum.com/download.html), right-click
 `install.ps1` and choose **Run with PowerShell**. It installs everything for your Windows account, without admin
 rights. Full guide, including what each question means: [Windows PC](setup/windows.md).
 

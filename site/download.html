@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Download Docket</title>
+<meta name="description" content="Download Docket for Windows and Android, the Docker server and the AI connector. Free and open source.">
+<link rel="icon" href="assets/docket-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="docs/assets/docs.css">
+<script>try { var t = localStorage.getItem('docket-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+/* Download page. Shares tokens, nav and footer with the docs (docs/assets/docs.css), and the look of pro.html. */
+.dl { padding-bottom: 40px; }
+.eyebrow { font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
+.dl section { padding: 80px 0 0; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 32px; text-align: center; justify-items: center; }
+.sec-head h2 { margin: 0; font-size: clamp(24px, 3vw, 32px); font-weight: 700; letter-spacing: -.03em; text-wrap: balance; }
+.sec-head p { margin: 0; max-width: 58ch; color: var(--fg-2); font-size: 16px; }
+.btn.brand { background: linear-gradient(180deg, #ff7a4f, var(--brand-deep)); color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,.14) inset, 0 10px 30px var(--glow); }
+.btn.ghost { background: var(--panel); color: var(--fg); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.btn.lg { height: 46px; padding: 0 20px; font-size: 15px; border-radius: 12px; }
+.btn svg { flex: none; }
+.btn .sz { font: 500 12px/1 var(--mono); opacity: .75; margin-left: 2px; }
+
+/* hero */
+.hero { position: relative; padding: 88px 0 8px; text-align: center; display: grid; justify-items: center; gap: 16px; }
+.hero::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 10px; width: min(900px, 100%); height: 340px; transform: translateX(-50%);
+  background: repeating-linear-gradient(135deg, transparent 0 40px, rgba(255,90,54,.55) 40px 90px, transparent 90px 140px); filter: blur(34px); opacity: .5;
+  -webkit-mask: radial-gradient(ellipse 50% 50% at 50% 50%, #000, transparent 72%); mask: radial-gradient(ellipse 50% 50% at 50% 50%, #000, transparent 72%); }
+.hero h1 { margin: 0; font-size: clamp(36px, 6vw, 60px); font-weight: 700; line-height: 1.04; letter-spacing: -.04em; }
+.hero .lede { margin: 0; max-width: 46ch; font-size: clamp(16px, 1.8vw, 19px); line-height: 1.55; color: var(--fg-2); text-wrap: balance; }
+.hero .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+.meta { font: 500 12px/1.6 var(--mono); letter-spacing: .04em; color: var(--fg-3); }
+.meta a { color: var(--fg-2); text-decoration: underline; text-decoration-color: rgba(255,106,61,.55); text-underline-offset: 3px; }
+
+/* platform cards */
+.plats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.plat { position: relative; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 12px; padding: 24px 22px 22px; border-radius: 18px; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.plat.hl { box-shadow: 0 0 0 1px rgba(255,106,61,.6) inset, 0 20px 60px var(--glow); }
+.plat .tag { position: absolute; top: -10px; right: 16px; padding: 3px 9px; border-radius: 999px; font: 600 10.5px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--brand); display: none; }
+.plat.hl .tag { display: block; }
+.plat .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--panel-2); box-shadow: 0 0 0 1px var(--line) inset; }
+.plat .ic svg { width: 22px; height: 22px; color: var(--fg); }
+.plat h3 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+.plat .for { margin: -6px 0 0; font-size: 13.5px; color: var(--fg-3); }
+.plat ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; align-content: start; font-size: 14px; line-height: 1.5; color: var(--fg-2); }
+.plat ol code { font: 12.5px var(--mono); padding: 1px 5px; border-radius: 5px; background: var(--panel-2); color: var(--fg); }
+.plat .acts { display: grid; gap: 8px; }
+.plat .acts .btn { justify-content: center; }
+.plat .guide { font-size: 13.5px; color: var(--fg-2); text-decoration: underline; text-decoration-color: rgba(255,106,61,.55); text-underline-offset: 3px; justify-self: start; }
+.soon { display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1 var(--mono); letter-spacing: .06em; color: var(--fg-3); }
+.soon::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-2); box-shadow: 0 0 0 4px rgba(255,180,92,.18); }
+
+/* other downloads */
+.files { border-radius: 18px; overflow: hidden; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.row { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.row .ic { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--panel-2); }
+.row .ic svg { width: 20px; height: 20px; color: var(--fg); }
+.row h4 { margin: 0; font-size: 15.5px; font-weight: 600; }
+.row p { margin: 2px 0 0; font-size: 13.5px; color: var(--fg-3); }
+.row p a { color: var(--fg-2); text-decoration: underline; text-decoration-color: rgba(255,106,61,.55); text-underline-offset: 3px; }
+.row .acts { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.row .btn { height: 34px; padding: 0 12px; font-size: 13.5px; }
+
+/* verify */
+.verify { max-width: 780px; margin: 0 auto; padding: 18px 20px; border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line) inset, inset 3px 0 0 var(--green); font-size: 14px; color: var(--fg-2); line-height: 1.6; }
+.verify b { color: var(--fg); }
+.verify pre { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--panel-2); overflow-x: auto; font: 12.5px/1.5 var(--mono); color: var(--fg); }
+.verify a { color: var(--fg); text-decoration: underline; text-decoration-color: rgba(255,106,61,.55); text-underline-offset: 3px; }
+
+/* github */
+.gh { max-width: 780px; margin: 0 auto; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 20px 22px; border-radius: 18px; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.gh .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--panel-2); }
+.gh .ic svg { width: 22px; height: 22px; color: var(--fg); }
+.gh h3 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+.gh p { margin: 2px 0 0; font-size: 14px; color: var(--fg-3); }
+.gh .acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+
+@media (max-width: 980px) { .plats { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin: 0 auto; } }
+@media (max-width: 620px) {
+  /* docs.css hides button labels on small screens (for the nav); the download buttons need theirs */
+  .dl .btn span { display: inline; } .dl .btn { padding: 0 14px; } .dl .btn.lg { padding: 0 18px; }
+  .dl section { padding-top: 60px; }
+  .hero { padding-top: 56px; }
+  .row { grid-template-columns: 40px minmax(0, 1fr); }
+  .row .acts { grid-column: 1 / -1; justify-content: flex-start; }
+  .gh { grid-template-columns: 44px minmax(0, 1fr); }
+  .gh .acts { grid-column: 1 / -1; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.5 7.5 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.8-3.6 4 .3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 0z"/></symbol>
+  <symbol id="l-android" viewBox="0 0 24 24"><g fill="currentColor"><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></g></symbol>
+  <symbol id="l-apple" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></g></symbol>
+  <symbol id="l-docker" viewBox="0 0 24 24"><g fill="currentColor"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></g></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-linux" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7 9 3 3-3 3M12 15h5"/></g></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<div class="nav-wrap"><div class="container">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="index.html"><img src="assets/docket-64.png" alt="">Docket</a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a><a href="index.html#ai">AI</a><a href="index.html#mobile">Mobile</a><a href="index.html#self-host">Self-host</a>
+      <a href="docs/index.html">Docs</a><a href="pro.html">Pro</a><a href="docs/changelog.html">Changelog</a>
+    </div>
+    <div class="nav-right">
+      <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
+      <a class="btn" href="download.html" aria-current="page"><svg><use href="#i-win"/></svg><span>Download</span></a>
+    </div>
+  </nav>
+</div></div>
+
+<main class="container dl" id="main">
+  <header class="hero">
+    <span class="eyebrow">Download · <span data-version>v0.3.0</span></span>
+    <h1>Download Docket</h1>
+    <p class="lede">Free and open source. Pick your device and the download starts straight away.</p>
+    <div class="cta">
+      <a class="btn brand lg" id="primary" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-0.3.0-windows-x64.zip" data-asset="windows-x64" download><svg><use href="#i-dl"/></svg><span id="primary-label">Download for Windows</span><span class="sz" data-size="windows-x64">219 MB</span></a>
+    </div>
+    <span class="meta">Version <span data-version>v0.3.0</span> · released <span id="released">6 November 2026</span> · <a href="docs/changelog.html">What's new</a></span>
+  </header>
+
+  <section aria-labelledby="apps-h">
+    <div class="sec-head"><h2 id="apps-h">The apps</h2><p>Each app connects to a Docket server: the Windows install sets one up on your PC, or use a <a href="docs/setup/docker.html" style="color:var(--fg);text-decoration:underline;text-decoration-color:rgba(255,106,61,.55);text-underline-offset:3px">Docker server</a>.</p></div>
+    <div class="plats">
+      <article class="plat" id="p-windows">
+        <span class="tag">Your device</span>
+        <div class="ic"><svg><use href="#i-win"/></svg></div>
+        <h3>Windows</h3>
+        <p class="for">Windows 10 or 11. The app, the task server, the <code style="font:12.5px var(--mono)">docket</code> command and the AI connector, all in one.</p>
+        <ol>
+          <li>Unzip the download into any folder.</li>
+          <li>Right-click <code>install.ps1</code> and choose <b>Run with PowerShell</b>.</li>
+          <li>Answer a few questions, then open Docket from the Start menu.</li>
+        </ol>
+        <div class="acts">
+          <a class="btn brand" data-asset="windows-x64" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-0.3.0-windows-x64.zip" download><svg><use href="#i-dl"/></svg>Windows (x64)<span class="sz" data-size="windows-x64">219 MB</span></a>
+          <a class="btn ghost" data-asset="windows-arm64" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-0.3.0-windows-arm64.zip" download><svg><use href="#i-dl"/></svg>Windows on Arm<span class="sz" data-size="windows-arm64">212 MB</span></a>
+          <a class="guide" href="docs/setup/windows.html">Full install guide</a>
+        </div>
+      </article>
+
+      <article class="plat" id="p-android">
+        <span class="tag">Your device</span>
+        <div class="ic"><svg><use href="#l-android"/></svg></div>
+        <h3>Android</h3>
+        <p class="for">Android 8 or later. The same features as the Windows app, signed in to your own server.</p>
+        <ol>
+          <li>Open the APK. If Android asks, allow installing from your browser.</li>
+          <li>Enter your server address, then your username and password.</li>
+          <li>Using the Windows install? <a class="guide" href="docs/setup/phone.html">Reach your PC from the phone</a>.</li>
+        </ol>
+        <div class="acts">
+          <a class="btn brand" data-asset="android" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-0.3.0-android.apk" download><svg><use href="#i-dl"/></svg>Download APK<span class="sz" data-size="android">22 MB</span></a>
+          <a class="guide" href="docs/using/android.html">Android guide</a>
+        </div>
+      </article>
+
+      <article class="plat" id="p-ios">
+        <span class="tag">Your device</span>
+        <div class="ic"><svg><use href="#l-apple"/></svg></div>
+        <h3>iPhone and iPad</h3>
+        <p class="for">Coming later, with Docket Cloud.</p>
+        <ol>
+          <li>Until then, open <a class="guide" href="docs/setup/docket-web.html">Docket web</a> in Safari and add it to your Home Screen.</li>
+          <li>It works with the same tasks as your other devices.</li>
+        </ol>
+        <div class="acts">
+          <span class="soon">Not available yet</span>
+          <a class="guide" href="pro.html">See the roadmap</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="more-h">
+    <div class="sec-head"><h2 id="more-h">Server and AI connector</h2><p>For running Docket on your own server, or connecting AI apps on a Mac or Linux machine. (The Windows download already includes the connector.)</p></div>
+    <div class="files">
+      <div class="row">
+        <div class="ic"><svg><use href="#l-docker"/></svg></div>
+        <div><h4>Docker server</h4><p>Compose files and setup script for a server with your own domain. <a href="docs/setup/docker.html">Setup guide</a></p></div>
+        <div class="acts"><a class="btn ghost" data-asset="server" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-server-0.3.0.tar.gz" download><svg><use href="#i-dl"/></svg>.tar.gz<span class="sz" data-size="server">3 KB</span></a></div>
+      </div>
+      <div class="row">
+        <div class="ic"><svg><use href="#l-apple"/></svg></div>
+        <div><h4>AI connector for macOS</h4><p>Lets Claude, ChatGPT and other AI apps work with your tasks. <a href="docs/ai/index.html">Connect an AI</a></p></div>
+        <div class="acts">
+          <a class="btn ghost" data-asset="mcp-osx-arm64" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-mcp-0.3.0-osx-arm64.tar.gz" download><svg><use href="#i-dl"/></svg>Apple silicon<span class="sz" data-size="mcp-osx-arm64">41 MB</span></a>
+          <a class="btn ghost" data-asset="mcp-osx-x64" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-mcp-0.3.0-osx-x64.tar.gz" download><svg><use href="#i-dl"/></svg>Intel<span class="sz" data-size="mcp-osx-x64">43 MB</span></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ic"><svg><use href="#i-linux"/></svg></div>
+        <div><h4>AI connector for Linux</h4><p>The same connector for Linux desktops and servers. <a href="docs/ai/other-clients.html">Other AI clients</a></p></div>
+        <div class="acts">
+          <a class="btn ghost" data-asset="mcp-linux-x64" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-mcp-0.3.0-linux-x64.tar.gz" download><svg><use href="#i-dl"/></svg>x64<span class="sz" data-size="mcp-linux-x64">43 MB</span></a>
+          <a class="btn ghost" data-asset="mcp-linux-arm64" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/docket-mcp-0.3.0-linux-arm64.tar.gz" download><svg><use href="#i-dl"/></svg>Arm64<span class="sz" data-size="mcp-linux-arm64">41 MB</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="verify-h">
+    <div class="sec-head"><h2 id="verify-h">Check your download</h2></div>
+    <div class="verify">
+      <b>Optional.</b> Every file is listed with its SHA-256 fingerprint in <a data-asset="sums" href="https://github.com/niteshaggarwal/docket/releases/download/v0.3.0/SHA256SUMS.txt">SHA256SUMS.txt</a>.
+      On Windows, compare it with:
+      <pre>Get-FileHash .\docket-<span data-ver-plain>0.3.0</span>-windows-x64.zip</pre>
+    </div>
+  </section>
+
+  <section aria-labelledby="gh-h">
+    <div class="gh">
+      <div class="ic"><svg><use href="#i-gh"/></svg></div>
+      <div><h3 id="gh-h">Prefer GitHub?</h3><p>Every release, its notes and the full source code are on GitHub too.</p></div>
+      <div class="acts">
+        <a class="btn ghost" href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">All releases</a>
+        <a class="btn ghost" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener"><svg><use href="#i-gh"/></svg>Source code</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container foot-row">
+    <a class="logo" href="index.html"><img src="assets/docket-64.png" alt="">Docket</a>
+    <div class="foot-links"><a href="docs/index.html">Docs</a><a href="download.html">Download</a><a href="pro.html">Pro and roadmap</a><a href="docs/changelog.html">Changelog</a><a href="https://github.com/niteshaggarwal/docket/releases" target="_blank" rel="noopener">Releases</a><a href="https://github.com/niteshaggarwal/docket/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/niteshaggarwal/docket/blob/main/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a></div>
+    <span class="foot-copy">© 2026 Quartifex · Built on Vikunja</span>
+  </div>
+</footer>
+<script src="docs/assets/docs.js" defer></script>
+<script>
+// Keeps the links on the newest release (GitHub's API), and suggests the right file for this device.
+// Without the API (offline, rate limit) the links above, for v0.3.0, still work.
+(function () {
+  var patterns = {
+    'windows-x64': /-windows-x64\.zip$/, 'windows-arm64': /-windows-arm64\.zip$/, 'android': /-android\.apk$/,
+    'server': /^docket-server-.*\.tar\.gz$/, 'mcp-osx-arm64': /-osx-arm64\.tar\.gz$/, 'mcp-osx-x64': /-osx-x64\.tar\.gz$/,
+    'mcp-linux-x64': /-linux-x64\.tar\.gz$/, 'mcp-linux-arm64': /-linux-arm64\.tar\.gz$/, 'sums': /^SHA256SUMS\.txt$/
+  };
+  function size(b) { return b >= 1048576 ? Math.round(b / 1048576) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+  function pick(kind) {
+    var card = document.getElementById(kind === 'android' ? 'p-android' : kind === 'ios' ? 'p-ios' : 'p-windows');
+    if (card) card.classList.add('hl');
+    var p = document.getElementById('primary'), label = document.getElementById('primary-label');
+    var asset = kind === 'android' ? 'android' : kind === 'arm' ? 'windows-arm64' : 'windows-x64';
+    if (kind === 'ios') { p.href = '#apps-h'; p.removeAttribute('download'); label.textContent = 'Not on iPhone yet: see options'; p.querySelector('.sz').remove(); return; }
+    var src = document.querySelector('.plat [data-asset="' + asset + '"]');
+    p.href = src.href; p.dataset.asset = asset;
+    p.querySelector('.sz').dataset.size = asset; p.querySelector('.sz').textContent = src.querySelector('.sz').textContent;
+    label.textContent = kind === 'android' ? 'Download for Android' : kind === 'arm' ? 'Download for Windows on Arm' : 'Download for Windows';
+  }
+  var ua = navigator.userAgent;
+  if (/Android/i.test(ua)) pick('android');
+  else if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) pick('ios');
+  else {
+    pick('windows');
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues)
+      navigator.userAgentData.getHighEntropyValues(['architecture']).then(function (v) { if (v.architecture === 'arm') { document.getElementById('p-windows').classList.add('hl'); pick('arm'); } }).catch(function () {});
+  }
+
+  fetch('https://api.github.com/repos/niteshaggarwal/docket/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rel) {
+      if (!rel || !rel.assets) return;
+      var found = {};
+      rel.assets.forEach(function (a) { for (var k in patterns) if (patterns[k].test(a.name)) found[k] = a; });
+      document.querySelectorAll('[data-asset]').forEach(function (el) { var a = found[el.dataset.asset]; if (a) el.href = a.browser_download_url; });
+      document.querySelectorAll('[data-size]').forEach(function (el) { var a = found[el.dataset.size]; if (a) el.textContent = size(a.size); });
+      document.querySelectorAll('[data-version]').forEach(function (el) { el.textContent = rel.tag_name; });
+      document.querySelectorAll('[data-ver-plain]').forEach(function (el) { el.textContent = rel.tag_name.replace(/^v/, ''); });
+      if (rel.published_at) document.getElementById('released').textContent = new Date(rel.published_at).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' });
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>

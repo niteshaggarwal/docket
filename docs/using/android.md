@@ -7,7 +7,7 @@ tasks.
 
 ## Install and sign in
 
-1. Install the APK from [Releases](https://github.com/niteshaggarwal/docket/releases) (allow installing from your
+1. Install the APK from the [download page](https://docket.obtinum.com/download.html) (allow installing from your
    browser or file manager when Android asks), or from the Play Store once Docket is listed there.
 2. Open Docket and enter your **server address**:
    - Windows install: the Tailscale address of your PC, like `https://my-pc.tail1234.ts.net`

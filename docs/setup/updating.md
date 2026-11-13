@@ -35,7 +35,7 @@ After upgrading the connector, ChatGPT may not see new tools until you remove an
 
 ## Android
 
-Install the new APK from [Releases](https://github.com/niteshaggarwal/docket/releases) over the old one (or update from
+Install the new APK from the [download page](https://docket.obtinum.com/download.html) over the old one (or update from
 the Play Store once Docket is listed there). You stay signed in.
 
 ## AI connector on macOS or Linux

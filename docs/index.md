@@ -43,7 +43,7 @@ The [setup overview](self-hosting.md) compares the options in more detail.
 ## Five-minute quick start (Windows)
 
 1. Download `docket-<version>-windows-x64.zip` from the
-   [latest release](https://github.com/niteshaggarwal/docket/releases/latest) and unzip it anywhere.
+   [download page](https://docket.obtinum.com/download.html) and unzip it anywhere.
 2. Right-click `install.ps1` and choose **Run with PowerShell**.
 3. Type your time zone when asked (for example `Europe/London` or `Asia/Kolkata`).
 4. Your browser opens. Create your account there, go back to the PowerShell window and press <kbd>Enter</kbd>.

@@ -9,7 +9,7 @@ your Windows account only.
 ## Step by step
 
 1. **Download.** Get `docket-<version>-windows-x64.zip` (or `-arm64.zip` for Arm PCs such as Surface Pro X or
-   Snapdragon laptops) from the [latest release](https://github.com/niteshaggarwal/docket/releases/latest).
+   Snapdragon laptops) from the [download page](https://docket.obtinum.com/download.html).
 2. **Unzip it** into any folder, for example your Downloads folder. (Don't run it from inside the zip.)
 3. **Run the installer.** Right-click `install.ps1` and choose **Run with PowerShell**. If PowerShell asks about
    the execution policy, or the window closes straight away, open PowerShell in that folder (in File Explorer:

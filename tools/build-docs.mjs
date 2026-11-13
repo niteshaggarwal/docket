@@ -243,7 +243,7 @@ ${ICONS}
     <div class="nav-right">
       <a class="gh-link" href="${REPO}" target="_blank" rel="noopener">GitHub</a>
       <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
-      <a class="btn" href="${REPO}/releases/latest" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg><span>Download</span></a>
+      <a class="btn" href="${site}download.html"><svg><use href="#i-win"/></svg><span>Download</span></a>
     </div>
   </nav>
 </div></div>

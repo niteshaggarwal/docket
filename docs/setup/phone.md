@@ -22,7 +22,7 @@ use and makes a private network of your own devices.
    This gives your PC an HTTPS address like `https://my-pc.tail1234.ts.net` that only your own devices can open.
    Port 3457 is [Docket web](docket-web.md), so the same address also works in your phone's browser. (Use 3456 to
    share plain Vikunja instead; the Docket apps work with either.)
-4. **Install Docket for Android** (the APK from [Releases](https://github.com/niteshaggarwal/docket/releases), or the
+4. **Install Docket for Android** (the APK from the [download page](https://docket.obtinum.com/download.html), or the
    Play Store when it's listed) and open it.
 5. **Sign in** with the address from step 3 and your Vikunja username and password. Docket creates a token for the
    phone; your password isn't stored.
