@@ -443,9 +443,22 @@ footer { position: relative; border-top: 1px solid var(--line); padding: 70px 0 
 .ph .fab { position: absolute; right: 18px; bottom: 22px; width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; font-size: 26px; color: #fff; background: var(--brand); box-shadow: 0 10px 24px var(--glow); }
 .who .av { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--line-2); }
 
+/* Site menu: on tablets and phones the page links fold into a menu (assets/nav.js). */
+.site-menu-btn { display: none; }
+@media (max-width: 1100px) {
+  .nav { position: relative; }
+  .nav .nav-links { display: none; position: absolute; z-index: 60; top: calc(100% + 8px); right: 0; margin: 0; min-width: 220px; flex-direction: column; gap: 2px; padding: 8px;
+    border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line-2) inset, 0 20px 50px rgba(0,0,0,.35); }
+  .nav.menu-open .nav-links { display: flex; }
+  .nav .nav-links a { padding: 10px 12px; font-size: 15px; }
+  .nav .nav-right, .nav .nav-links + .nav-right { margin-left: auto; }
+  .site-menu-btn { display: grid; }
+  .site-menu-btn[aria-expanded="true"] { color: var(--fg); background: var(--line); }
+}
+html { overflow-x: clip; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 980px) {
-  .nav-links { display: none; }
   .kb-grid, .else-grid { grid-template-columns: minmax(0, 1fr); }
   .else-grid { gap: 24px; top: 70px; }
   .else-copy .flow, .else-copy h3 { font-size: 20px; }
@@ -588,6 +601,7 @@ video.lazyvid { background: #1b1b1f; object-fit: cover; }
   <symbol id="i-win" viewBox="0 0 16 16"><path fill="currentColor" d="M1 2.6 6.6 1.8v5.4H1zM7.4 1.7 15 .6v6.6H7.4zM1 8h5.6v5.4L1 12.6zm6.4 0H15v6.6l-7.6-1.1z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-burger" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.5 7.5 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.8-3.6 4 .3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 0z"/></symbol>
   <symbol id="i-sun-day" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></g></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
@@ -612,7 +626,7 @@ video.lazyvid { background: #1b1b1f; object-fit: cover; }
 <div class="nav-wrap"><div class="container">
   <nav class="nav" aria-label="Main">
     <a class="logo" href="#top"><img src="assets/docket-64.png" alt="">Docket</a>
-    <div class="nav-links">
+    <div class="nav-links" id="site-links">
       <a href="#features">Features</a><a href="#ai">AI</a><a href="#mobile">Mobile</a><a href="#self-host">Self-host</a>
       <a href="docs/index.html">Docs</a><a href="pro.html">Pro</a>
       <a href="docs/changelog.html">Changelog</a>
@@ -621,6 +635,7 @@ video.lazyvid { background: #1b1b1f; object-fit: cover; }
       <a class="gh-link" href="https://github.com/niteshaggarwal/docket" target="_blank" rel="noopener">GitHub</a>
       <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg class="theme-sun"><use href="#i-sun"/></svg><svg class="theme-moon"><use href="#i-moon"/></svg></button>
       <a class="btn" href="download.html"><svg><use href="#i-win"/></svg>Download</a>
+      <button class="icon-btn site-menu-btn" type="button" aria-label="Open menu" aria-controls="site-links" aria-expanded="false"><svg><use href="#i-burger"/></svg></button>
     </div>
   </nav>
 </div></div>
@@ -704,6 +719,7 @@ video.lazyvid { background: #1b1b1f; object-fit: cover; }
         <h3>It's not about doing more.</h3>
         <p>It's about always knowing what's next.</p>
         <a class="btn" href="download.html"><svg><use href="#i-win"/></svg>Download</a>
+      <button class="icon-btn site-menu-btn" type="button" aria-label="Open menu" aria-controls="site-links" aria-expanded="false"><svg><use href="#i-burger"/></svg></button>
       </div>
       <div class="keyboard reveal" aria-hidden="true"><div class="kb" id="kb1"></div></div>
     </div>
@@ -1259,5 +1275,5 @@ if (!reduce) {
   document.querySelectorAll('.reveal').forEach(e => { const r = e.getBoundingClientRect(); if (r.top > innerHeight) { e.classList.add('pre'); io.observe(e); } });
 }
 </script>
-
+<script src="assets/nav.js" defer></script>
 </html>
